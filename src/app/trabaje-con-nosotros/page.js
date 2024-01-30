@@ -4,91 +4,91 @@ import "./styles.scss";
 const TrabajeConNosotrosPage = () => {
   return (
     <div>
-      <section class="container-contactenos">
-        <section class="productos-titulo ">
+      <section className="container-contactenos">
+        <section className="productos-titulo ">
           <h1>Trabaje con nosotros</h1>
         </section>
-        <div class="container-contactenos-global">
-          <div class="container-contactenos-titulo">
-            <div class="container-informacion-personal">
+        <div className="container-contactenos-global">
+          <div className="container-contactenos-titulo">
+            <div className="container-informacion-personal">
               <p>Información personal</p>
             </div>
-            <div class="container-informacion-personal-espacio"></div>
+            <div className="container-informacion-personal-espacio"></div>
           </div>
-          <div class="container-contactenos-contenido">
-            <div class="container-contactenos-formulario">
-              <div class="container--contactenos-formulario">
+          <div className="container-contactenos-contenido">
+            <div className="container-contactenos-formulario">
+              <div className="container--contactenos-formulario">
                 <form
-                  class="formulario"
+                  className="formulario"
                   action="enviar_trabaja.php"
                   enctype="multipart/form-data"
                   method="post"
                 >
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Nombre"
                     placeholder="Nombre"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Apellido"
                     placeholder="Apellido"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Edad"
                     placeholder="Edad"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Correoelectronico"
                     placeholder="Correo electrónico"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Telefono"
                     placeholder="Teléfono"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Ocupacion"
                     placeholder="Ocupación"
                     required
                   />
                   <input
-                    class="formulario-input"
+                    className="formulario-input"
                     type="text"
                     name="Asunto"
                     placeholder="Asunto"
                     required
                   />
-                  <div class="container-contactenos-titulo">
-                    <div class="container-adjuntar">
+                  <div className="container-contactenos-titulo">
+                    <div className="container-adjuntar">
                       <p>Adjuntar CV</p>
                     </div>
-                    <div class="container-adjuntar-espacio"></div>
+                    <div className="container-adjuntar-espacio"></div>
                   </div>
 
                   <input
-                    class="formulario-input-file"
+                    className="formulario-input-file"
                     type="file"
                     name="File"
                     required
                   />
 
                   <input
-                    class="formulario-input-enviar"
+                    className="formulario-input-enviar"
                     type="submit"
                     value="ENVIAR"
                     id="boton"
@@ -96,17 +96,17 @@ const TrabajeConNosotrosPage = () => {
                 </form>
               </div>
             </div>
-            <div class="container-contactenos-mapa">
-              <div class="container--contactenos-mapa">
+            <div className="container-contactenos-mapa">
+              <div className="container--contactenos-mapa">
                 <iframe
-                  class="contactenos-mapa"
+                  className="contactenos-mapa"
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d487.57749855627856!2d-77.02219066785051!3d-12.13813271657013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x74f6307fa3294706!2sProyecto%20Connect%20%7C%20Inmobiliaria%20Edifica!5e0!3m2!1ses-419!2spe!4v1624846760578!5m2!1ses-419!2spe"
                   style={{ border: 0 }}
                   allowfullscreen=""
                   loading="lazy"
                 ></iframe>
               </div>
-              <div class="container-contactenos-direccion">
+              <div className="container-contactenos-direccion">
                 <p>
                   {" "}
                   <strong>Dirección:</strong> Av Almirante Miguel Grau 1380, Of
