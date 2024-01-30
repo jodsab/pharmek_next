@@ -1,0 +1,36 @@
+@import "../../styles/colors.scss";
+
+.mySwiper {
+  width: 100%;
+  height: 100%; /* Ajusta la altura según tus necesidades */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mySwiper {
+  .img_container {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.swiper {
+  margin-left: auto;
+  margin-right: auto;
+}

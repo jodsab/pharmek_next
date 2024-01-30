@@ -1,0 +1,267 @@
+@import "../../styles/mediaQueries.scss";
+
+footer {
+  background: #008556;
+  width: 100%;
+  font-family: calibri;
+  margin: auto;
+  margin-top: 80px;
+
+  .footer-contenido {
+    background-color: #008556;
+    color: white;
+    height: 200px;
+    display: flex;
+    margin: auto;
+  }
+
+  .footer-contacto {
+    width: 33.33%;
+    font-size: 20px;
+    margin: 10px 0px;
+    text-align: center;
+  }
+
+  .footer-contacto i {
+    font-size: 18px;
+    margin-right: 8px;
+    display: inline-block;
+    width: 20px;
+  }
+
+  .footer-contacto h2 {
+    font-size: 18px;
+    text-align: start;
+    margin: 0px 0px;
+    width: 60%;
+    margin: 30px auto 0px;
+  }
+
+  .footer-contacto p {
+    font-size: 18px;
+    margin: 15px 0px;
+    text-align: start;
+  }
+
+  .contenido-contacto {
+    width: 60%;
+    margin: auto;
+    align-items: flex-start;
+    p {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+
+  .footer-redes {
+    text-align: center;
+    width: 33.33%;
+    margin: 10px 0px;
+    .socials_icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+  }
+
+  .footer-redes-item {
+    color: white;
+    font-size: 30px;
+    margin: 0px 15px;
+  }
+
+  .footer-redes h2 {
+    color: white;
+    font-size: 20px;
+    margin: 30px 0px;
+  }
+
+  .footer-pharmek {
+    text-align: center;
+    width: 33.33%;
+    margin: 30px 0px;
+    font-size: 50px;
+    line-height: 145px;
+    font-family: primetime;
+  }
+
+  .footer-derechos {
+    text-align: center;
+    background-color: #008556;
+    color: white;
+    padding-top: 15px;
+    font-size: 18px;
+    text-decoration: none;
+    padding-bottom: 15px;
+    border-top: 1px solid;
+    transition: border 0.4s ease-out;
+    line-height: 1;
+    border-color: white;
+    width: 90%;
+    margin: auto;
+  }
+
+  @media (max-width: 1024px) {
+    .footer-contacto {
+      width: 100%;
+      margin: 0px 0px;
+      padding: 30px 0px;
+    }
+    .contenido-contacto {
+      width: 80%;
+      margin: 0px 10% 0px 10%;
+      align-items: flex-start;
+    }
+    .footer-contacto h2 {
+      font-size: 18px;
+      text-align: start;
+      margin: 0px 0px;
+      padding: 10px 0px;
+      width: 80%;
+      margin: auto;
+    }
+    .footer-contacto p {
+      font-size: 18px;
+      margin: 5px 0px;
+    }
+    .footer-redes {
+      text-align: center;
+      width: 100%;
+    }
+    .footer-redes-item {
+      color: white;
+      font-size: 30px;
+      margin: 0px 3px;
+    }
+    .footer-redes h2 {
+      color: white;
+      font-size: 20px;
+    }
+    .footer-pharmek {
+      text-align: center;
+      width: 100%;
+      font-size: 45px;
+      line-height: 145px;
+    }
+    .footer-derechos {
+      text-align: center;
+      background-color: #008556;
+      color: white;
+      font-size: 18px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-contacto {
+      width: 100%;
+      margin: 0px 0px;
+      padding: 30px 0px;
+    }
+    .contenido-contacto {
+      align-items: flex-start;
+    }
+    .footer-contacto p {
+      font-size: 14px;
+      margin: 5px 0px;
+    }
+    .footer-contacto i {
+      font-size: 12px;
+      margin-right: 11px;
+      display: inline-block;
+      width: 5px;
+    }
+    .footer-redes {
+      text-align: center;
+      width: 100%;
+    }
+    .footer-redes-item {
+      color: white;
+      font-size: 30px;
+      margin: 0px 3px;
+    }
+    .footer-redes h2 {
+      color: white;
+      font-size: 20px;
+    }
+    .footer-pharmek {
+      text-align: center;
+      width: 100%;
+      font-size: 25px;
+      line-height: 145px;
+    }
+    .footer-derechos {
+      text-align: center;
+      background-color: #008556;
+      color: white;
+      font-size: 18px;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  footer {
+    .footer-contenido {
+      background-color: #008556;
+      color: white;
+      height: 100%;
+      display: block;
+      margin: 0;
+    }
+    .contenido-contacto {
+      width: 70%;
+      margin: 0px 15% 0px 15%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .footer-contacto {
+      width: 100%;
+      font-size: 20px;
+      margin: 0px 0px;
+      padding: 30px 0px;
+    }
+    .footer-contacto h2 {
+      font-size: 20px;
+      text-align: center;
+    }
+    .footer-contacto p {
+      font-size: 20px;
+      margin: 5px 0px;
+      text-align: center;
+    }
+    .footer-redes {
+      text-align: center;
+      width: 100%;
+    }
+    .footer-redes-item {
+      color: white;
+      font-size: 30px;
+    }
+    .footer-redes h2 {
+      color: white;
+      font-size: 20px;
+    }
+    .footer-pharmek {
+      text-align: center;
+      width: 100%;
+      font-size: 50px;
+      line-height: 145px;
+    }
+    .footer-derechos {
+      text-align: center;
+      background-color: #008556;
+      color: white;
+      padding-top: 30px;
+      font-size: 18px;
+      text-decoration: none;
+      transition: 0.1s;
+      font-size: 18px;
+      padding-top: 3px;
+      border-top: 1px solid;
+      transition: border 0.4s ease-out;
+      line-height: 1;
+      border-color: white;
+    }
+  }
+}

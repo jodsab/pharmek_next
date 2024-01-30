@@ -1,0 +1,127 @@
+@import "../../styles/colors.scss";
+
+.products_slider_container {
+  width: 100%;
+  margin: 50px auto;
+  position: relative;
+
+  .pagination {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+    .prev,
+    .next {
+      position: absolute;
+      background-color: $secondary;
+      color: white;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      font-weight: bold;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 0;
+      padding-right: 5px;
+    }
+
+    .next {
+      position: absolute;
+      padding-left: 5px;
+      right: 0;
+    }
+  }
+
+  .products_slide_content {
+    margin: auto;
+  }
+  .mySwiper {
+    width: 85%;
+    margin: auto;
+  }
+
+  .swiper {
+    padding: 70px 0;
+  }
+
+  .swiper-wrapper {
+    margin: auto;
+  }
+
+  .swiper-slide {
+    background-color: transparent;
+  }
+
+  .product_container {
+    transition: transform 0.6s ease;
+    padding: 0 40px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .product_img_container {
+      background-color: white;
+      box-shadow: 0 0 5px 4px rgba(0, 0, 0, 0.2);
+      background-color: #eee;
+      border-radius: 5px;
+      padding: 50px;
+    }
+
+    .bottom_info {
+      .nombre {
+        margin: 25px auto;
+        color: black;
+      }
+      button {
+        color: $primary;
+        padding: 5px 15px;
+        border: 2px solid $primary;
+        border-radius: 25px;
+        font-weight: bold;
+        background-color: transparent;
+        cursor: pointer;
+      }
+      button:hover {
+        color: white;
+        background-color: $primary;
+      }
+    }
+  }
+
+  .product_img_container {
+    background-color: white;
+    img {
+      height: 200px;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    background-color: $secondary;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .products_slider_container {
+    width: 95%;
+
+    .swiper {
+      padding: 0;
+    }
+    .product_container {
+      padding: 50px;
+      .product_img_container {
+        padding: 30px;
+      }
+    }
+  }
+}

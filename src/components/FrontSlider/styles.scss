@@ -1,0 +1,74 @@
+@import "../../styles/mediaQueries.scss";
+
+.swiper_container {
+  height: 100%;
+  width: 100vw;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  .swiper_mobile {
+    display: none;
+  }
+  .swiper_desktop {
+    display: block;
+  }
+  @import "../../styles/colors.scss";
+
+  .mySwiper {
+    width: 100%;
+    height: 100%; /* Ajusta la altura según tus necesidades */
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mySwiper {
+    .img_container {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .swiper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .swiper-pagination-bullet {
+    background-color: $primary;
+    height: 15px;
+    width: 15px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: $primary;
+  }
+}
+
+@media screen and (max-width: $desktop) {
+  .swiper_container {
+    .swiper_desktop {
+      display: none;
+    }
+
+    .swiper_mobile {
+      display: block;
+    }
+  }
+}

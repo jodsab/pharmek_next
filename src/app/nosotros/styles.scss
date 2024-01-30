@@ -1,0 +1,142 @@
+.contenido-nosotros {
+  margin-top: 85px;
+  margin-bottom: 0px;
+  background-color: #ebebeb;
+}
+
+.imagen-nosotros {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.imagen-nosotros-vm {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.imagen-nosotros-contenedor {
+  max-width: 1400px;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
+  margin-top: 0px !important;
+}
+
+.productos-titulo-mv {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.vision-mision-titulo {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.vision-mision-titulo-container {
+  margin: auto;
+  font-family: calibri;
+}
+
+.productos-titulo {
+  display: flex;
+  justify-content: center;
+}
+
+.productos-titulo h1 {
+  text-align: center;
+  font-family: calibri;
+  font-size: 30px;
+  width: fit-content;
+  border-bottom: 3px #008556 solid;
+  font-weight: 500;
+  color: #3a3635;
+  margin: 20px auto;
+}
+
+.vision-mision-titulo-container h1 {
+  font-family: calibri;
+  font-size: 30px;
+  border-bottom: 3px #008556 solid;
+  font-weight: 500;
+  color: #3a3635;
+  margin: 20px auto;
+}
+
+.productos-imagenes {
+  display: flex;
+}
+
+@media screen and (max-width: 1024px) {
+  .contenido-nosotros {
+    margin-top: 60px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .contenido-nosotros {
+    margin-top: 60px;
+  }
+
+  .txt,
+  .txt-n {
+    font-size: 19px !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .txt,
+  .txt-n {
+    font-size: 17px !important;
+  }
+
+  .imagen-nosotros-contenedor {
+    height: 700px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .txt,
+  .txt-n {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .txt-n {
+    font-size: 14px !important;
+  }
+}
+
+.txt-n {
+  position: absolute;
+  margin: auto;
+  width: 70%;
+  max-width: 1200px;
+  text-align: justify;
+  color: white;
+  font-family: calibri;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.txt {
+  position: absolute;
+  margin: auto;
+  max-width: 30%;
+  text-align: justify;
+  color: white;
+  font-family: calibri;
+  font-size: 22px;
+  font-weight: 500;
+  width: 600px;
+}
