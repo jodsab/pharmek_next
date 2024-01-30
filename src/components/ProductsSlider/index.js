@@ -117,7 +117,6 @@ const ProductsSlider = ({ ...props }) => {
         handleOk={handleOk}
         handleCancel={handleCancel}
       />
-      ;
     </div>
   );
 };

@@ -1,4 +1,10 @@
 @import "../../styles/mediaQueries.scss";
+@font-face {
+  font-family: "primetime";
+  src: url("../../app/primetime.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
 
 footer {
   background: #008556;
@@ -83,7 +89,7 @@ footer {
     margin: 30px 0px;
     font-size: 50px;
     line-height: 145px;
-    font-family: primetime;
+    font-family: "primetime";
   }
 
   .footer-derechos {

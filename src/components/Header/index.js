@@ -25,7 +25,11 @@ const Header = () => {
   return (
     <div className="header">
       <nav className="nav">
-        <Link className="logo-link " href="/">
+        <Link
+          className="logo-link "
+          href="/"
+          onClick={() => setMenuMobileClass(false)}
+        >
           <Image className="logo" src={logo} alt="logo" />
         </Link>
         <button
@@ -40,7 +44,12 @@ const Header = () => {
           className={menuMobileClass ? MENU_SHOW.notShowing : MENU_SHOW.showing}
         >
           <li className="menu-item ">
-            <Link className="menu-link " id="productos" href="productos">
+            <Link
+              className="menu-link "
+              id="productos"
+              href="/productos"
+              onClick={() => setMenuMobileClass(false)}
+            >
               Productos
             </Link>
           </li>
@@ -49,18 +58,27 @@ const Header = () => {
               className="menu-link "
               id="distribuidores"
               href="/distribuidores"
+              onClick={() => setMenuMobileClass(false)}
             >
               Distribuidores
             </Link>
           </li>
           <li className="dropdown menu-item ">
-            <Link className=" menu-link " href="/contactenos">
+            <Link
+              className=" menu-link "
+              href="/contactenos"
+              onClick={() => setMenuMobileClass(false)}
+            >
               Contáctenos
             </Link>
             <ul className="dropdown-content ">
               <div className="drop ">
                 <li className="menu-item ">
-                  <Link className="menu-link " href="/trabaje-con-nosotros">
+                  <Link
+                    className="menu-link "
+                    href="/trabaje-con-nosotros"
+                    onClick={() => setMenuMobileClass(false)}
+                  >
                     Trabaje con nosotros
                   </Link>
                 </li>
@@ -69,12 +87,20 @@ const Header = () => {
           </li>
 
           <li className="menu-item-sobre ">
-            <Link className="menu-link-sobre " href="trabaje-con-nosotros">
+            <Link
+              className="menu-link-sobre "
+              href="trabaje-con-nosotros"
+              onClick={() => setMenuMobileClass(false)}
+            >
               Trabaje con nosotros
             </Link>
           </li>
           <li className="menu-item ">
-            <Link className="menu-link " href="/nosotros">
+            <Link
+              className="menu-link "
+              href="/nosotros"
+              onClick={() => setMenuMobileClass(false)}
+            >
               Nosotros
             </Link>
           </li>

@@ -5,7 +5,6 @@ import Link from "next/link";
 import { WHATSAPP } from "@/core/whatsapp";
 import Footer from "@/components/Footer";
 import "./globals.scss";
-import "./header.scss";
 import "./wsp.scss";
 
 const inter = Inter({ subsets: ["latin"] });

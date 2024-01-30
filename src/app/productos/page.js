@@ -1,11 +1,27 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import "./styles.scss";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "../../core/productsSlider";
+import AtomModal from "@/atoms/AtomModal";
 
 const ProductosPage = () => {
-  console.log("BABYS_ANIMALS", BABYS_ANIMALS);
-  console.log("ADULTS_ANIMALS", ADULTS_ANIMALS);
-
+  const [modalData, setModalData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const clickOnSlide = (slide) => {
+    console.log(slide);
+    setModalData(slide);
+    setIsModalOpen(true);
+  };
+  //Modal
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   //Obtener filtros
   const filtersBabys = BABYS_ANIMALS.reduce((acc, animal) => {
     if (animal.filter) {
@@ -30,12 +46,19 @@ const ProductosPage = () => {
   const newArrAnimals = [...adults, ...baby];
 
   return (
-    <>
-      <section class="productos-titulo ">
-        <h1>Productos</h1>
+    <div>
+      <section className="productos-titulo">
+        <h2>Productos</h2>
       </section>
-      <section class="wrap">
-        <section class="store-wrapper">
+      <AtomModal
+        data={modalData}
+        isModalOpen={isModalOpen}
+        showModal={showModal}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+      />
+      <section className="wrap">
+        <section className="store-wrapper">
           <div className="category_list">
             <p>Filtrar por:</p>
             {allFilters?.map((f, index) => {
@@ -49,16 +72,18 @@ const ProductosPage = () => {
           <section className="products-list">
             {newArrAnimals.map((a) => {
               const items = a.presentation;
-              console.log(items);
               return items?.map((i) => {
-                console.log("dasdsa");
                 return (
                   <div
                     key={i.id}
                     className="product-item"
                     category="Vitaminas y minerales "
                   >
-                    <section onclick="Adegan_20mL()" className="cuadro">
+                    <section
+                      onclick="Adegan_20mL()"
+                      className="cuadro"
+                      onClick={() => clickOnSlide(a)}
+                    >
                       <img className="imagen" src={i.src} alt=" " />
                       <p className="cuadro-titulo">{i.nombre}</p>
 
@@ -89,7 +114,7 @@ const ProductosPage = () => {
           </section>
         </section>
       </section>
-    </>
+    </div>
   );
 };
 

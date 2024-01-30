@@ -1,8 +1,6 @@
-import Image from "next/image";
 import FrontSlider from "@/components/FrontSlider";
 import ProductsSlider from "@/components/ProductsSlider";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "@/core/productsSlider";
-
 import styles from "./page.scss";
 
 export default function Home() {

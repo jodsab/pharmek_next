@@ -8,6 +8,31 @@
   min-height: 90vh;
 }
 
+.productos-titulo {
+  padding: 20px 0px;
+  background-color: #ebebeb;
+  margin: -4px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 80px !important;
+}
+
+.productos-titulo h2 {
+  font-family: calibri;
+  text-decoration: none;
+  color: #3a3635;
+  transition: 0.1s;
+  font-size: 30px;
+  font-weight: 400;
+  padding-bottom: 3px;
+  border-bottom: 3px solid;
+  transition: border 0.4s ease-out;
+  line-height: 1;
+  border-color: #008556;
+  margin: 20px;
+}
+
 .wrap h1 {
   float: none;
 }
@@ -122,6 +147,45 @@ overflow: hidden;
 
 .cuadro {
   transition: all 0.4s;
+  cursor: pointer;
+
+  .ap {
+    transition: 0.3s;
+    transition: all 0.3s;
+    color: #008556;
+    width: 72%;
+  }
+
+  .ap {
+    border-radius: 20px;
+    border-color: #008556;
+    border-style: solid;
+    padding: 0px 5px;
+    margin-top: 10px;
+    margin: 15px auto 10px auto;
+    color: #008556;
+  }
+
+  .cuadro-ver {
+    color: #008556;
+  }
+
+  .cuadro:hover {
+    cursor: pointer;
+  }
+
+  .cuadro-ver:hover {
+    color: #ebebeb;
+  }
+
+  .ap:hover {
+    background-color: #008556;
+    cursor: pointer;
+  }
+
+  .cuadro-titulo {
+    color: #3a3635;
+  }
 }
 
 .cuadro:hover {
@@ -231,6 +295,8 @@ overflow: hidden;
 @media screen and (max-width: 768px) {
   .category_list {
     flex-direction: column;
+    margin: auto;
+    margin-top: 40px;
   }
   .category_list .category_item {
     width: 85%;

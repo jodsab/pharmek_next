@@ -112,16 +112,17 @@
 
 @media screen and (max-width: 600px) {
   .products_slider_container {
-    width: 95%;
+    width: 100%;
 
     .swiper {
       padding: 0;
     }
     .product_container {
       padding: 50px;
-      .product_img_container {
-        padding: 30px;
-      }
     }
+  }
+  .img_content {
+    display: flex;
+    justify-content: center;
   }
 }
