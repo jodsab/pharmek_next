@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import "./styles.scss";
 
 const NosotrosPage = () => {
@@ -38,9 +39,12 @@ const NosotrosPage = () => {
               contribuirán al cumplimiento de su objetivo social.
             </p>
           </section>
-          <img
+          <Image
             className="imagen-nosotros"
-            src="img/NOSOTROS.......jpg"
+            width={0}
+            height={0}
+            sizes="100vw"
+            src="/img/NOSOTROS.......jpg"
             alt=""
           />
         </section>
@@ -63,9 +67,12 @@ const NosotrosPage = () => {
                   respaldados con productos de excelentes estándares de calidad.
                 </p>
               </section>
-              <img
+              <Image
                 className="imagen-nosotros-vm"
-                src="img/vision-pharmek.jpg"
+                width={0}
+                height={0}
+                sizes="100vw"
+                src="/img/vision-pharmek.jpg"
                 alt=""
               />
             </section>
@@ -80,9 +87,12 @@ const NosotrosPage = () => {
                   consolidar una alianza estratégica.
                 </p>
               </section>
-              <img
+              <Image
                 className="imagen-nosotros-vm"
-                src="img/mision-pharmek.jpg"
+                width={0}
+                height={0}
+                sizes="100vw"
+                src="/img/mision-pharmek.jpg"
                 alt=""
               />
             </section>

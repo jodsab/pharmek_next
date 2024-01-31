@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./styles.scss";
+import Image from "next/image";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "../../core/productsSlider";
 import AtomModal from "@/atoms/AtomModal";
+import "./styles.scss";
 
 const ProductosPage = () => {
   const [modalData, setModalData] = useState();
@@ -106,7 +107,14 @@ const ProductosPage = () => {
                     category="Vitaminas y minerales "
                   >
                     <section className="cuadro" onClick={() => clickOnSlide(a)}>
-                      <img className="imagen" src={i.src} alt=" " />
+                      <Image
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        className="imagen"
+                        src={`/${i.src}`}
+                        alt=" "
+                      />
                       <p className="cuadro-titulo">{i.nombre}</p>
 
                       <section className="ap">
@@ -117,22 +125,6 @@ const ProductosPage = () => {
                 );
               });
             })}
-            {/*             {adults.map((a) => {
-              const items = a.presentation;
-              console.log(items);
-              return items?.map((i) => {
-                console.log("dasdsa");
-                return <div>{i.nombre}</div>;
-              });
-            })}
-            {baby.map((a) => {
-              const items = a.presentation;
-              console.log(items);
-              return items?.map((i) => {
-                console.log("dasdsa");
-                return <div>{i.nombre}</div>;
-              });
-            })} */}
           </section>
         </section>
       </section>
