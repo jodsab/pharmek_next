@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "../../core/productsSlider";
 import AtomModal from "@/atoms/AtomModal";
@@ -7,8 +7,8 @@ import AtomModal from "@/atoms/AtomModal";
 const ProductosPage = () => {
   const [modalData, setModalData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newArrAnimals, setNewArrAnimals] = useState([]);
   const clickOnSlide = (slide) => {
-    console.log(slide);
     setModalData(slide);
     setIsModalOpen(true);
   };
@@ -42,8 +42,22 @@ const ProductosPage = () => {
 
   const adults = [...ADULTS_ANIMALS];
   const baby = [...BABYS_ANIMALS];
+  const arrAnimals = [...adults, ...baby];
 
-  const newArrAnimals = [...adults, ...baby];
+  const findFilter = (e) => {
+    if (e === "clean") {
+      setNewArrAnimals(arrAnimals);
+    } else {
+      const animals = arrAnimals.filter((animals) =>
+        animals?.filter?.includes(e)
+      );
+      setNewArrAnimals(animals);
+    }
+  };
+
+  useEffect(() => {
+    setNewArrAnimals(arrAnimals);
+  }, []);
 
   return (
     <div>
@@ -63,14 +77,26 @@ const ProductosPage = () => {
             <p>Filtrar por:</p>
             {allFilters?.map((f, index) => {
               return (
-                <a key={index} className="category_item" category={f}>
+                <button
+                  onClick={() => findFilter(f)}
+                  key={index}
+                  className="category_item"
+                  category={f}
+                >
                   {f}
-                </a>
+                </button>
               );
             })}
+            <button
+              onClick={() => findFilter("clean")}
+              className="category_item"
+              category=""
+            >
+              Limpiar filtro
+            </button>
           </div>
           <section className="products-list">
-            {newArrAnimals.map((a) => {
+            {newArrAnimals?.map((a) => {
               const items = a.presentation;
               return items?.map((i) => {
                 return (
@@ -79,11 +105,7 @@ const ProductosPage = () => {
                     className="product-item"
                     category="Vitaminas y minerales "
                   >
-                    <section
-                      onclick="Adegan_20mL()"
-                      className="cuadro"
-                      onClick={() => clickOnSlide(a)}
-                    >
+                    <section className="cuadro" onClick={() => clickOnSlide(a)}>
                       <img className="imagen" src={i.src} alt=" " />
                       <p className="cuadro-titulo">{i.nombre}</p>
 

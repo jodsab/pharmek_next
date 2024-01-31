@@ -6,14 +6,6 @@ import styles from "./page.scss";
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className="centrado" id="onload">
-        <div className="lds-ring">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </div>
       <FrontSlider />
       <section className="productos-titulo">
         <h1>Productos</h1>
