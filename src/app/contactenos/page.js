@@ -23,6 +23,27 @@ const ContactenosPage = () => {
     }
   };
 
+  const sendMessageResponsable = async (values) => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/send-responsable",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      const rspJson = await response.json();
+
+      return rspJson;
+    } catch (error) {
+      return { error: "Error" };
+    }
+  };
+
   return (
     <div>
       <section className="container-contactenos">
@@ -46,6 +67,7 @@ const ContactenosPage = () => {
                   validationSchema={SignupSchema}
                   onSubmit={async (values) => {
                     const rsp = await sendMessage(values);
+                    const rsp2 = await sendMessageResponsable(values);
                   }}
                 >
                   {({ errors, touched }) => (
