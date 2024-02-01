@@ -107,6 +107,9 @@
   margin-bottom: 20px;
   font-family: calibri;
   border-style: none;
+  &.textarea {
+    height: 100px;
+  }
 }
 
 .btn_container {

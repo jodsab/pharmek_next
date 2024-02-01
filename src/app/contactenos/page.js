@@ -1,37 +1,28 @@
 "use client";
+import SignupSchema from "./validation";
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import "./styles.scss";
 
-const SignupSchema = Yup.object().shape({
-  Nombre: Yup.string()
-    .min(2, "Muy corto")
-    .max(50, "Muy largo")
-    .required("El nombre es un campo requerido"),
-  Apellido: Yup.string()
-    .min(2, "Muy corto")
-    .max(50, "Muy largo")
-    .required("El apellido es un campo requerido"),
-  Edad: Yup.number()
-    .min(14, "Necesitas tener al menos 14 años")
-    .max(99, "Es probable que necesites ayuda para contactarnos")
-    .required("La edad es un campo requerido"),
-  Email: Yup.string()
-    .email("El email no es válido")
-    .required("El email es un campo requerido"),
-  Phone: Yup.number()
-    .min(900000000, "Ingresa un numero válido")
-    .max(999999999, "Ingresa un numero válido")
-    .required("El número de teléfono debe tener exactamente 9 cifras"),
-  Ocupation: Yup.string(),
-  Asunto: Yup.string()
-    .min(2, "Muy corto")
-    .max(50, "Muy largo")
-    .required("Ingresa el asunto"),
-});
-
 const ContactenosPage = () => {
+  const sendMessage = async (values) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const rspJson = await response.json();
+
+      return rspJson;
+    } catch (error) {
+      return { error: "Error" };
+    }
+  };
+
   return (
     <div>
       <section className="container-contactenos">
@@ -53,8 +44,8 @@ const ContactenosPage = () => {
                     Nombre: "",
                   }}
                   validationSchema={SignupSchema}
-                  onSubmit={(values) => {
-                    // same shape as initial values
+                  onSubmit={async (values) => {
+                    const rsp = await sendMessage(values);
                   }}
                 >
                   {({ errors, touched }) => (
@@ -117,7 +108,7 @@ const ContactenosPage = () => {
                       ) : null}
                       <Field
                         placeholder="Mensaje"
-                        className="formulario-input"
+                        className="formulario-input textarea"
                         name="Mensaje"
                       />
                       {errors.Mensaje && touched.Mensaje ? (
@@ -142,7 +133,7 @@ const ContactenosPage = () => {
                   className="contactenos-mapa"
                   src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d487.57749855627856!2d-77.02219066785051!3d-12.13813271657013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x74f6307fa3294706!2sProyecto%20Connect%20%7C%20Inmobiliaria%20Edifica!5e0!3m2!1ses-419!2spe!4v1624846760578!5m2!1ses-419!2spe"
                   style={{ border: 0 }}
-                  allowfullscreen=""
+                  allowFullScreen=""
                   loading="lazy"
                 ></iframe>
               </div>

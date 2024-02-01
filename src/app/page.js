@@ -1,6 +1,7 @@
 import FrontSlider from "@/components/FrontSlider";
 import ProductsSlider from "@/components/ProductsSlider";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "@/core/productsSlider";
+import { EmailTemplate } from "@/components/EmailTemplate";
 import styles from "./page.scss";
 
 export default function Home() {
