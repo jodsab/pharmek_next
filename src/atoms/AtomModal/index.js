@@ -5,6 +5,11 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { WHATSAPP } from "../../core/whatsapp";
 import { Button, Modal } from "antd";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import "./styles.scss";
 
@@ -43,16 +48,55 @@ const AtomModal = ({ ...props }) => {
           </div>
         </div>
         <div className="modal_container">
-          <div className="img_content">
-            <Image
-              src={`/${data?.src}`}
-              alt="image"
-              width={110}
-              height={110}
-              sizes="100vw"
-              loading="lazy"
-            />
-          </div>
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <div className="img_content">
+                <Image
+                  src={`/${data?.src}`}
+                  alt="image"
+                  width={110}
+                  height={110}
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="img_content">
+                <Image
+                  src={`/${data?.src}`}
+                  alt="image"
+                  width={110}
+                  height={110}
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="img_content">
+                <Image
+                  src={`/${data?.src}`}
+                  alt="image"
+                  width={110}
+                  height={110}
+                  sizes="100vw"
+                  loading="lazy"
+                />
+              </div>
+            </SwiperSlide>
+          </Swiper>
+
           <div className="text_content">{data?.content}</div>
         </div>
         <div className="modal_aux_bottom_buttons">
