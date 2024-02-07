@@ -17,7 +17,7 @@ const DistribuidoresPage = () => {
 
   useEffect(() => {
     if (filter) {
-      const filtered = AUX_DISTRIBUIDORES.filter((d) => d.location === filter);
+      const filtered = AUX_DISTRIBUIDORES?.filter((d) => d.location === filter);
       setDistribuidores(filtered);
     } else {
       setDistribuidores(AUX_DISTRIBUIDORES);

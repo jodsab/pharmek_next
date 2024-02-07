@@ -43,7 +43,7 @@ const ProductosPage = () => {
 
   const adults = [...ADULTS_ANIMALS];
   const baby = [...BABYS_ANIMALS];
-  const arrAnimals = [...adults, ...baby];
+  const arrAnimals = [...adults, ...baby] || [];
 
   const findFilter = (e) => {
     if (e === "clean") {
