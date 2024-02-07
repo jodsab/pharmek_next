@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import SignupSchema from "./validation";
@@ -23,18 +24,9 @@ const TrabajeConNosotrosPage = () => {
                 <Formik
                   initialValues={{
                     Nombre: "",
-                    Apellido: "",
-                    Edad: "",
-                    Email: "",
-                    Phone: "",
-                    Ocupation: "",
-                    Asunto: "",
-                    Mensaje: "",
                   }}
                   validationSchema={SignupSchema}
-                  onSubmit={async (values) => {
-                    console.log(values);
-                  }}
+                  onSubmit={async (values) => {}}
                 >
                   {({ errors, touched }) => (
                     <Form>
@@ -127,7 +119,6 @@ const TrabajeConNosotrosPage = () => {
               </div>
               <div className="container-contactenos-direccion">
                 <p>
-                  {" "}
                   <strong>Dirección:</strong> Av Almirante Miguel Grau 1380, Of
                   706 Barranco
                 </p>
