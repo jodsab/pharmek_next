@@ -23,6 +23,13 @@ const TrabajeConNosotrosPage = () => {
                 <Formik
                   initialValues={{
                     Nombre: "",
+                    Apellido: "",
+                    Edad: "",
+                    Email: "",
+                    Phone: "",
+                    Ocupation: "",
+                    Asunto: "",
+                    Mensaje: "",
                   }}
                   validationSchema={SignupSchema}
                   onSubmit={async (values) => {
