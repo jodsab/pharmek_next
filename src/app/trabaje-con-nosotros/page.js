@@ -25,7 +25,9 @@ const TrabajeConNosotrosPage = () => {
                     Nombre: "",
                   }}
                   validationSchema={SignupSchema}
-                  onSubmit={async (values) => {}}
+                  onSubmit={async (values) => {
+                    console.log(values);
+                  }}
                 >
                   {({ errors, touched }) => (
                     <Form>
