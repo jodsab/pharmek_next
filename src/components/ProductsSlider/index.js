@@ -51,7 +51,11 @@ const ProductsSlider = ({ ...props }) => {
         <div className="product_container" onClick={() => clickOnSlide(slide)}>
           <div className="product_img_container">
             <Image
-              src={`/${slide.src}`}
+              src={
+                typeof slide.src === "string"
+                  ? `/${slide.src}`
+                  : `/${slide.src[0]}`
+              }
               alt="image"
               width={0}
               height={0}

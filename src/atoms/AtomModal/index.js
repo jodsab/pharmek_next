@@ -59,42 +59,37 @@ const AtomModal = ({ ...props }) => {
             modules={[Pagination, Navigation]}
             className="mySwiper"
           >
-            <SwiperSlide>
-              <div className="img_content">
-                <Image
-                  src={`/${data?.src}`}
-                  alt="image"
-                  width={110}
-                  height={110}
-                  sizes="100vw"
-                  loading="lazy"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="img_content">
-                <Image
-                  src={`/${data?.src}`}
-                  alt="image"
-                  width={110}
-                  height={110}
-                  sizes="100vw"
-                  loading="lazy"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="img_content">
-                <Image
-                  src={`/${data?.src}`}
-                  alt="image"
-                  width={110}
-                  height={110}
-                  sizes="100vw"
-                  loading="lazy"
-                />
-              </div>
-            </SwiperSlide>
+            {typeof data?.src === "string" ? (
+              <SwiperSlide>
+                <div className="img_content">
+                  <Image
+                    src={`/${data?.src}`}
+                    alt="image"
+                    width={110}
+                    height={110}
+                    sizes="100vw"
+                    loading="lazy"
+                  />
+                </div>
+              </SwiperSlide>
+            ) : (
+              data?.src.map((e, index) => {
+                return (
+                  <SwiperSlide key={index}>
+                    <div className="img_content">
+                      <Image
+                        src={`/${e}`}
+                        alt="image"
+                        width={110}
+                        height={110}
+                        sizes="100vw"
+                        loading="lazy"
+                      />
+                    </div>
+                  </SwiperSlide>
+                );
+              })
+            )}
           </Swiper>
 
           <div className="text_content">{data?.content}</div>

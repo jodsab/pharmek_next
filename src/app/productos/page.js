@@ -112,7 +112,11 @@ const ProductosPage = () => {
                         height={0}
                         sizes="100vw"
                         className="imagen"
-                        src={`/${i.src}`}
+                        src={
+                          typeof i.src === "string"
+                            ? `/${i.src}`
+                            : `/${i.src[0]}`
+                        }
                         alt=" "
                       />
                       <p className="cuadro-titulo">{i.nombre}</p>

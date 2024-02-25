@@ -174,6 +174,60 @@ const BABYS_ANIMALS = [
       </div>
     ),
   },
+  {
+    id: 5,
+    nombre: "Carodyl 20 tab",
+    inserto: "insertos/INSERTO PRACANEX.pdf",
+    src: [
+      "img/antiinflamatorio/3D Carodyl 20 tab.jpg",
+      "img/antiinflamatorio/3D Carodyl 40 tabletas.jpg",
+    ],
+    presentation: [
+      {
+        id: 1,
+        nombre: "Carodyl 20 tab",
+        src: "img/antiinflamatorio/3D Carodyl 20 tab.jpg",
+        inserto: "insertos/INSERTO PRACANEX.pdf",
+      },
+      {
+        id: 2,
+        nombre: "Carodyl 40 tab",
+        src: "img/antiinflamatorio/3D Carodyl 40 tabletas.jpg",
+        inserto: "insertos/INSERTO PRACANEX.pdf",
+      },
+    ],
+    content: (
+      <div className="contenido">
+        <p>
+          <strong>Composición: </strong>Carprofeno 25 mg, excipientes c.s.p. 1
+          tableta
+        </p>
+        <p>
+          <strong>Indicaciones: </strong>Antiinflamatorio no-esteroideo (AINE)
+          con propiedades antiinflamatorias, analgésicas y antipiréticas.
+          Apropiado para el alivio del dolor y la inflamación asociada al
+          sistema músculo-esquelético en caninos. Ha demostrado ser clínicamente
+          efectivo en el alivio de los signos asociados con la osteoartritis en
+          caninos; sinovitis, bursitis, artritis, tendinitis, esguinces,
+          torceduras, subluxaciones sacroilíacas, lesiones traumáticas,
+          post-cirugía, entre otras.
+        </p>
+        <p>
+          <strong>Dosis y vías de administración: </strong>1 tableta/11 kg de
+          p.v. 2 veces al día. La duración del tratamiento dependerá de la
+          respuesta observada. El médico veterinario debe valorar el estado del
+          animal a los 14 días de comenzada la terapia. Administrar vía oral.
+        </p>
+        <p>
+          <strong>Presentación comercial: </strong>Caja 3 blister x 10unidades
+          Frasco x 40 tabletas
+        </p>
+        <p>
+          <strong>Registro senasa</strong>
+        </p>
+      </div>
+    ),
+  },
 ];
 
 const ADULTS_ANIMALS = [
@@ -182,12 +236,13 @@ const ADULTS_ANIMALS = [
     nombre: "Dermicare 6",
     inserto: "insertos/recetario Dermicare marz20 copia.pdf",
     filter: ["Dermatológicos"],
-    src: "img/dermatologicos/Dermicare tubo ROJO.png",
+    src: ["img/dermatologicos/Dermicare tubo ROJO.png"],
     presentation: [
       {
         id: 1,
         nombre: "Dermicare 6",
         src: "img/dermatologicos/Dermicare tubo ROJO.png",
+
         inserto: "insertos/recetario Dermicare marz20 copia.pdf",
       },
     ],
@@ -227,12 +282,42 @@ const ADULTS_ANIMALS = [
     nombre: "Aifen 50 mL",
     inserto: "insertos/INSERTO_AIFEN.pdf",
     filter: ["Antiflamatorios", "Vitaminas y minerales"],
-    src: "img/vitaminas-y-minerales/Adegan 50 ml.png",
+    src: [
+      "img/antiinflamatorio/3D Aifen 50 ml.png",
+      "img/antiinflamatorio/3D Aifen 10 ml.png",
+      "img/antiinflamatorio/3D Aifen 20 ml.png",
+      "img/antiinflamatorio/3D Aifen 100 ml.png",
+      "img/antiinflamatorio/3D Aifen 250.png",
+    ],
     presentation: [
       {
         id: 1,
+        nombre: "Aifen 10mL",
+        src: "img/antiinflamatorio/3D Aifen 10 ml.png",
+        inserto: "insertos/INSERTO_AIFEN.pdf",
+      },
+      {
+        id: 2,
+        nombre: "Aifen 20mL",
+        src: "img/antiinflamatorio/3D Aifen 20 ml.png",
+        inserto: "insertos/INSERTO_AIFEN.pdf",
+      },
+      {
+        id: 3,
         nombre: "Aifen 50mL",
-        src: "img/antiinflamatorio/Aifen 50 ml.png",
+        src: "img/antiinflamatorio/3D Aifen 50 ml.png",
+        inserto: "insertos/INSERTO_AIFEN.pdf",
+      },
+      {
+        id: 4,
+        nombre: "Aifen 100mL",
+        src: "img/antiinflamatorio/3D Aifen 100 ml.png",
+        inserto: "insertos/INSERTO_AIFEN.pdf",
+      },
+      {
+        id: 5,
+        nombre: "Aifen 250mL",
+        src: "img/antiinflamatorio/3D Aifen 250.png",
         inserto: "insertos/INSERTO_AIFEN.pdf",
       },
     ],
@@ -271,42 +356,49 @@ const ADULTS_ANIMALS = [
     id: 3,
     nombre: "Adegan 50mL",
     inserto: "insertos/ADEGAN_INSERTO.pdf",
-    src: "img/vitaminas-y-minerales/Adegan 50 ml.png",
+    src: [
+      "img/vitaminas-y-minerales/3D ADEGAN 50mL.png",
+      "img/vitaminas-y-minerales/3D Adegan 10ml jos.png",
+      "img/vitaminas-y-minerales/3D Adegan 20 mL.png",
+      "img/vitaminas-y-minerales/3D Adegan 100 ml.png",
+      "img/vitaminas-y-minerales/3D Adegan 250 ml.png",
+      "img/vitaminas-y-minerales/3D Adegan 500 ml.png",
+    ],
     presentation: [
       {
         id: 1,
         nombre: "Adegan 10mL",
-        src: "img/vitaminas-y-minerales/Adegan 10 ml.png",
+        src: "img/vitaminas-y-minerales/3D Adegan 10ml jos.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
       {
         id: 2,
         nombre: "Adegan 20mL",
-        src: "img/vitaminas-y-minerales/Adegan 20 ml.png",
+        src: "img/vitaminas-y-minerales/3D Adegan 20 mL.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
       {
         id: 3,
         nombre: "Adegan 50mL",
-        src: "img/vitaminas-y-minerales/Adegan 50 ml.png",
+        src: "img/vitaminas-y-minerales/3D ADEGAN 50mL.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
       {
         id: 4,
         nombre: "Adegan 100mL",
-        src: "img/vitaminas-y-minerales/Adegan 100 ml.png",
+        src: "img/vitaminas-y-minerales/3D Adegan 100 ml.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
       {
         id: 5,
         nombre: "Adegan 250mL",
-        src: "img/vitaminas-y-minerales/Adegan 250 ml.png",
+        src: "img/vitaminas-y-minerales/3D Adegan 250 ml.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
       {
         id: 6,
         nombre: "Adegan 500mL",
-        src: "img/vitaminas-y-minerales/Adegan 500 ml.png",
+        src: "img/vitaminas-y-minerales/3D Adegan 500 ml.png",
         inserto: "insertos/ADEGAN_INSERTO.pdf",
       },
     ],
