@@ -1,3 +1,3 @@
-const WHATSAPP = "https://wa.me/message/LNBJUOAXJBV4D1";
+const WHATSAPP = "https://wa.link/iqndb0";
 
 export { WHATSAPP };

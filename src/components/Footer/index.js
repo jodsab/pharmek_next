@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FaPhone,
   FaMobileAlt,
   FaEnvelope,
   FaFacebookSquare,
@@ -19,10 +18,6 @@ const Footer = () => {
         <section className="footer-contacto ">
           <h2>CONTACTO</h2>
           <section className="contenido-contacto">
-            <p>
-              <FaPhone size={SIZE_CONTACT} />
-              Central:01-3453590
-            </p>
             <p>
               <FaMobileAlt size={SIZE_CONTACT} />
               Móvil:974-587-086

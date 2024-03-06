@@ -41,6 +41,18 @@ const BABYS_ANIMALS = [
         src: "img/antiparasitario-interno/Pracanex 10 ml.png",
         inserto: "insertos/INSERTO PRACANEX.pdf",
       },
+      {
+        id: 7,
+        nombre: "3D Pracanex Plus 60 tabletas",
+        src: "img/antiparasitario-interno/3D Pracanex Plus 60 tabletas.png",
+        inserto: "insertos/INSERTO PRACANEX.pdf",
+      },
+      {
+        id: 8,
+        nombre: "3D Pracanex plus 100 T",
+        src: "img/antiparasitario-interno/3D Pracanex plus 100 T.png",
+        inserto: "insertos/INSERTO PRACANEX.pdf",
+      },
     ],
     src: "img/antiparasitario-interno/Pracanex 60 ml.png",
     content: (
@@ -236,13 +248,28 @@ const ADULTS_ANIMALS = [
     nombre: "Dermicare 6",
     inserto: "insertos/recetario Dermicare marz20 copia.pdf",
     filter: ["Dermatológicos"],
-    src: ["img/dermatologicos/Dermicare tubo ROJO.png"],
+    src: [
+      "img/dermatologicos/Dermicare tubo ROJO.png",
+      "img/dermatologicos/3D Dermicare tubo blanco.png",
+      "img/dermatologicos/foto Dermicare producto.png",
+    ],
     presentation: [
       {
         id: 1,
         nombre: "Dermicare 6",
         src: "img/dermatologicos/Dermicare tubo ROJO.png",
-
+        inserto: "insertos/recetario Dermicare marz20 copia.pdf",
+      },
+      {
+        id: 2,
+        nombre: "3D Dermicare tubo blanco",
+        src: "img/dermatologicos/3D Dermicare tubo blanco.png",
+        inserto: "insertos/recetario Dermicare marz20 copia.pdf",
+      },
+      {
+        id: 3,
+        nombre: "Dermicare 6",
+        src: "img/dermatologicos/foto Dermicare producto.png",
         inserto: "insertos/recetario Dermicare marz20 copia.pdf",
       },
     ],
