@@ -15,6 +15,7 @@ const BABYS_ANIMALS = [
         inserto: "insertos/INSERTO PRACANEX.pdf",
       },
     ],
+    content: LOREM_CONTENT,
   },
   {
     id: 2,
@@ -36,6 +37,7 @@ const BABYS_ANIMALS = [
         inserto: "insertos/INSERTO PRACANEX.pdf",
       },
     ],
+    content: LOREM_CONTENT,
   },
   {
     id: 3,
@@ -56,6 +58,7 @@ const BABYS_ANIMALS = [
         inserto: "insertos/INSERTO PRACANEX.pdf",
       },
     ],
+    content: LOREM_CONTENT,
   },
   {
     id: 4,
@@ -74,6 +77,7 @@ const BABYS_ANIMALS = [
         inserto: "insertos/INSERTO PRACANEX.pdf",
       },
     ],
+    content: LOREM_CONTENT,
   },
   {
     id: 5,
@@ -99,19 +103,6 @@ const BABYS_ANIMALS = [
         id: 1,
         nombre: "Carodyl",
         src: "img/antiinflamatorio/3D Carodyl 40 tabletas.png",
-      },
-    ],
-    content: LOREM_CONTENT,
-  },
-  {
-    id: 6,
-    nombre: "Afomax",
-    src: ["img/news/3D Afomax.png"],
-    presentation: [
-      {
-        id: 1,
-        nombre: "Afomax",
-        src: "img/news/3D Afomax.png",
       },
     ],
     content: LOREM_CONTENT,
@@ -585,42 +576,42 @@ const ADULTS_ANIMALS = [
     nombre: "Trak L.A ADE",
     inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
     filter: ["Antiparasitarios"],
-    src: "img/antiparasitario-interno-y-externo/Trak 50 ml.png",
+    src: ["img/trak-ade/3D Trak ADE 50 mL.png"],
     presentation: [
       {
         id: 1,
         nombre: "Trak ADE 10 mL",
-        src: "img/antiparasitario-interno-y-externo/3D Trak ADE 10 mL.png",
+        src: "img/trak-ade/3D Trak ACE 10 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
       {
         id: 2,
         nombre: "Trak ADE 20 mL",
-        src: "img/antiparasitario-interno-y-externo/3D Trak ADE 20 mL.png",
+        src: "img/trak-ade/3D Trak ACE 20 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
       {
         id: 3,
         nombre: "Trak ADE 50 mL",
-        src: "img/antiparasitario-interno-y-externo/3D Trak ADE 50 mL.png",
+        src: "img/trak-ade/3D Trak ADE 50 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
       {
         id: 4,
         nombre: "TRAK ADE 100 mL",
-        src: "img/antiparasitario-interno-y-externo/3D TRAK ADE 100 mL.png",
+        src: "img/trak-ade/3D TRAK ADE 100 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
       {
         id: 5,
         nombre: "Trak ADE 250 mL",
-        src: "img/antiparasitario-interno-y-externo/3D Trak ADE 250 mL.png",
+        src: "img/trak-ade/3D Trak ADE 250 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
       {
         id: 6,
         nombre: "Trak ADE 500 mL",
-        src: "img/antiparasitario-interno-y-externo/3D Trak ADE 500 mL.png",
+        src: "img/trak-ade/3D Trak ADE 500 mL.png",
         inserto: "insertos/TRAK ADE_INSERTO copia.pdf",
       },
     ],

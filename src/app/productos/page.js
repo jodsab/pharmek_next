@@ -107,18 +107,21 @@ const ProductosPage = () => {
                     category="Vitaminas y minerales "
                   >
                     <section className="cuadro" onClick={() => clickOnSlide(a)}>
-                      <Image
-                        width={0}
-                        height={0}
-                        sizes="100vw"
-                        className="imagen"
-                        src={
-                          typeof i.src === "string"
-                            ? `/${i.src}`
-                            : `/${i.src[0]}`
-                        }
-                        alt=" "
-                      />
+                      {i.src && (
+                        <Image
+                          width={0}
+                          height={0}
+                          sizes="100vw"
+                          className="imagen"
+                          src={
+                            typeof i?.src === "string"
+                              ? `/${i?.src}`
+                              : `/${i?.src[0]}`
+                          }
+                          alt=" "
+                        />
+                      )}
+
                       <p className="cuadro-titulo">{i.nombre}</p>
 
                       <section className="ap">
