@@ -73,7 +73,7 @@ const AtomModal = ({ ...props }) => {
                 </div>
               </SwiperSlide>
             ) : (
-              data?.src.map((e, index) => {
+              data?.src?.map((e, index) => {
                 return (
                   <SwiperSlide key={index}>
                     <div className="img_content">

@@ -52,9 +52,11 @@ const ProductsSlider = ({ ...props }) => {
           <div className="product_img_container">
             <Image
               src={
-                typeof slide.src === "string"
-                  ? `/${slide.src}`
-                  : `/${slide.src[0]}`
+                slide.src
+                  ? typeof slide.src === "string"
+                    ? `/${slide.src}`
+                    : `/${slide.src[0]}`
+                  : "/img/logo.png"
               }
               alt="image"
               width={0}
