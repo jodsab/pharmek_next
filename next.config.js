@@ -9,6 +9,11 @@ const nextConfig = {
         hostname: "**.pharmek.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "swiperjs.com",
+        port: "",
+      },
     ],
   },
 };

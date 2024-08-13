@@ -95,9 +95,7 @@ const AtomModal = ({ ...props }) => {
           <div className="text_content">{data?.content}</div>
         </div>
         <div className="modal_aux_bottom_buttons">
-          <button onClick={() => window.open(data?.inserto, "_blank")}>
-            Ver inserto
-          </button>
+          <button>Ver inserto</button>
           <Link href={WHATSAPP} target="_blank">
             Asesoría <FaWhatsapp size={20} />
           </Link>

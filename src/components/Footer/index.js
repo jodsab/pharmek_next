@@ -1,11 +1,10 @@
 import React from "react";
-import {
-  FaMobileAlt,
-  FaEnvelope,
-  FaFacebookSquare,
-  FaInstagram,
-  FaWhatsapp,
-} from "react-icons/fa";
+import Link from "next/link";
+import { FiPhoneCall } from "react-icons/fi";
+import { IoMdMail } from "react-icons/io";
+import { FaTiktok, FaYoutube, FaFacebookF, FaInstagram } from "react-icons/fa";
+import SOCIAL_NETWORKS from "@/core/socialNetworks";
+
 import "./styles.scss";
 
 const SIZE_SOCIAL_NETWORK = 33;
@@ -14,41 +13,56 @@ const SIZE_CONTACT = 20;
 const Footer = () => {
   return (
     <footer>
-      <section className="footer-contenido ">
-        <section className="footer-contacto ">
-          <h2>CONTACTO</h2>
-          <section className="contenido-contacto">
-            <p>
-              <FaMobileAlt size={SIZE_CONTACT} />
-              Móvil:974-587-086
-            </p>
-            <p>
-              <FaEnvelope size={SIZE_CONTACT} />
-              ventas@pharmek.com
-            </p>
-          </section>
-        </section>
-        <section className="footer-redes ">
-          <h2>REDES SOCIALES</h2>
-          <div className="socials_icons">
-            <a href="# ">
-              <FaFacebookSquare size={SIZE_SOCIAL_NETWORK} />
-            </a>
-            <a href="# ">
-              <FaInstagram size={SIZE_SOCIAL_NETWORK} />
-            </a>
-            <a href="# ">
-              <FaWhatsapp size={SIZE_SOCIAL_NETWORK} />
-            </a>
+      <div className="footer_container content">
+        <div>
+          <p className="section_header">CONTACTO</p>
+          <div>
+            <div className="footer_area">
+              <FiPhoneCall size={20} />
+              <p>(+51) 974-587-086</p>
+            </div>
+            <div className="footer_area">
+              <IoMdMail size={20} />
+              <p>ventas@pharmek.com</p>
+            </div>
           </div>
-        </section>
-        <section className="footer-pharmek ">
+        </div>
+        <div>
+          <p className="section_header">REDES SOCIALES</p>
+          <div className="buttons_socials">
+            <Link href={SOCIAL_NETWORKS.tiktok.url} target="_blank">
+              <FaTiktok />
+            </Link>
+            {/*           <Link href={SOCIAL_NETWORKS.y.url}>
+            <FaYoutube />
+          </Link> */}
+            <Link href={SOCIAL_NETWORKS.facebook.url} target="_blank">
+              <FaFacebookF />
+            </Link>
+            <Link href={SOCIAL_NETWORKS.instagram.url} target="_blank">
+              <FaInstagram />
+            </Link>
+          </div>
+        </div>
+        <div>
+          <p className="section_header">NOSOTROS</p>
+          <div className="nosotros">
+            <Link href="/">
+              <p>Quienes somos</p>
+            </Link>
+            <Link href="/">
+              <p>Misión</p>
+            </Link>
+            <Link href="/">
+              <p>Visión</p>
+            </Link>
+          </div>
+        </div>
+        <div className="footer-pharmek">
           <p>PHARMEK</p>
-        </section>
-      </section>
-      <section className="footer-derechos ">
-        &copy2021 Pharmek. Todos los derechos reservados.
-      </section>
+        </div>
+      </div>
+      <div className="linea_blanca"></div>
     </footer>
   );
 };

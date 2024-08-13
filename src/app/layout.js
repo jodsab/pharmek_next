@@ -1,11 +1,5 @@
 import { Inter } from "next/font/google";
-import Header from "@/components/Header";
-import { FaWhatsapp } from "react-icons/fa";
-import Link from "next/link";
-import { WHATSAPP } from "@/core/whatsapp";
-import Footer from "@/components/Footer";
 import "./globals.scss";
-import "./wsp.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,16 +23,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Header />
-        <div>{children}</div>
-        <Footer />
-
-        <Link href={WHATSAPP} className="btn-wsp" target="_blank">
-          <FaWhatsapp color="white" size={35} />
-        </Link>
-      </body>
+    <html lang="es">
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

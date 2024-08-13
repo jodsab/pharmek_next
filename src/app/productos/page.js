@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BABYS_ANIMALS, ADULTS_ANIMALS } from "../../core/productsSlider";
 import AtomModal from "@/atoms/AtomModal";
+import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
 import "./styles.scss";
 
 const ProductosPage = () => {
@@ -61,80 +62,85 @@ const ProductosPage = () => {
   }, []);
 
   return (
-    <div>
-      <section className="productos-titulo">
-        <h2>Productos</h2>
-      </section>
-      <AtomModal
-        data={modalData}
-        isModalOpen={isModalOpen}
-        showModal={showModal}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-      />
-      <section className="wrap">
-        <section className="store-wrapper">
-          <div className="category_list">
-            <p>Filtrar por:</p>
-            {allFilters?.map((f, index) => {
-              return (
-                <button
-                  onClick={() => findFilter(f)}
-                  key={index}
-                  className="category_item"
-                  category={f}
-                >
-                  {f}
-                </button>
-              );
-            })}
-            <button
-              onClick={() => findFilter("clean")}
-              className="category_item"
-              category=""
-            >
-              Limpiar filtro
-            </button>
-          </div>
-          <section className="products-list">
-            {newArrAnimals?.map((a) => {
-              const items = a.presentation;
-              return items?.map((i) => {
+    <div className="products_page_container">
+      <WithNavbarAndFooter>
+        <section className="productos-titulo">
+          <h2>Productos</h2>
+        </section>
+        <AtomModal
+          data={modalData}
+          isModalOpen={isModalOpen}
+          showModal={showModal}
+          handleOk={handleOk}
+          handleCancel={handleCancel}
+        />
+        <section className="wrap">
+          <section className="store-wrapper">
+            <div className="category_list">
+              <p>Filtrar por:</p>
+              {allFilters?.map((f, index) => {
                 return (
-                  <div
-                    key={i.id}
-                    className="product-item"
-                    category="Vitaminas y minerales "
+                  <button
+                    onClick={() => findFilter(f)}
+                    key={index}
+                    className="category_item"
+                    category={f}
                   >
-                    <section className="cuadro" onClick={() => clickOnSlide(a)}>
-                      {i.src && (
-                        <Image
-                          width={0}
-                          height={0}
-                          sizes="100vw"
-                          className="imagen"
-                          src={
-                            typeof i?.src === "string"
-                              ? `/${i?.src}`
-                              : `/${i?.src[0]}`
-                          }
-                          alt=" "
-                        />
-                      )}
-
-                      <p className="cuadro-titulo">{i.nombre}</p>
-
-                      <section className="ap">
-                        <p className="cuadro-ver"> Ver Producto </p>
-                      </section>
-                    </section>
-                  </div>
+                    {f}
+                  </button>
                 );
-              });
-            })}
+              })}
+              <button
+                onClick={() => findFilter("clean")}
+                className="category_item"
+                category=""
+              >
+                Limpiar filtro
+              </button>
+            </div>
+            <section className="products-list">
+              {newArrAnimals?.map((a) => {
+                const items = a.presentation;
+                return items?.map((i) => {
+                  return (
+                    <div
+                      key={i.id}
+                      className="product-item"
+                      category="Vitaminas y minerales "
+                    >
+                      <section
+                        className="cuadro"
+                        onClick={() => clickOnSlide(a)}
+                      >
+                        {i.src && (
+                          <Image
+                            width={0}
+                            height={0}
+                            sizes="100vw"
+                            className="imagen"
+                            src={
+                              typeof i?.src === "string"
+                                ? `/${i?.src}`
+                                : `/${i?.src[0]}`
+                            }
+                            alt=" "
+                          />
+                        )}
+
+                        <p className="cuadro-titulo">{i.nombre}</p>
+
+                        <section className="ap">
+                          <p className="cuadro-ver"> Ver Producto </p>
+                        </section>
+                      </section>
+                    </div>
+                  );
+                });
+              })}
+            </section>
           </section>
         </section>
-      </section>
+      </WithNavbarAndFooter>
     </div>
   );
 };

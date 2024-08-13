@@ -1,4 +1,6 @@
-@import "../../styles/mediaQueries.scss";
+@import "../../resources/styles/colors.scss";
+@import "../../resources/styles/mediaQueries.scss";
+
 @font-face {
   font-family: "primetime";
   src: url("../../app/primetime.ttf");
@@ -7,267 +9,91 @@
 }
 
 footer {
-  background: #008556;
-  width: 100%;
-  font-family: calibri;
-  margin: auto;
-  margin-top: 80px;
+  background-color: $primary;
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  .linea_blanca {
+    width: 90%;
+    margin: auto;
+    height: 1px;
+    background-color: white;
+    margin-bottom: 30px;
+  }
+}
+.footer_container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 20px;
 
-  .footer-contenido {
-    background-color: #008556;
+  p,
+  svg {
     color: white;
-    height: 200px;
+  }
+
+  p.section_header {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .footer_area {
     display: flex;
-    margin: auto;
-  }
-
-  .footer-contacto {
-    width: 33.33%;
-    font-size: 20px;
-    margin: 10px 0px;
-    text-align: center;
-  }
-
-  .footer-contacto i {
-    font-size: 18px;
-    margin-right: 8px;
-    display: inline-block;
-    width: 20px;
-  }
-
-  .footer-contacto h2 {
-    font-size: 18px;
-    text-align: start;
-    margin: 0px 0px;
-    width: 60%;
-    margin: 30px auto 0px;
-  }
-
-  .footer-contacto p {
-    font-size: 18px;
-    margin: 15px 0px;
-    text-align: start;
-  }
-
-  .contenido-contacto {
-    width: 60%;
-    margin: auto;
-    align-items: flex-start;
-    p {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-  }
-
-  .footer-redes {
-    text-align: center;
-    width: 33.33%;
-    margin: 10px 0px;
-    .socials_icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-  }
-
-  .footer-redes-item {
-    color: white;
-    font-size: 30px;
-    margin: 0px 15px;
-  }
-
-  .footer-redes h2 {
-    color: white;
-    font-size: 20px;
-    margin: 30px 0px;
+    align-items: center;
+    gap: 10px;
   }
 
   .footer-pharmek {
-    text-align: center;
-    width: 33.33%;
-    margin: 30px 0px;
-    font-size: 50px;
-    line-height: 145px;
     font-family: "primetime";
+    font-size: 40px;
   }
 
-  .footer-derechos {
-    text-align: center;
-    background-color: #008556;
-    color: white;
-    padding-top: 15px;
-    font-size: 18px;
-    text-decoration: none;
-    padding-bottom: 15px;
-    border-top: 1px solid;
-    transition: border 0.4s ease-out;
-    line-height: 1;
-    border-color: white;
-    width: 90%;
-    margin: auto;
-  }
-
-  @media (max-width: 1024px) {
-    .footer-contacto {
-      width: 100%;
-      margin: 0px 0px;
-      padding: 30px 0px;
+  .buttons_socials {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    a {
+      background-color: white;
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        color: $primary;
+        font-size: 20px;
+      }
     }
-    .contenido-contacto {
-      width: 80%;
-      margin: 0px 10% 0px 10%;
-      align-items: flex-start;
-    }
-    .footer-contacto h2 {
-      font-size: 18px;
-      text-align: start;
-      margin: 0px 0px;
-      padding: 10px 0px;
-      width: 80%;
-      margin: auto;
-    }
-    .footer-contacto p {
-      font-size: 18px;
-      margin: 5px 0px;
-    }
-    .footer-redes {
-      text-align: center;
-      width: 100%;
-    }
-    .footer-redes-item {
-      color: white;
-      font-size: 30px;
-      margin: 0px 3px;
-    }
-    .footer-redes h2 {
-      color: white;
-      font-size: 20px;
-    }
-    .footer-pharmek {
-      text-align: center;
-      width: 100%;
-      font-size: 45px;
-      line-height: 145px;
-    }
-    .footer-derechos {
-      text-align: center;
-      background-color: #008556;
-      color: white;
-      font-size: 18px;
+    a:hover {
+      background-color: $secondary;
+      svg {
+        color: white;
+      }
     }
   }
 
-  @media (max-width: 768px) {
-    .footer-contacto {
-      width: 100%;
-      margin: 0px 0px;
-      padding: 30px 0px;
+  .nosotros {
+    a {
+      p {
+      }
     }
-    .contenido-contacto {
-      align-items: flex-start;
-    }
-    .footer-contacto p {
-      font-size: 14px;
-      margin: 5px 0px;
-    }
-    .footer-contacto i {
-      font-size: 12px;
-      margin-right: 11px;
-      display: inline-block;
-      width: 5px;
-    }
-    .footer-redes {
-      text-align: center;
-      width: 100%;
-    }
-    .footer-redes-item {
-      color: white;
-      font-size: 30px;
-      margin: 0px 3px;
-    }
-    .footer-redes h2 {
-      color: white;
-      font-size: 20px;
-    }
-    .footer-pharmek {
-      text-align: center;
-      width: 100%;
-      font-size: 25px;
-      line-height: 145px;
-    }
-    .footer-derechos {
-      text-align: center;
-      background-color: #008556;
-      color: white;
-      font-size: 18px;
+    a:hover {
+      p {
+        color: $secondary;
+      }
     }
   }
 }
 
 @media screen and (max-width: $tablet) {
-  footer {
-    .footer-contenido {
-      background-color: #008556;
-      color: white;
-      height: 100%;
-      display: block;
-      margin: 0;
-    }
-    .contenido-contacto {
-      width: 70%;
-      margin: 0px 15% 0px 15%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .footer-contacto {
-      width: 100%;
-      font-size: 20px;
-      margin: 0px 0px;
-      padding: 30px 0px;
-    }
-    .footer-contacto h2 {
-      font-size: 20px;
-      text-align: center;
-    }
-    .footer-contacto p {
-      font-size: 20px;
-      margin: 5px 0px;
-      text-align: center;
-    }
-    .footer-redes {
-      text-align: center;
-      width: 100%;
-    }
-    .footer-redes-item {
-      color: white;
-      font-size: 30px;
-    }
-    .footer-redes h2 {
-      color: white;
-      font-size: 20px;
-    }
-    .footer-pharmek {
-      text-align: center;
-      width: 100%;
-      font-size: 50px;
-      line-height: 145px;
-    }
-    .footer-derechos {
-      text-align: center;
-      background-color: #008556;
-      color: white;
-      padding-top: 30px;
-      font-size: 18px;
-      text-decoration: none;
-      transition: 0.1s;
-      font-size: 18px;
-      padding-top: 3px;
-      border-top: 1px solid;
-      transition: border 0.4s ease-out;
-      line-height: 1;
-      border-color: white;
-    }
+  .footer_container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  .footer_container {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 }

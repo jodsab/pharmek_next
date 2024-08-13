@@ -1,4 +1,5 @@
-@import "../../styles/mediaQueries.scss";
+@import "../../resources/styles/colors.scss";
+@import "../../resources/styles/mediaQueries.scss";
 
 .swiper_container {
   height: 100%;
@@ -13,7 +14,6 @@
     margin-top: 85px;
     display: block;
   }
-  @import "../../styles/colors.scss";
 
   .mySwiper {
     width: 100%;
