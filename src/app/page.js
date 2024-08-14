@@ -35,7 +35,7 @@ export default function Home() {
               subtitle="Tenemos todo lo que necesitas aquí"
               src={productos}
             />
-            <div className="productos_section">
+            <div className="productos_section" data-aos="fade-up">
               {Array(6)
                 .fill({})
                 .map((e, index) => {
@@ -56,7 +56,7 @@ export default function Home() {
               subtitle="Síguenos para ver más contenido"
               src={tiktok}
             />
-            <ul className="tiktok_list">
+            <ul className="tiktok_list" data-aos="fade-up">
               {Array(1)
                 .fill({})
                 .map((e, index) => {
@@ -74,7 +74,7 @@ export default function Home() {
               subtitle="Tenemos toda la información ¡Para ti!"
               src={blog}
             />
-            <ul className="blog_cards_container">
+            <ul className="blog_cards_container" data-aos="fade-up">
               {Array(5)
                 .fill({})
                 .map((e, index) => {
@@ -92,7 +92,7 @@ export default function Home() {
               subtitle="Conoce a tu nuevo compañero de vida"
               src={hogar}
             />
-            <ul className="pet_list">
+            <ul className="pet_list" data-aos="fade-up">
               {Array(3)
                 .fill({})
                 .map((e, index) => {

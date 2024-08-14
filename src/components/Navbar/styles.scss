@@ -63,25 +63,23 @@
   }
 
   .toggle_menu {
-    position: absolute;
-    top: calc($navbar_height + 5px);
-    background-color: white;
-    z-index: 9999;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px 15px 10px 15px;
-    box-shadow: 0 2px 11px 1px rgba(0, 0, 0, 0.2);
-    gap: 5px;
-    transition: left 0.6s ease-in-out;
+    .mobile_bar {
+      position: fixed;
+      top: calc(-100%);
+      background-color: white;
+      z-index: 9999;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 15px 10px 15px;
+      box-shadow: 0 2px 11px 1px rgba(0, 0, 0, 0.2);
+      gap: 5px;
+      transition: top 0.6s ease-in-out;
 
-    &.show {
-      left: 0;
-    }
-
-    &.hidden {
-      left: calc(-100% - 15px);
+      &.show {
+        top: calc($navbar_height + 15px);
+      }
     }
 
     ul.menu_bar {
@@ -189,15 +187,35 @@
           .menu_bar {
             display: flex;
             gap: 25px;
+
             li {
               a {
+                position: relative;
+                display: inline-block;
+
                 p {
                   padding: 10px 0;
+                  margin: 0;
                 }
-              }
-              a:hover {
-                p {
-                  color: $secondary;
+
+                // Pseudo-elemento ::after para la línea
+                &::after {
+                  content: "";
+                  position: absolute;
+                  bottom: 0; // Coloca la línea en la parte inferior
+                  left: 0;
+                  width: 0%; // Inicia con un ancho de 0%
+                  height: 2px; // Altura de la línea
+                  background-color: $secondary; // Color de la línea
+                  transition: width 0.3s ease-out; // Transición suave para el ancho
+                }
+
+                &:hover::after {
+                  width: 100%; // La línea se expande al 100% en hover
+                }
+
+                &:hover p {
+                  color: $secondary; // Cambia el color del texto en hover
                 }
               }
             }

@@ -1,7 +1,10 @@
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const myriad = localFont({
+  src: "../resources/fonts/Myriad/Myriad Pro-Regular.woff2",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Pharmek",
@@ -24,7 +27,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={myriad.className}>{children}</body>
     </html>
   );
 }

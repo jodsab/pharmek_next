@@ -49,62 +49,64 @@ const Navbar = () => {
             </button>
           </div>
         </nav>
-        <div className={`toggle_menu ${menuMobileClass ? "show" : "hidden"}`}>
-          <ul className="menu_bar">
-            <li>
-              <Link href="/productos">
-                <p>PRODUCTOS</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/distribuidores">
-                <p>DISTRIBUIDORES</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/contactenos">
-                <p>CONTÁCTENOS</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/nosotros">
-                <p>NOSOTROS</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>ASESORÍA</p>
-              </Link>
-            </li>
-            <li>
-              <Link href="/">
-                <p>BLOG</p>
-              </Link>
-            </li>
-          </ul>
-          <div>
-            <ul className="socials">
+        <div className="toggle_menu">
+          <div className={`mobile_bar ${menuMobileClass ? "show" : ""}`}>
+            <ul className="menu_bar">
               <li>
-                <button>
-                  <FaTiktok size={MENU_SIZE} />
-                </button>
+                <Link href="/productos">
+                  <p>PRODUCTOS</p>
+                </Link>
               </li>
               <li>
-                <button>
-                  <FaFacebook size={MENU_SIZE} />
-                </button>
+                <Link href="/distribuidores">
+                  <p>DISTRIBUIDORES</p>
+                </Link>
               </li>
               <li>
-                <button>
-                  <FaInstagram size={MENU_SIZE} />
-                </button>
+                <Link href="/contactenos">
+                  <p>CONTÁCTENOS</p>
+                </Link>
               </li>
               <li>
-                <button>
-                  <IoLogoWhatsapp size={MENU_SIZE} />
-                </button>
+                <Link href="/nosotros">
+                  <p>NOSOTROS</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <p>ASESORÍA</p>
+                </Link>
+              </li>
+              <li>
+                <Link href="/">
+                  <p>BLOG</p>
+                </Link>
               </li>
             </ul>
+            <div>
+              <ul className="socials">
+                <li>
+                  <button>
+                    <FaTiktok size={MENU_SIZE} />
+                  </button>
+                </li>
+                <li>
+                  <button>
+                    <FaFacebook size={MENU_SIZE} />
+                  </button>
+                </li>
+                <li>
+                  <button>
+                    <FaInstagram size={MENU_SIZE} />
+                  </button>
+                </li>
+                <li>
+                  <button>
+                    <IoLogoWhatsapp size={MENU_SIZE} />
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
