@@ -50,7 +50,7 @@ const Navbar = () => {
           </div>
         </nav>
         <div className="toggle_menu">
-          <div className={`mobile_bar ${menuMobileClass ? "show" : ""}`}>
+          <div className={`mobile_bar ${menuMobileClass && "show"}`}>
             <ul className="menu_bar">
               <li>
                 <Link href="/productos">
