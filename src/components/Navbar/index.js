@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Button, Drawer, Radio, Space } from "antd";
 import { FaWhatsapp } from "react-icons/fa";
 import Link from "next/link";
 import { WHATSAPP } from "@/core/whatsapp";
@@ -18,6 +19,13 @@ const MENU_SIZE = 26;
 
 const Navbar = () => {
   const [menuMobileClass, setMenuMobileClass] = useState(false);
+
+  const showDrawer = () => {
+    setMenuMobileClass(!menuMobileClass);
+  };
+  const onClose = () => {
+    setMenuMobileClass(false);
+  };
 
   const MobileMenu = () => {
     return (
@@ -42,7 +50,7 @@ const Navbar = () => {
             <button
               className="toggle"
               onClick={() => {
-                setMenuMobileClass(!menuMobileClass);
+                showDrawer();
               }}
             >
               {menuMobileClass ? <IoClose /> : <IoMenuOutline />}
@@ -50,7 +58,12 @@ const Navbar = () => {
           </div>
         </nav>
         <div className="toggle_menu">
-          <div className={`mobile_bar ${menuMobileClass && "show"}`}>
+          {/* <div className="black_background"></div> */}
+          <div
+            className={`${
+              menuMobileClass ? "mobile_bar show" : "mobile_bar"
+            }  `}
+          >
             <ul className="menu_bar">
               <li>
                 <Link href="/productos">
