@@ -25,7 +25,7 @@ export default function Home() {
     <main className="main">
       <WithNavbarAndFooter>
         <div className="home_container">
-          <section className="section_slider content" data-aos="zoom-in">
+          <section className="section_slider content" data-aos="zoom-out">
             <Slider />
           </section>
 
