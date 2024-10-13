@@ -1,0 +1,75 @@
+@import "../../resources/styles/colors.scss";
+@import "../../resources/styles/mediaQueries.scss";
+
+.blog_content {
+  .blog_spaced {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .blog_portadas {
+    position: relative;
+    margin-bottom: 230px;
+    img {
+      width: 100%;
+      max-height: 650px;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .card_contents {
+      position: absolute;
+      width: 100%;
+      object-fit: cover;
+      bottom: -190px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .noticias {
+    .blogs_list,
+    .noticias_list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      gap: 30px;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .blog_content {
+    .blog_portadas {
+      position: relative;
+      margin-bottom: 280px;
+      img {
+        width: 100%;
+        max-height: 650px;
+        object-fit: cover;
+        z-index: -1;
+      }
+      .card_contents {
+        position: absolute;
+        width: 50%;
+        object-fit: cover;
+        bottom: -190px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+
+    .noticias {
+      .blogs_list,
+      .noticias_list {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        justify-items: center;
+      }
+    }
+  }
+}

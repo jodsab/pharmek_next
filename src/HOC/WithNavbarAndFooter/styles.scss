@@ -24,23 +24,35 @@
 
   .navbar_container {
     height: $navbar_height;
-    position: fixed;
     width: 100%;
-    top: 0;
-    z-index: 999999;
 
     .desktop_menu {
       display: none;
+      height: $navbar_height;
+      position: fixed;
+      top: 0;
+      z-index: 999999;
     }
 
     .mobile_menu {
       display: block;
+      height: $navbar_height;
+      position: fixed;
+      top: 0;
+      z-index: 999999;
+      width: 100%;
     }
   }
 }
 
 @media screen and (min-width: $tablet) {
   .withnavbarandfooter_container {
+    .withnavbarandfooter_content {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
     .navbar_container {
       .mobile_menu {
         display: none;

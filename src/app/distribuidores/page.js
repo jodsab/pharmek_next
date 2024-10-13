@@ -1,119 +1,46 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "400px",
+};
+
+const center = {
+  lat: -12.0464, // Ejemplo en Lima, Perú
+  lng: -77.0428,
+};
+
+const distributors = [
+  { lat: -12.0464, lng: -77.0428, name: "Distribuidor 1" },
+  { lat: -12.0453, lng: -77.0305, name: "Distribuidor 2" },
+  // más distribuidores...
+];
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import { DISTRIBUIDORES } from "../../core/distribuidores";
 
 import "./styles.scss";
 
-const DISTRITOS = ["Lima", "Trujillo", "Anchash", "Arequipa"];
-
-const DistribuidoresPage = () => {
-  const [distribuidores, setDistribuidores] = useState(DISTRIBUIDORES);
-  const [filter, setFilter] = useState("");
-
-  const AUX_DISTRIBUIDORES = [...DISTRIBUIDORES];
-
-  const toggleFilter = (category) => {
-    setFilter(category);
-  };
-
-  useEffect(() => {
-    if (filter) {
-      const filtered = AUX_DISTRIBUIDORES?.filter((d) => d.location === filter);
-      setDistribuidores(filtered);
-    } else {
-      setDistribuidores(AUX_DISTRIBUIDORES);
-    }
-  }, [filter]);
-
+const Distribuidores = () => {
   return (
-    <div>
-      <WithNavbarAndFooter>
-        <section>
-          <section className="fondo-distribuidores">
-            <section className="productos-titulo ">
-              <h1>Distribuidores</h1>
-            </section>
-            <section className="wrap ">
-              <section className="store-wrapper ">
-                <div className="category_list ">
-                  <p>Filtrar por:</p>
-                  {DISTRITOS.map((d, index) => (
-                    <button
-                      onClick={() => toggleFilter(d)}
-                      key={index}
-                      className="category_item"
-                      category={d}
-                    >
-                      {d}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => setFilter("")}
-                    className="category_item"
-                  >
-                    Limpiar filtro
-                  </button>
-                </div>
-
-                <section className="distribuidores-list">
-                  {distribuidores?.map((d) => {
-                    return (
-                      <section
-                        key={d.id}
-                        className="distribuidores-item"
-                        category={d.location}
-                      >
-                        <section className="informacionDis">
-                          <h1 id="Empresa">{d.nombre}</h1>
-                          <div className="contactoD">
-                            <h3>Contacto:</h3>
-                            <p>{d.contacto}</p>
-                          </div>
-                          <div className="contactoD">
-                            <h3>Teléfono:</h3>
-                            <a href="tel:+51968594373">{d.telefono}</a>
-                          </div>
-                          <div className="contactoD">
-                            {d.contacto && (
-                              <>
-                                <h3>Correo:</h3>
-                                <a href={`mailto:${d.correo}`}>{d.correo}</a>
-                              </>
-                            )}
-                            {d.locations && (
-                              <>
-                                <h3>Ubicaciones:</h3>
-                                <p>{d.locations}</p>
-                              </>
-                            )}
-                          </div>
-                          <div className="contactoD">
-                            <h3>Dirección:</h3>
-                            <p>{d.direccion}</p>
-                          </div>
-                        </section>
-                        <section className="mapa-contenedor">
-                          <iframe
-                            src={d.iframe}
-                            width="100%"
-                            height="100%"
-                            style={{ border: 0 }}
-                            allowFullScreen=""
-                            loading="lazy"
-                          ></iframe>
-                        </section>
-                      </section>
-                    );
-                  })}
-                </section>
-              </section>
-            </section>
-          </section>
-        </section>
-      </WithNavbarAndFooter>
-    </div>
+    <WithNavbarAndFooter>
+      <LoadScript googleMapsApiKey={process.env.NEXT_GOOGLE_MAP_KEY}>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          center={center}
+          zoom={12}
+        >
+          {distributors.map((dist, index) => (
+            <Marker
+              key={index}
+              position={{ lat: dist.lat, lng: dist.lng }}
+              title={dist.name}
+            />
+          ))}
+        </GoogleMap>
+      </LoadScript>
+    </WithNavbarAndFooter>
   );
 };
 
-export default DistribuidoresPage;
+export default Distribuidores;

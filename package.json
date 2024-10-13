@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
+    "@vercel/postgres": "^0.10.0",
     "antd": "^5.12.5",
     "aos": "^3.0.0-beta.6",
     "formik": "^2.4.5",

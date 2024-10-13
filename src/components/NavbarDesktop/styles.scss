@@ -2,6 +2,12 @@
 @import "../../resources/styles/mediaQueries.scss";
 
 @media screen and (min-width: $tablet) {
+  .navbar_container_mobile {
+    width: 100%;
+    height: $navbar_desktop_height;
+  }
+  .desktop_container_area {
+  }
   .desktop_container {
     position: relative;
     display: flex;

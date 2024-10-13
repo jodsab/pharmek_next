@@ -1,0 +1,50 @@
+@import "../../resources/styles/colors.scss";
+
+.see_product_container {
+  width: 200px;
+  border-radius: 15px 15px;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.1);
+  .img_see_container {
+    background-color: rgba(230, 228, 255, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px 15px 0 0;
+    img {
+      padding: 25px;
+    }
+  }
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    .name {
+      color: $secondary;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    button {
+      border: 1px solid $primary;
+      border-radius: 20px;
+      padding: 8px 24px;
+      p {
+        color: $primary;
+        font-weight: bold;
+        margin: 0;
+      }
+    }
+    button:hover {
+      background-color: $primary;
+      p {
+        color: white;
+      }
+    }
+  }
+}
+
+.see_product_container:hover {
+  box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.12);
+}

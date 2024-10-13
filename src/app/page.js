@@ -5,12 +5,9 @@ import SectionHeader from "@/components/SectionHeader";
 import Slider from "./components/Slider";
 import productos from "./assets/productos.png";
 import tiktok from "./assets/tiktok.png";
-import hogar from "./assets/hogar.png";
-import blog from "./assets/blog.png";
 import { FaPills } from "react-icons/fa";
 import Tiktok from "./components/Tiktok";
-import BlogCard from "./components/BlogCard";
-import PetCard from "./components/PetCard";
+import PetList from "@/components/PetList";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -68,42 +65,7 @@ export default function Home() {
                 })}
             </ul>
           </section>
-          <section className="section_blog content">
-            <SectionHeader
-              title="BLOG"
-              subtitle="Tenemos toda la información ¡Para ti!"
-              src={blog}
-            />
-            <ul className="blog_cards_container" data-aos="fade-up">
-              {Array(5)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <li key="index">
-                      <BlogCard />
-                    </li>
-                  );
-                })}
-            </ul>
-          </section>
-          <section className="section_hogar content">
-            <SectionHeader
-              title="HOGAR ADOPCIÓN"
-              subtitle="Conoce a tu nuevo compañero de vida"
-              src={hogar}
-            />
-            <ul className="pet_list" data-aos="fade-up">
-              {Array(3)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <li key="index">
-                      <PetCard />
-                    </li>
-                  );
-                })}
-            </ul>
-          </section>
+          <PetList />
         </div>
       </WithNavbarAndFooter>
     </main>

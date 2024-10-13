@@ -11,16 +11,18 @@ import "./styles.scss";
 const WithNavbarAndFooter = ({ children }) => {
   return (
     <div className="withnavbarandfooter_container">
-      <div className="navbar_container">
-        <div className="mobile_menu">
-          <NavbarMobile />
+      <div className="withnavbarandfooter_content">
+        <div className="navbar_container">
+          <div className="mobile_menu">
+            <NavbarMobile />
+          </div>
+          <div className="desktop_menu">
+            <NavbarDesktop />
+          </div>
         </div>
-        <div className="desktop_menu">
-          <NavbarDesktop />
-        </div>
+        <div className="children">{children}</div>
+        <Footer />
       </div>
-      {children}
-      <Footer />
       <Link href={WHATSAPP} className="btn-wsp" target="_blank">
         <FaWhatsapp color="white" size={35} />
       </Link>

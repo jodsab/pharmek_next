@@ -1,0 +1,67 @@
+@import "../../../../resources/styles/colors.scss";
+@import "../../../../resources/styles/mediaQueries.scss";
+
+.blogcard_containers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 92%;
+  margin: auto;
+  .blogcard_buttons {
+    display: flex;
+
+    button {
+      border-radius: 20px 20px 0 0;
+      min-width: 140px;
+    }
+
+    .active {
+      background-color: $secondary;
+      color: white;
+    }
+
+    .inactive {
+      background-color: white;
+      color: $secondary;
+    }
+  }
+
+  .blog_card_container {
+    background-color: $secondary;
+    border-radius: 20px;
+    padding: 10px 30px 30px 30px;
+
+    p,
+    h2,
+    i,
+    svg {
+      color: white;
+    }
+
+    .blog_top {
+      display: flex;
+      justify-content: space-between;
+
+      .date {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+    }
+
+    .blog_bot {
+      display: flex;
+      justify-content: end;
+      button {
+        background-color: $primary;
+        padding: 0 25px;
+        border-radius: 25px;
+        p {
+          padding: 0;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

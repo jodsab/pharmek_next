@@ -1,0 +1,35 @@
+@import "../../resources/styles/colors.scss";
+@import "../../resources/styles/mediaQueries.scss";
+
+.section_hogar {
+  .pet_list {
+    display: flex;
+    overflow-x: auto;
+    padding: 20px;
+    gap: 25px;
+  }
+
+  .pet_list::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+    background-color: $light-primary;
+    border-radius: 20px;
+  }
+
+  .pet_list::-webkit-scrollbar-thumb {
+    background-color: $light-secondary;
+    border-radius: 6px;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .section_hogar {
+    .pet_list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+  }
+}
