@@ -1,0 +1,104 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  username String @unique
+  password String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Products {
+  id                 Int                  @id @default(autoincrement())
+  nombre             String               @unique
+  composicion        String
+  indicaciones       String
+  dosis_y_via        String
+  registro_senasa    String
+  animal_mayor_menor String
+  presentaciones     String
+  favoritesListId    Int?
+  images             ProductImages[]
+  ProductsDestacados ProductsDestacados[]
+
+  categories          Categories[]          @relation("CategoriesToProducts")
+  distributorLocation DistributorLocation[] @relation("ProductsToDistributorLocation")
+
+  createdAt                    DateTime @default(now())
+  updatedAt                    DateTime @updatedAt
+  distributorLocationProductId Int?
+}
+
+model Categories {
+  id           Int        @id @default(autoincrement())
+  categoryName String     @unique
+  products     Products[] @relation("CategoriesToProducts")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Distributors {
+  id        Int                   @id @default(autoincrement())
+  name      String
+  locations DistributorLocation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductsDestacados {
+  id          Int    @id @default(autoincrement())
+  orden       Int
+  titulo      String
+  descripcion String
+
+  imagenPrincipal ProductImages? @relation(fields: [productImagesId], references: [id])
+  productImagesId Int?
+
+  product    Products @relation(fields: [productsId], references: [id])
+  productsId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ProductImages {
+  id        Int    @id @default(autoincrement())
+  url       String
+  productId Int
+
+  product            Products             @relation(fields: [productId], references: [id])
+  ProductsDestacados ProductsDestacados[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DistributorLocation {
+  id Int @id @default(autoincrement())
+
+  address      String
+  latitude     Float
+  longitude    Float
+  contact      String
+  googleMapUrl String
+
+  products Products[] @relation("ProductsToDistributorLocation")
+
+  distributor   Distributors @relation(fields: [distributorId], references: [id])
+  distributorId Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

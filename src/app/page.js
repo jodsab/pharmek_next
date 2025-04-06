@@ -6,14 +6,25 @@ import Slider from "./components/Slider";
 import productos from "./assets/productos.png";
 import tiktok from "./assets/tiktok.png";
 import { FaPills } from "react-icons/fa";
+import CardCategorie from "@/components/Skeletons/CardCategories/CardCategorie";
 import Tiktok from "./components/Tiktok";
 import PetList from "@/components/PetList";
+import { useGetCategories } from "@/hooks/categories/useGetCategories.hook";
+import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
+import { useGetProductsDestacados } from "@/hooks/categories/useGetProductsDestacados.hook";
+import { useCategoriesStore } from "@/libs/store-categories";
+import { useProductsStore } from "@/libs/store-products";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
 import "./styles.scss";
 
-export default function Home() {
+export default function Home({ session }) {
+  const { loading: loadingCategories, categories } = useGetCategories();
+  const { loading: loadingProducts, products: productsHook } = useGetProducts();
+  const { loading: loadingProductsDestacados, productsDestacados } =
+    useGetProductsDestacados();
+
   useEffect(() => {
     Aos.init();
   }, []);
@@ -23,7 +34,13 @@ export default function Home() {
       <WithNavbarAndFooter>
         <div className="home_container">
           <section className="section_slider content" data-aos="zoom-out">
-            <Slider />
+            {loadingProductsDestacados ? (
+              <Slider loadingProductsDestacados={loadingProductsDestacados} />
+            ) : (
+              productsDestacados && (
+                <Slider productsDestacados={productsDestacados} />
+              )
+            )}
           </section>
 
           <section className="section_productos content">
@@ -33,18 +50,14 @@ export default function Home() {
               src={productos}
             />
             <div className="productos_section" data-aos="fade-up">
-              {Array(6)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <div className="categorias_card" key={index}>
-                      <div className="img_container">
-                        <FaPills />
-                      </div>
-                      <p>Antiparasitarios</p>
-                    </div>
-                  );
-                })}
+              {loadingCategories ? (
+                <CardCategorie loadingCategories={loadingCategories} />
+              ) : (
+                categories &&
+                categories?.map((category, index) => {
+                  return <CardCategorie key={index} category={category} />;
+                })
+              )}
             </div>
           </section>
           <section className="section_tiktok content">
@@ -57,11 +70,7 @@ export default function Home() {
               {Array(1)
                 .fill({})
                 .map((e, index) => {
-                  return (
-                    <li key={index}>
-                      <Tiktok />
-                    </li>
-                  );
+                  return <li key={index}>{/* <Tiktok /> */}</li>;
                 })}
             </ul>
           </section>

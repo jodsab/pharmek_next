@@ -89,7 +89,7 @@ const NavbarMobile = () => {
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link href="/blog">
                 <p>BLOG</p>
               </Link>
             </li>

@@ -22,7 +22,6 @@
     }
   }
   .miniaturas {
-    margin-top: 20px;
     display: flex;
     gap: 30px;
     justify-content: space-between;
@@ -63,7 +62,7 @@
       gap: 10px;
       background-color: $primary;
       border-radius: 25px;
-      padding: 0 25px;
+      padding: 8px 25px;
       p,
       svg {
         color: white;
@@ -98,4 +97,42 @@
 }
 
 @media screen and (min-width: $tablet) {
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .product_container {
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    gap: 40px;
+    .desktop_left {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 30px;
+      .big_foto_container {
+        max-height: 100%;
+      }
+      .miniaturas {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .miniaturas_container {
+          width: 100%;
+          padding: 0;
+          img {
+            height: 100%;
+            width: 150px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
 }

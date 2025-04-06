@@ -20,8 +20,9 @@ import "./styles.scss";
 
 const ELEMENTOS = 9;
 
-const Slider = () => {
+const Slider = ({ loadingProductsDestacados, productsDestacados }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+
   return (
     <div className="slider_container">
       <Swiper
@@ -36,41 +37,37 @@ const Slider = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {Array(ELEMENTOS)
-          .fill("")
-          .map((a, index) => {
-            return (
-              <SwiperSlide key={index}>
-                <Slide />
-              </SwiperSlide>
-            );
-          })}
+        {productsDestacados?.map((productDestacado, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <Slide productDestacado={productDestacado} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
         spaceBetween={10}
-        slidesPerView={4}
+        slidesPerView={productsDestacados?.length || 4}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {Array(ELEMENTOS)
-          .fill("")
-          .map((a, index) => {
-            return (
-              <SwiperSlide key="index">
-                <Image
-                  alt="Naturaleza"
-                  src={pracanex}
-                  width={0}
-                  height={0}
-                  className="imageSlide"
-                />
-              </SwiperSlide>
-            );
-          })}
+        {productsDestacados?.map((a, index) => {
+          return (
+            <SwiperSlide key="index">
+              <Image
+                alt="Naturaleza"
+                src={pracanex}
+                width={0}
+                height={0}
+                className="imageSlide"
+              />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );

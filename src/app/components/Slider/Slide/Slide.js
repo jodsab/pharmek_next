@@ -2,31 +2,43 @@ import Image from "next/image";
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import pracanex from "./pracanex.png";
+import Link from "next/link";
+import { WHATSAPP } from "@/core/whatsapp";
 import "./styles.scss";
 
-const Slide = () => {
+const Slide = ({ productDestacado }) => {
+  const {
+    product,
+    titulo = "MENSAJE DE ANUNCIO",
+    descripcion,
+  } = productDestacado;
+  const { nombre = "Nombre no disponible" } = product;
+
   return (
     <div className="slide_container">
       <div className="title">
-        <h3 className="product_name">PRACANEX</h3>
+        <h3 className="product_name mb-5">{nombre}</h3>
         <div className="product_content">
           <p className="product_message">
-            ¡ELIMINA LOS PARÁSITOS Y MANTÉN
-            <span className="green">SANO A TU MASCOTA!</span>
+            {titulo}
+            <span className="green"> Y MANTÉN SANO A TU MASCOTA!</span>
           </p>
           <p className="product_description">
-            Lorem ipsum dolor sit amet consectetur. Morbi aliquam id amet eget
-            a. Lectus mattis dis scelerisque pellentesque aliquam viverra augue
-            faucibus tortor. Id quis mattis ut orci in sapien risus. Lectus
-            aliquam diam eu auctor et nisi nisl.
+            {!descripcion
+              ? "La descripción del producto no está disponible ahora"
+              : descripcion}
           </p>
         </div>
-        <button className="button_cto_ask">
-          <span>
-            <p>Solicítalo ahora</p>
+        <Link
+          href={WHATSAPP}
+          target="_blank"
+          className="bg-green py-2 px-4 rounded hover:bg-blue mt-5"
+        >
+          <span className="flex gap-3">
+            <p className="text-white">Solicítalo ahora</p>
             <FaWhatsapp size={22} color={"white"} />
           </span>
-        </button>
+        </Link>
       </div>
       <div className="imagen_container">
         <Image

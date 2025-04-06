@@ -3,8 +3,9 @@ import Image from "next/image";
 import img_product from "./assets/product.png";
 
 import "./styles.scss";
+import Link from "next/link";
 
-const SeeProduct = () => {
+const SeeProduct = ({ product }) => {
   return (
     <div className="see_product_container">
       <div className="img_see_container">
@@ -16,10 +17,16 @@ const SeeProduct = () => {
         />
       </div>
       <div className="info">
-        <p className="name">Pracanex</p>
-        <button>
-          <p>Ver producto</p>
-        </button>
+        <p className="name py-2">{product?.nombre || "Producto sin nombre"}</p>
+        <Link
+          href={{
+            pathname: `/productos/${product?.id}`,
+          }}
+        >
+          <button>
+            <p>Ver producto</p>
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -24,6 +24,7 @@
 
   .products_list {
     display: flex;
+    justify-content: center;
     overflow: auto;
     gap: 40px;
   }

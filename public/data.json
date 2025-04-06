@@ -1,0 +1,30 @@
+{
+  "empresa": {
+    "nombre": "Pharmek",
+    "descripcion": "Proveedor de productos farmacéuticos veterinarios de alta calidad."
+  },
+  "productos": [
+    {
+      "nombre": "Antiparasitario CanVet",
+      "descripcion": "Protege a tu mascota de parásitos internos y externos.",
+      "disponibilidad": "Disponible en presentación de 100ml y 250ml."
+    },
+    {
+      "nombre": "Vitaminas NutriPet",
+      "descripcion": "Suplemento vitamínico para fortalecer la salud de perros y gatos.",
+      "disponibilidad": "Disponible en tabletas y jarabe."
+    }
+  ],
+  "distribuidores": [
+    {
+      "nombre": "Vet Distribuciones SAC",
+      "ubicacion": "Lima, Perú",
+      "contacto": "+51 987 654 321"
+    },
+    {
+      "nombre": "AgroVet Sur",
+      "ubicacion": "Arequipa, Perú",
+      "contacto": "+51 956 123 789"
+    }
+  ]
+}

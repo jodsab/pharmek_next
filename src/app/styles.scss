@@ -16,35 +16,6 @@
     display: flex;
     gap: 20px;
     padding: 0 20px;
-    .categorias_card {
-      cursor: pointer;
-      .img_container {
-        background-color: $light-secondary;
-        border-radius: 30px;
-        height: 100px;
-        width: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        svg {
-          height: 50px;
-          width: 50px;
-          color: $secondary;
-        }
-      }
-    }
-
-    .categorias_card:hover {
-      .img_container {
-        background-color: $secondary;
-        svg {
-          color: white;
-        }
-      }
-      p {
-        color: $secondary;
-      }
-    }
   }
 
   .productos_section::-webkit-scrollbar {
@@ -78,25 +49,6 @@
     .productos_section {
       flex-wrap: wrap;
       justify-content: center;
-      .categorias_card {
-        .img_container {
-          background-color: $light-secondary;
-          border-radius: 30px;
-          height: 150px;
-          width: 150px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          svg {
-            height: 75px;
-            width: 75px;
-            color: $secondary;
-          }
-        }
-        p {
-          text-align: center;
-        }
-      }
     }
 
     .section_tiktok {

@@ -25,7 +25,7 @@ const PetCard = () => {
           <p className="name">Lucas</p>
           <p className="raze">Yorkshire Terrier</p>
         </div>
-        <button className="conocelo bordered">
+        <button className="conocelo rounded-lg py-1 px-3">
           <p>Conócelo</p>
         </button>
       </div>
