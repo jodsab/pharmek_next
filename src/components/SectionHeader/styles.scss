@@ -3,93 +3,131 @@
 
 .section_header_container {
   display: flex;
-  width: 96%;
-  margin: auto;
-  align-items: center;
-  .img_container {
-    background-color: $light-secondary;
-    border-radius: 50%;
-    padding: 5px;
-    height: 100px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img.front {
-      height: 80px;
-      object-fit: contain;
+  flex-direction: column; // <<< Apila los elementos verticalmente
+  align-items: center; // <<< Centra los elementos horizontalmente
+  width: 96%; // Mantén el ancho si lo necesitas
+  max-width: 1200px; // Opcional: Limita el ancho máximo en pantallas grandes
+  margin: 20px auto; // Centra el contenedor en la página y añade margen vertical
+  gap: 15px; // Espacio entre el grupo imagen+título y el subtítulo
+
+  // >>>>>> Estilos para el nuevo contenedor de Imagen y Título <<<<<<
+  .image_and_title_container {
+    display: flex; // Muestra la imagen y el título uno al lado del otro
+    align-items: center; // Alinea verticalmente la imagen y el título al centro
+    gap: 15px; // Espacio entre la imagen y el título
+    // No necesita width: 100%; si quieres que su ancho se ajuste al contenido
+    // No necesita margin: auto; si el padre (.section_header_container) ya lo centra
+
+    // Contenedor de la imagen - Mobile
+    .img_container {
+      background-color: $light-secondary;
+      border-radius: 50%;
+      padding: 5px;
+      height: 100px; // Tamaño del contenedor en mobile
+      width: 100px; // Tamaño del contenedor en mobile
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0; // Evita que el contenedor de imagen se encoja
+      // Asegúrate de que el Image dentro tenga width/height = 100% si usas layout="fill" o match el contenedor
+      img.front {
+        // Si Image tiene width/height fijos, puedes necesitar object-fit: contain;
+        // Si el contenedor tiene tamaño fijo y usas layout="fill", usa object-fit en el Image
+        object-fit: contain;
+      }
+    }
+
+    // Título principal - Mobile
+    h2 {
+      font-size: 24px; // Tamaño de fuente del título en mobile (ajusta)
+      margin: 0; // Asegura que no tenga márgenes por defecto
+      text-align: center; // Centra el texto si ocupa varias líneas
+      // Puedes añadir un max-width si los títulos son muy largos en mobile
     }
   }
+  // >>>>>> Fin Estilos nuevo contenedor <<<<<<
 
-  .rigth_content {
+  // Contenedor del subtítulo - Mobile
+  .green_space {
+    z-index: 2; // Mantén si es necesario para stacking context
     display: flex;
-    width: 100%;
-    flex-direction: column;
     align-items: center;
-    position: relative;
+    justify-content: center; // <<< Centra el contenido dentro del subtítulo (texto + icono)
+    background-color: $light-primary; // Color de fondo
+    padding: 15px 20px; // <<< Ajusta el padding (ej: padding horizontal simétrico)
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+    position: relative; // <<< Cambiado a relative o static (static es el default, relative si necesitas z-index o transform)
+    // ELIMINA: bottom, left, top (ya no usaremos posicionamiento absoluto para apilar)
+    // Puedes añadir un margen superior si el 'gap' del padre no es suficiente
+    gap: 5px; // Espacio entre el texto del subtítulo y el icono
 
+    p {
+      margin: 0;
+      font-size: 12px; // Tamaño de fuente del subtítulo en mobile (ajusta)
+      text-align: center; // Centra el texto
+    }
+
+    svg {
+      color: $primary;
+      font-weight: bold;
+      font-size: 22px; // Tamaño del icono (ajusta)
+    }
+  }
+}
+
+// Media Query para Desktop
+@media screen and (min-width: $tablet) {
+  .section_header_container {
+    // No necesitas cambiar display/flex-direction/align-items aquí, ya son correctos para centrar el grupo verticalmente
+
+    .image_and_title_container {
+      // No necesitas cambiar display/align-items/gap aquí, ya son correctos para la disposición imagen+título
+      // Puedes ajustar el gap si quieres más espacio en desktop
+      gap: 20px;
+
+      // Contenedor de la imagen - Desktop
+      .img_container {
+        height: 150px; // <<< Ajusta el tamaño del contenedor en desktop
+        width: 150px; // <<< Ajusta el tamaño del contenedor en desktop
+        // Asegúrate de que el Image dentro se adapte (layout="fill" o width/height matching)
+        img.front {
+          // Si Image tiene width/height fijos, ajusta para desktop
+          width: 100px; // Ejemplo: Ajusta el tamaño interno de la imagen si no usa layout="fill"
+          height: 100px; // Ejemplo
+        }
+      }
+
+      // Título principal - Desktop
+      h2 {
+        font-size: 34px; // <<< Ajusta el tamaño de fuente del título en desktop
+        margin-left: 0; // <<< Elimina el margen izquierdo específico de desktop si ya no es necesario
+      }
+    }
+
+    // Contenedor del subtítulo - Desktop
     .green_space {
-      z-index: 2;
-      display: flex;
-      align-items: center;
-      background-color: $light-primary;
-      padding: 15px 5px 15px 40px;
-      box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
-      position: absolute;
-      bottom: 0;
-      left: -55px;
-      top: 55px;
-      gap: 5px;
+      // No necesitas cambiar display/align-items/justify-content aquí
+      padding: 20px 30px; // <<< Ajusta el padding en desktop
+      min-width: auto; // Restaura min-width si se estableció en mobile y no lo quieres aquí
+      max-width: max-content; // Opcional: Ajusta el ancho máximo para que se ajuste al contenido
 
       p {
-        margin: 0;
-        font-size: 12px;
+        font-size: 17px; // <<< Ajusta el tamaño de fuente del subtítulo en desktop
       }
 
       svg {
-        color: $primary;
-        font-weight: bold;
-        font-size: 22px;
+        font-size: 26px; // <<< Ajusta el tamaño del icono en desktop (ajusta)
       }
     }
   }
 }
 
-@media screen and (min-width: $tablet) {
-  .section_header_container {
-    display: flex;
-    align-items: center;
-    width: fit-content;
-    .img_container {
-      background-color: $light-secondary;
-      border-radius: 50%;
-      height: 190px;
-      width: 190px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img.front {
-        height: 100%;
-        width: 160px;
-        object-fit: contain;
-      }
-    }
-    .rigth_content {
-      width: 100%;
-      h2 {
-        font-size: 34px;
-        margin-left: 30px;
-      }
+// Opcional: Estilos para ocultar la barra de scroll si usas overflow: auto/scroll
+.scrollbar-hide {
+  scrollbar-width: none; /* Para Firefox */
+  -ms-overflow-style: none; /* Para Internet Explorer 10+ */
+}
 
-      .green_space {
-        top: 80px;
-        padding: 20px 20px 20px 50px;
-        min-width: max-content;
-
-        p {
-          font-size: 17px;
-        }
-      }
-    }
-  }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Para Chrome, Safari y Opera */
 }

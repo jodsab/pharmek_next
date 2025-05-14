@@ -1,32 +1,66 @@
+// app/page.js (Assuming App Router)
 "use client";
+
 import { useEffect } from "react";
+import Script from "next/script"; // Import Script component
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
 import SectionHeader from "@/components/SectionHeader";
 import Slider from "./components/Slider";
 import productos from "./assets/productos.png";
 import tiktok from "./assets/tiktok.png";
-import hogar from "./assets/hogar.png";
-import blog from "./assets/blog.png";
 import { FaPills } from "react-icons/fa";
-import Tiktok from "./components/Tiktok";
-import BlogCard from "./components/BlogCard";
-import PetCard from "./components/PetCard";
+import CardCategorie from "@/components/Skeletons/CardCategories/CardCategorie";
+// import Tiktok from "./components/Tiktok"; // Remove the old Tiktok import
+import TiktokEmbed from "./components/TiktokEmbed"; // Import the new component
+import PetList from "@/components/PetList";
+import { useGetCategories } from "@/hooks/categories/useGetCategories.hook";
+import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
+import { useGetProductsDestacados } from "@/hooks/categories/useGetProductsDestacados.hook";
+// Import stores if still needed
+// import { useCategoriesStore } from "@/libs/store-categories";
+// import { useProductsStore } from "@/libs/store-products";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
 import "./styles.scss";
 
-export default function Home() {
+// --- SIMULACIÓN DE DATOS DE VIDEOS DE TIKTOK ---
+// Replace this with your actual data fetching logic
+const tiktokVideoIds = [
+  "7382760567544548613",
+  "7380443882275753222",
+  "7377833903316389125",
+];
+// --- FIN DE SIMULACIÓN ---
+
+export default function Home({ session }) {
+  const { loading: loadingCategories, categories } = useGetCategories();
+  const { loading: loadingProducts, products: productsHook } = useGetProducts();
+  const { loading: loadingProductsDestacados, productsDestacados } =
+    useGetProductsDestacados();
+
   useEffect(() => {
     Aos.init();
   }, []);
 
   return (
     <main className="main">
+      {/* Load the TikTok embed script ONCE for this page (or ideally higher up) */}
+      <Script
+        src="https://www.tiktok.com/embed.js"
+        strategy="afterInteractive" // Or "lazyOnload" depending on when you need embeds to render
+      />
+
       <WithNavbarAndFooter>
         <div className="home_container">
-          <section className="section_slider content" data-aos="zoom-in">
-            <Slider />
+          <section className="section_slider content" data-aos="zoom-out">
+            {loadingProductsDestacados ? (
+              <Slider loadingProductsDestacados={loadingProductsDestacados} />
+            ) : (
+              productsDestacados && (
+                <Slider productsDestacados={productsDestacados} />
+              )
+            )}
           </section>
 
           <section className="section_productos content">
@@ -35,75 +69,37 @@ export default function Home() {
               subtitle="Tenemos todo lo que necesitas aquí"
               src={productos}
             />
-            <div className="productos_section">
-              {Array(6)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <div className="categorias_card" key={index}>
-                      <div className="img_container">
-                        <FaPills />
-                      </div>
-                      <p>Antiparasitarios</p>
-                    </div>
-                  );
-                })}
+            <div className="productos_section mt-3" data-aos="fade-up">
+              {loadingCategories ? (
+                <CardCategorie loadingCategories={loadingCategories} />
+              ) : (
+                categories &&
+                categories?.map((category, index) => {
+                  return <CardCategorie key={index} category={category} />;
+                })
+              )}
             </div>
           </section>
+
+          {/* TikTok Section */}
           <section className="section_tiktok content">
             <SectionHeader
               title="TIKTOK"
               subtitle="Síguenos para ver más contenido"
               src={tiktok}
             />
-            <ul className="tiktok_list">
-              {Array(1)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <li key={index}>
-                      <Tiktok />
-                    </li>
-                  );
-                })}
+            {/* Render the list of TikTok embeds */}
+            <ul className="tiktok_list" data-aos="fade-up">
+              {/* Map over your array of video data */}
+              {tiktokVideoIds.map((videoId, index) => (
+                <li key={videoId || index}>
+                  <TiktokEmbed videoId={videoId} />
+                </li>
+              ))}
             </ul>
           </section>
-          <section className="section_blog content">
-            <SectionHeader
-              title="BLOG"
-              subtitle="Tenemos toda la información ¡Para ti!"
-              src={blog}
-            />
-            <ul className="blog_cards_container">
-              {Array(5)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <li key="index">
-                      <BlogCard />
-                    </li>
-                  );
-                })}
-            </ul>
-          </section>
-          <section className="section_hogar content">
-            <SectionHeader
-              title="HOGAR ADOPCIÓN"
-              subtitle="Conoce a tu nuevo compañero de vida"
-              src={hogar}
-            />
-            <ul className="pet_list">
-              {Array(3)
-                .fill({})
-                .map((e, index) => {
-                  return (
-                    <li key="index">
-                      <PetCard />
-                    </li>
-                  );
-                })}
-            </ul>
-          </section>
+
+          <PetList />
         </div>
       </WithNavbarAndFooter>
     </main>

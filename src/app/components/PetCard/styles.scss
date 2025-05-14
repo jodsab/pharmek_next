@@ -5,6 +5,7 @@ $border-radius: 22px;
 .pet_card_container {
   box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.2);
   border-radius: $border-radius;
+  max-width: 300px;
   .pet_top {
     position: relative;
     border-radius: $border-radius;
@@ -59,8 +60,6 @@ $border-radius: 22px;
       background-color: $primary;
       p {
         color: white;
-        font-weight: bold;
-        padding: 0 20px;
       }
     }
   }

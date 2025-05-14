@@ -7,6 +7,8 @@ $border-radius: 25px;
   flex-direction: column;
   box-shadow: 0 3px 3px 1px rgba(0, 0, 0, 0.2);
   border-radius: $border-radius;
+  min-width: 300px;
+  max-width: 350px;
   .blog_top {
     position: relative;
     .blog_img {
@@ -27,6 +29,13 @@ $border-radius: 25px;
       svg {
         color: $primary;
         font-size: 25px;
+      }
+    }
+
+    .heart:hover {
+      background-color: $primary;
+      svg {
+        color: white;
       }
     }
   }
@@ -61,15 +70,23 @@ $border-radius: 25px;
     }
 
     .rigth_button {
+      margin-top: 15px;
       display: flex;
       justify-content: flex-end;
-      .sabermas {
+      button.sabermas {
         border: 2px solid $primary;
         padding: 6px 10px;
         p {
           color: $primary;
           font-weight: bold;
           margin: 0;
+        }
+      }
+
+      button.sabermas:hover {
+        background-color: $primary;
+        p {
+          color: white;
         }
       }
     }

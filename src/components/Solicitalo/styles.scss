@@ -1,0 +1,20 @@
+@import "../../resources/styles/colors.scss";
+
+button.solicitalo_area {
+  background-color: $primary;
+  padding: 8px 20px 8px 30px;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  p {
+    color: white;
+    margin: 0;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+button.solicitalo_area:hover {
+  background-color: $secondary;
+}

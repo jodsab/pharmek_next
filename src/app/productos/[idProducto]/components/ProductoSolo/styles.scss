@@ -1,0 +1,138 @@
+@import "../../../../../resources/styles/colors.scss";
+@import "../../../../../resources/styles/mediaQueries.scss";
+
+.productoSolo_container {
+  h1 {
+    text-align: center;
+  }
+  .big_foto_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f7fb;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 26px;
+    max-height: 300px;
+
+    img.big_foto {
+      width: 100%;
+      max-width: 400px;
+      max-height: 320px;
+      object-fit: cover;
+    }
+  }
+  .miniaturas {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+
+    .miniaturas_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f6f7fb;
+      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      img.foto_miniatura {
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+      }
+    }
+
+    .miniaturas_container:hover {
+      border: 1px solid $secondary;
+    }
+  }
+
+  .description {
+  }
+  .additional {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .solicitalo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: $primary;
+      border-radius: 25px;
+      padding: 8px 25px;
+      p,
+      svg {
+        color: white;
+      }
+    }
+
+    .solicitalo:hover {
+      background-color: $secondary;
+    }
+
+    .contacta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        margin: 0;
+      }
+
+      .icons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+
+        svg {
+          color: $primary;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  h1 {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .product_container {
+    display: grid;
+    grid-template-columns: 3fr 5fr;
+    gap: 40px;
+    .desktop_left {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 30px;
+      .big_foto_container {
+        max-height: 100%;
+      }
+      .miniaturas {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .miniaturas_container {
+          width: 100%;
+          padding: 0;
+          img {
+            height: 100%;
+            width: 150px;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
+}

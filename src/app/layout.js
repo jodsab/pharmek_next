@@ -1,7 +1,13 @@
-import { Inter } from "next/font/google";
+import localFont from "next/font/local";
+import SessionProviderWrapper from "./SessionProviderWrapper";
 import "./globals.scss";
+import "./globals.css";
+import { getServerSession } from "next-auth";
 
-const inter = Inter({ subsets: ["latin"] });
+const myriad = localFont({
+  src: "../resources/fonts/Myriad/Myriad Pro-Regular.woff2",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Pharmek",
@@ -21,10 +27,16 @@ export const metadata = {
   publisher: "Tito Camilo Bohorquez Quito",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const session = await getServerSession();
+
   return (
     <html lang="es">
-      <body className={inter.className}>{children}</body>
+      <body className={myriad.className}>
+        <SessionProviderWrapper session={session}>
+          {children}
+        </SessionProviderWrapper>
+      </body>
     </html>
   );
 }

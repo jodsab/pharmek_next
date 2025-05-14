@@ -1,0 +1,113 @@
+@import "../../resources/styles/colors.scss";
+@import "../../resources/styles/mediaQueries.scss";
+
+@media screen and (min-width: $tablet) {
+  .navbar_container_mobile {
+    width: 100%;
+    height: $navbar_desktop_height;
+  }
+  .desktop_container_area {
+  }
+  .desktop_container {
+    position: relative;
+    display: flex;
+    height: $navbar_desktop_height;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
+    width: 100%;
+
+    .logo {
+      margin-left: 0;
+      height: 40px;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    .buscador {
+      border: 1px solid $secondary;
+      padding: 0 0 0 11px;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      input {
+        outline: 0;
+        border: 0;
+        padding: 4px 2px;
+        height: 30px;
+        margin-right: 6px;
+      }
+
+      .button_icon {
+        background-color: $secondary;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        svg {
+          color: white;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: $navbar_height;
+    width: 98%;
+    margin: auto;
+    background-color: white;
+
+    .menu_bar {
+      display: flex;
+      gap: 25px;
+
+      li {
+        a {
+          position: relative;
+          display: inline-block;
+
+          p {
+            padding: 10px 0;
+            margin: 0;
+          }
+
+          // Pseudo-elemento ::after para la línea
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0; // Coloca la línea en la parte inferior
+            left: 0;
+            width: 0%; // Inicia con un ancho de 0%
+            height: 2px; // Altura de la línea
+            background-color: $secondary; // Color de la línea
+            transition: width 0.3s ease-out; // Transición suave para el ancho
+          }
+
+          &:hover::after {
+            width: 100%; // La línea se expande al 100% en hover
+          }
+
+          &:hover p {
+            color: $secondary; // Cambia el color del texto en hover
+          }
+        }
+      }
+    }
+
+    .login_user {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: $primary;
+      color: white;
+      padding: 8px 14px;
+      p {
+        margin: 0;
+      }
+    }
+  }
+}

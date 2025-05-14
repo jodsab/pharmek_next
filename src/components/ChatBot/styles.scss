@@ -1,0 +1,227 @@
+// components/Chatbot/styles.scss
+
+// Asegúrate de que tus variables de color y media queries estén importadas
+@import "../../resources/styles/colors.scss"; // Ejemplo
+@import "../../resources/styles/mediaQueries.scss"; // Ejemplo, asegura tener $tablet definido
+
+.chatbot-container {
+  position: fixed; // Contenedor fijo en la ventana
+  bottom: 20px; // Distancia del borde inferior
+  right: 20px; // Distancia del borde derecho
+  z-index: 100; // Asegura un z-index alto para estar sobre contenido normal
+  display: flex; // Habilita flexbox
+  flex-direction: column-reverse; // Apila los hijos (ventana y botón), poniendo el primero (ventana en JSX) VISUALMENTE ARRIBA
+  gap: 15px; // Espacio entre la ventana del chatbot y el botón flotante
+
+  // Ajustes de posición para mobile si necesitas que esté más hacia el centro
+  @media screen and (max-width: $tablet - 1px) {
+    bottom: 15px;
+    right: 15px;
+    // Opcional: si quieres que el contenedor se centre horizontalmente en mobile
+    // left: 15px;
+    // right: 15px;
+    // align-items: center; // Para centrar los hijos si el padre ocupa más ancho
+  }
+}
+
+.chatbot-overlay {
+  position: fixed; // Overlay fijo que cubre toda la pantalla
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8); // Fondo oscuro semi-transparente
+  z-index: 90; // Menor que el chatbot (z-index 100)
+
+  // Controla la visibilidad: solo visible en mobile
+  display: none; // Oculto por defecto (desktop first)
+  @media screen and (max-width: $tablet - 1px) {
+    display: block; // Visible en mobile
+  }
+}
+
+.chatbot-window {
+  background-color: white; // Fondo blanco de la ventana
+  border-radius: 10px; // Esquinas redondeadas
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Sombra
+  display: flex; // Layout interno usando flexbox
+  flex-direction: column; // Apila los elementos internos (título, mensajes, input)
+  overflow: hidden; // Oculta contenido que se salga (ej: esquinas redondeadas)
+  z-index: 100; // Asegura que la ventana esté por encima del overlay
+
+  // Tamaños y posición
+  width: 320px; // Ancho por defecto (mobile)
+  height: auto; // La altura se ajustará al contenido o max-height
+  max-height: 80vh; // <<< Altura máxima basada en el viewport (más resiliente al teclado)
+  // margin-bottom ya no es necesario si usas gap en el padre (.chatbot-container)
+  position: relative; // Necesario para posicionar el botón de cierre dentro
+
+  // Estilos para tablet y desktop
+  @media screen and (min-width: $tablet) {
+    width: 380px; // Ancho más grande en desktop
+    max-height: 70vh; // Ajusta max-height en desktop si es necesario
+    // margin-left: auto; // Asegura alineación a la derecha si el padre es más ancho
+  }
+
+  // Asegura que la ventana no sea más ancha que el viewport en mobile
+  @media screen and (max-width: 350px) {
+    // Ejemplo de breakpoint para pantallas muy pequeñas
+    width: 95vw; // Ocupa 95% del ancho del viewport
+  }
+}
+
+.chatbot-close-button {
+  position: absolute; // Posición absoluta dentro de .chatbot-window (que es relative)
+  top: 8px; // Distancia del borde superior
+  right: 8px; // Distancia del borde derecho
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: gray; // Ajusta color
+  padding: 5px;
+  z-index: 1; // Asegura que esté por encima del contenido interno
+  transition: color 0.2s ease;
+  &:hover {
+    color: red; // Ajusta color
+  }
+}
+
+.chatbot-title {
+  text-align: center;
+  font-size: 18px; // Ajusta tamaño
+  font-weight: bold;
+  padding: 10px; // Padding alrededor del título
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+  color: #333; // Ajusta color
+}
+
+.chatbot-messages-area {
+  flex: 1; // <<< Permite que esta área crezca y ocupe el espacio disponible restante
+  min-height: 0; // <<< Esencial en flexbox para que overflow-y: auto funcione correctamente cuando flex: 1
+  overflow-y: auto; // Habilita el scroll vertical
+  padding: 0 10px; // Padding horizontal
+  // Estilos para ocultar la barra de scroll
+  scrollbar-width: none; // Firefox
+  -ms-overflow-style: none; // IE 10+
+  &::-webkit-scrollbar {
+    // Chrome, Safari, Opera
+    display: none;
+  }
+}
+
+.message-row {
+  display: flex; // Layout flexbox para cada fila (avatar + burbuja)
+  margin-bottom: 8px; // Espacio entre filas
+  align-items: flex-start; // Alinea los elementos al inicio (arriba) si tienen alturas diferentes
+  &.user {
+    justify-content: flex-end; // Alinea mensajes del usuario a la derecha
+  }
+  &.bot {
+    justify-content: flex-start; // Alinea mensajes del bot a la izquierda
+  }
+}
+
+.message-avatar {
+  border-radius: 50%;
+  width: 32px; // Tamaño avatar
+  height: 32px; // Tamaño avatar
+  flex-shrink: 0;
+  margin-right: 8px; // Espacio después del avatar del bot
+  .message-row.user & {
+    // Estilos específicos para avatar de usuario
+    margin-right: 0;
+    margin-left: 8px; // Espacio después del avatar del usuario
+  }
+}
+
+.message-bubble {
+  padding: 8px 12px; // Padding dentro de la burbuja
+  border-radius: 18px; // Bordes muy redondeados
+  max-width: 80%; // Limita el ancho máximo de la burbuja
+  word-break: break-word; // Rompe palabras largas
+  line-height: 1.4;
+
+  // Estilos para la burbuja del bot (Messenger like)
+  .message-row.bot & {
+    background-color: #e9e9eb; // Gris claro
+    color: #333; // Texto oscuro
+    border-bottom-left-radius: 4px; // Cola (ajusta el radio)
+  }
+
+  // Estilos para la burbuja del usuario (Messenger like)
+  .message-row.user & {
+    background-color: #007bff; // Azul (ajusta si usas variable de color)
+    color: white; // Texto blanco
+    border-bottom-right-radius: 4px; // Cola (ajusta el radio)
+  }
+}
+
+.chatbot-input-area {
+  display: flex; // Layout flex para input y botón enviar
+  align-items: center;
+  padding: 10px; // Padding alrededor del área de input
+  border-top: 1px solid #eee;
+}
+
+.chatbot-input {
+  flex: 1; // Permite que el input crezca
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px; // Bordes redondeados
+  margin-right: 8px;
+  font-size: 14px; // Ajusta
+  &:focus {
+    outline: none;
+    border-color: #007bff; // Ajusta color
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); // Ajusta color
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #f0f0f0;
+  }
+}
+
+.chatbot-send-button {
+  background-color: #007bff; // Ajusta color
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 36px; // Ajusta tamaño
+  height: 36px; // Ajusta tamaño
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: darken(#007bff, 10%); // Ajusta color
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.chatbot-toggle-button {
+  // Posición absoluta dentro de .chatbot-container (flex-direction: column-reverse; gap)
+  // bottom: 0; // No es necesario si usas gap en el padre y flex-direction: column-reverse
+  // right: 0; // No es necesario si usas align-items: flex-end en el padre
+  background-color: #007bff; // Ajusta color
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px; // Ajusta tamaño
+  height: 50px; // Ajusta tamaño
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+  z-index: 101; // Asegura que esté por encima de la ventana y overlay
+
+  &:hover {
+    background-color: darken(#007bff, 10%); // Ajusta color
+  }
+}

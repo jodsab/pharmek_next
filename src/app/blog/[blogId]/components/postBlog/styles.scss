@@ -1,0 +1,57 @@
+@import "../../../../../resources/styles/colors.scss";
+@import "../../../../../resources/styles/mediaQueries.scss";
+
+.postBlog_container {
+  img {
+    width: 100%;
+    max-width: 450px;
+    object-fit: cover;
+  }
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .person_picture {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    .image_person {
+      width: 50px;
+      height: 50px;
+      background-color: #d9d9d9;
+      border-radius: 50%;
+    }
+
+    .person_name {
+      font-weight: bold;
+    }
+  }
+
+  .visitanos {
+    margin-bottom: 20px;
+    .here {
+      font-weight: bold;
+    }
+
+    .buttons {
+      button {
+        svg {
+          color: $secondary;
+        }
+      }
+      button:hover {
+        svg {
+          color: $primary;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .visit_us {
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+    gap: 40px;
+  }
+}
