@@ -25,7 +25,7 @@ const FilterSidebar = ({ onFilterChange }) => {
       </h3>
       <ul className="space-y-4">
         {categories &&
-          categories.map((category) => (
+          categories?.map((category) => (
             <li
               key={category.id}
               className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 p-3 rounded-lg shadow-sm transition-all"

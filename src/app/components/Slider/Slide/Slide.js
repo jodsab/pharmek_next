@@ -11,7 +11,11 @@ const Slide = ({ productDestacado }) => {
     product,
     titulo = "MENSAJE DE ANUNCIO",
     descripcion,
+    imagenPrincipal = "",
   } = productDestacado;
+
+  console.log("productDestacado", productDestacado);
+
   const { nombre = "Nombre no disponible" } = product;
 
   return (
@@ -42,10 +46,10 @@ const Slide = ({ productDestacado }) => {
       </div>
       <div className="imagen_container">
         <Image
-          src={pracanex}
+          src={imagenPrincipal?.url || "/images/products/defaultproduct.png"}
           alt="producto pracanex"
-          width={0}
-          height={0}
+          width={400}
+          height={400}
           className="imagen"
         />
       </div>

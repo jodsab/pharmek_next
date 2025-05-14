@@ -10,7 +10,7 @@ const useGetDistribuidores = () => {
   const getDistribuidores = async () => {
     try {
       setLoading(true);
-      const data = await Api.get("http://localhost:3000/api/distribuidores");
+      const data = await Api.get("/api/distribuidores");
       const dataJson = await data.json();
       if (dataJson) {
         setDistribuidores(dataJson);

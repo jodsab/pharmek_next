@@ -45,7 +45,7 @@ const WithNavbarAndFooter = ({ children }) => {
   return (
     <div className="withnavbarandfooter_container">
       <Link href={WHATSAPP} className="btn-wsp" target="_blank">
-        <FaWhatsapp color="white" size={35} />
+        <FaWhatsapp color="white" size={30} />
       </Link>
       <div className="withnavbarandfooter_content">
         <div className="navbar_container">

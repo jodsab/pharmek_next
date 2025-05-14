@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+// components/Chatbot.jsx
+"use client";
+
+import React, { useState, useEffect, useRef } from "react"; // Asegura useRef importado
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose, IoMdSend } from "react-icons/io";
 import { BsChatDotsFill } from "react-icons/bs";
+
+import "./styles.scss";
+
 import gatito from "./gatito.png";
 import perfil from "./perfil.png";
+
+const MISTRAL_API_URL = "/api/mistral";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,121 +23,179 @@ const Chatbot = () => {
     },
   ]);
   const [input, setInput] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const fetchMistralResponse = async (query) => {
+    setIsSending(true);
     try {
-      const response = await fetch("http://localhost:3000/api/mistral", {
+      const response = await fetch(MISTRAL_API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
       });
       const text = await response.text();
-      if (!text) throw new Error("Respuesta vacía de la API.");
-      const result = JSON.parse(text);
-      return result?.text || "No encontré información. 🐱💭🍣";
+      try {
+        const result = JSON.parse(text);
+        return result?.text || "No encontré información. 🐱💭🍣";
+      } catch (parseError) {
+        console.error(
+          "Error al parsear respuesta de la API:",
+          parseError,
+          "Texto recibido:",
+          text
+        );
+        return "Respuesta inesperada de la API. 😿";
+      }
     } catch (error) {
       console.error("Error al conectar con Mistral:", error);
       return "Error al obtener la respuesta. 😿";
+    } finally {
+      setIsSending(false);
     }
   };
 
   const handleSendMessage = async () => {
-    if (!input.trim()) return;
-    const userMessage = { sender: "user", text: input };
+    if (!input.trim() || isSending) return;
 
-    setMessages((prev) => [...prev, userMessage]);
+    const userMessage = { sender: "user", text: input.trim() };
     setInput("");
 
-    const responseText = await fetchMistralResponse(input);
+    setMessages((prev) => [...prev, userMessage]);
+
+    const responseText = await fetchMistralResponse(userMessage.text);
     setTimeout(() => {
       setMessages((prev) => [...prev, { sender: "bot", text: responseText }]);
-    }, 1000);
+    }, 500);
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") handleSendMessage();
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
-    <div className="fixed bottom-5 right-5 flex flex-col items-end">
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white p-4 rounded-lg shadow-lg w-96 h-[70vh] relative mb-4"
-        >
-          {/* Botón de cierre con ícono */}
-          <button
-            onClick={() => setIsOpen(false)}
-            className="absolute top-2 right-2 text-gray-600 hover:text-red-500"
+    // Contenedor principal flotante
+    <div className="chatbot-container">
+      {" "}
+      {/* Clase SCSS */}
+      {/* Overlay oscuro para mobile */}
+      <AnimatePresence>
+        {" "}
+        {/* Usamos AnimatePresence para animar la aparición/desaparición del overlay */}
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="chatbot-overlay" // Clase SCSS
+          ></motion.div>
+        )}
+      </AnimatePresence>
+      {/* Animación de aparición/desaparición de la ventana del chatbot */}
+      <AnimatePresence>
+        {isOpen && (
+          // Ventana del Chatbot
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="chatbot-window" // Clase SCSS
           >
-            <IoMdClose size={20} />
-          </button>
-
-          <div className="text-center font-bold text-lg mb-2">
-            Pharmek Michibot 🐱
-          </div>
-          <div className="h-[55vh] overflow-y-auto border-b pb-2 mb-2">
-            {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex items-end mb-2 ${
-                  msg.sender === "bot" ? "justify-start" : "justify-end"
-                }`}
-              >
-                {msg.sender === "bot" && (
-                  <Image
-                    src={gatito}
-                    alt="Bot"
-                    width={32}
-                    height={32}
-                    className="rounded-full mr-2"
-                  />
-                )}
-                <div
-                  className={`p-2 rounded-lg text-white ${
-                    msg.sender === "bot" ? "bg-blue-600" : "bg-green-600"
-                  }`}
-                >
-                  {msg.text}
-                </div>
-                {msg.sender === "user" && (
-                  <Image
-                    src={perfil}
-                    alt="User"
-                    width={32}
-                    height={32}
-                    className="rounded-full ml-2"
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Input con tecla "Enter" */}
-          <div className="flex">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyPress}
-              className="flex-1 p-2 border rounded-l-lg"
-              placeholder="Escribe un mensaje..."
-            />
+            {/* Botón de cierre */}
             <button
-              onClick={handleSendMessage}
-              className="p-2 bg-blue-600 text-white rounded-r-lg"
+              onClick={() => setIsOpen(false)}
+              className="chatbot-close-button" // Clase SCSS
             >
-              <IoMdSend size={20} />
+              <IoMdClose size={20} />
             </button>
-          </div>
-        </motion.div>
-      )}
 
-      {/* Botón flotante con ícono */}
+            {/* Título del Chatbot */}
+            <div className="chatbot-title">
+              {" "}
+              {/* Clase SCSS */}
+              Pharmek Michibot 🐱
+            </div>
+
+            {/* Área de Mensajes con Scroll */}
+            <div className="chatbot-messages-area">
+              {" "}
+              {/* Clase SCSS */}
+              {messages.map((msg, index) => (
+                // Contenedor individual del mensaje (para alinear izquierda/derecha)
+                <div
+                  key={index} // Considera usar un ID único si es posible en lugar del index
+                  className={`message-row ${
+                    msg.sender === "bot" ? "bot" : "user"
+                  }`} // Clase SCSS para alineación
+                >
+                  {/* Avatar del Bot */}
+                  {msg.sender === "bot" && (
+                    <Image
+                      src={gatito}
+                      alt="Bot"
+                      width={32} // Mantén width/height para next/image
+                      height={32} // Mantén width/height
+                      className="message-avatar" // Clase SCSS
+                    />
+                  )}
+                  {/* Contenido del Mensaje (la "burbuja") */}
+                  <div className="message-bubble">
+                    {" "}
+                    {/* Clase SCSS */}
+                    {msg.text}
+                  </div>
+                  {/* Avatar del Usuario */}
+                  {msg.sender === "user" && (
+                    <Image
+                      src={perfil}
+                      alt="User"
+                      width={32} // Mantén width/height
+                      height={32} // Mantén width/height
+                      className="message-avatar" // Clase SCSS
+                    />
+                  )}
+                </div>
+              ))}
+              {/* Ref para el scroll automático */}
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input y Botón de Enviar */}
+            <div className="chatbot-input-area">
+              {" "}
+              {/* Clase SCSS */}
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyPress}
+                className="chatbot-input" // Clase SCSS
+                placeholder="Escribe un mensaje..."
+                disabled={isSending}
+              />
+              <button
+                onClick={handleSendMessage}
+                className="chatbot-send-button" // Clase SCSS
+                disabled={isSending}
+              >
+                <IoMdSend size={20} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* Botón flotante para abrir/cerrar chatbot */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-blue-600 text-white p-3 rounded-full shadow-lg"
+        className="chatbot-toggle-button" // Clase SCSS
       >
         {isOpen ? <IoMdClose size={24} /> : <BsChatDotsFill size={24} />}
       </button>

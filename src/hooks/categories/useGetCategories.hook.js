@@ -10,7 +10,7 @@ const useGetCategories = () => {
   const getCategories = async () => {
     try {
       setLoading(true);
-      const data = await Api.get("http://localhost:3000/api/categories");
+      const data = await Api.get("/api/categories");
       const dataJson = await data.json();
       if (dataJson) {
         setCategories(dataJson);

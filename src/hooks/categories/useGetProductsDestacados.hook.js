@@ -8,9 +8,7 @@ const useGetProductsDestacados = () => {
   const getProductsDestacados = async () => {
     try {
       setLoading(true);
-      const data = await Api.get(
-        "http://localhost:3000/api/productsDestacados"
-      );
+      const data = await Api.get("/api/productsDestacados");
       const dataJson = await data.json();
       if (dataJson) {
         setProductsDestacados(dataJson);

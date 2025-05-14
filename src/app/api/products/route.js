@@ -5,7 +5,14 @@ export async function GET() {
   try {
     const productsFound = await db.products.findMany({
       include: {
-        categories: true,
+        categoriesOnProducts: {
+          // Esto es para el filtro, asegúrate de que sigue aquí
+          include: {
+            category: true, // Incluye la categoría real
+          },
+        },
+        images: true, // <-- ¡FUNDAMENTAL! Incluye la relación de imágenes
+        // Otros includes si los necesitas (ej: ProductsDestacados)
       },
     });
 

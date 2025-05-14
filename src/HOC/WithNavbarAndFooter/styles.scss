@@ -5,8 +5,8 @@
   .btn-wsp {
     position: fixed;
     padding: 10px;
-    bottom: 30px;
-    left: 30px;
+    bottom: 20px;
+    left: 20px;
     background: #008556;
     color: white;
     border-radius: 50%;
@@ -47,6 +47,11 @@
 
 @media screen and (min-width: $tablet) {
   .withnavbarandfooter_container {
+    .btn-wsp {
+      padding: 12px;
+      bottom: 25px;
+      left: 25px;
+    }
     .withnavbarandfooter_content {
       min-height: 100vh;
       display: flex;

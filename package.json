@@ -7,7 +7,14 @@
     "build": "next build",
     "export": "next export",
     "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma:migrate:dev": "npx prisma migrate dev",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio",
+    "prisma:db:seed": "npx prisma db seed"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
@@ -18,9 +25,11 @@
     "bcrypt": "^5.1.1",
     "formik": "^2.4.5",
     "framer-motion": "^12.4.10",
+    "fs": "^0.0.1-security",
     "next": "14.0.4",
     "next-auth": "^4.24.10",
     "nodemailer": "^6.9.9",
+    "path": "^0.12.7",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",

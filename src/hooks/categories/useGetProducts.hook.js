@@ -10,7 +10,7 @@ const useGetProducts = () => {
   const getProducts = async () => {
     try {
       setLoading(true);
-      const data = await Api.get("http://localhost:3000/api/products");
+      const data = await Api.get("/api/products");
       const dataJson = await data.json();
       if (dataJson) {
         setProducts(dataJson);
