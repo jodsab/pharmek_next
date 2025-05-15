@@ -23,7 +23,7 @@ const ProductoId = ({ params }) => {
   return (
     <WithNavbarAndFooter>
       {/* Contenedor principal de la página, con padding responsive */}
-      <div className="container mx-auto px-4 py-4 md:py-4">
+      <div className="content">
         {/* >>>>>> Aquí se añade el componente Breadcrumb <<<<<< */}
         {/* Renderiza el breadcrumb pasando el nombre del producto si product existe */}
         {product && <ProductBreadcrumb productName={product.nombre} />}

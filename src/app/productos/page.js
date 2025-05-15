@@ -119,9 +119,7 @@ const Productos = ({ searchParams }) => {
 
   return (
     <WithNavbarAndFooter>
-      {/* === PRIMER CONTAINER: Nuestros Productos (con filtro) === */}
-
-      <div className="container mx-auto py-4 md:py-4">
+      <div className="content">
         <Breadcrumb
           items={[
             { label: "Home", href: "/" },

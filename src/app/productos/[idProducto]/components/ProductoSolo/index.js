@@ -69,7 +69,7 @@ const ProductoSolo = ({ data }) => {
   return (
     // Contenedor principal con animación de aparición
     <motion.div
-      className="container mx-auto px-4 py-4 md:py-4"
+      className="content"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

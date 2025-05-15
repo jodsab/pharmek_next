@@ -9,6 +9,7 @@ import Slider from "./components/Slider";
 import productos from "./assets/productos.png";
 import tiktok from "./assets/tiktok.png";
 import { FaPills } from "react-icons/fa";
+import Image from "next/image";
 import CardCategorie from "@/components/Skeletons/CardCategories/CardCategorie";
 // import Tiktok from "./components/Tiktok"; // Remove the old Tiktok import
 import TiktokEmbed from "./components/TiktokEmbed"; // Import the new component
@@ -23,6 +24,7 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 
 import "./styles.scss";
+import BlogCard from "./components/BlogCard";
 
 // --- SIMULACIÓN DE DATOS DE VIDEOS DE TIKTOK ---
 // Replace this with your actual data fetching logic
@@ -52,6 +54,14 @@ export default function Home({ session }) {
       />
 
       <WithNavbarAndFooter>
+        <Image
+          src="/img/portadas/pharmekportada.jpg"
+          alt="Pharmek portada"
+          width={1920}
+          height={500}
+          className="portada_img"
+          priority
+        />
         <div className="home_container">
           <section className="section_slider content" data-aos="zoom-out">
             {loadingProductsDestacados ? (
@@ -98,7 +108,6 @@ export default function Home({ session }) {
               ))}
             </ul>
           </section>
-
           <PetList />
         </div>
       </WithNavbarAndFooter>
