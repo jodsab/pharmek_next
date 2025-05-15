@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { useCategoriesStore } from "@/libs/store-categories";
-import { useProductsStore } from "@/libs/store-products";
 import { FaCheckCircle, FaCircle } from "react-icons/fa";
 
 const FilterSidebar = ({ onFilterChange }) => {
@@ -9,13 +8,18 @@ const FilterSidebar = ({ onFilterChange }) => {
 
   const [selectedCategories, setSelectedCategories] = useState([]);
 
-  const handleCategoryChange = (categoryName) => {
+  // Modificamos la función para recibir el evento
+  const handleCategoryChange = (categoryName, event) => {
+    // Prevenimos la acción por defecto del evento (como la activación del input por la label)
+    event.preventDefault();
+    // Opcional: event.stopPropagation(); // Para evitar que el evento burbujee más allá del li
+
     const isSelected = selectedCategories.includes(categoryName);
     const updatedCategories = isSelected
       ? selectedCategories.filter((cat) => cat !== categoryName)
       : [...selectedCategories, categoryName];
     setSelectedCategories(updatedCategories);
-    onFilterChange(updatedCategories); // Notifica los cambios al componente padre
+    onFilterChange(updatedCategories);
   };
 
   return (
@@ -28,11 +32,15 @@ const FilterSidebar = ({ onFilterChange }) => {
           categories?.map((category) => (
             <li
               key={category.id}
-              className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 p-3 rounded-lg shadow-sm transition-all"
+              className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 p-3 rounded-lg shadow-sm transition-all cursor-pointer w-full"
+              // Modificamos el onClick para pasar el evento
+              onClick={(event) =>
+                handleCategoryChange(category.categoryName, event)
+              }
             >
               <label
                 htmlFor={`category-${category.id}`}
-                className="flex items-center cursor-pointer space-x-3"
+                className="flex items-center space-x-3 w-full cursor-pointer"
               >
                 <span
                   className={`text-xl ${
@@ -56,7 +64,7 @@ const FilterSidebar = ({ onFilterChange }) => {
                 id={`category-${category.id}`}
                 value={category.categoryName}
                 checked={selectedCategories.includes(category.categoryName)}
-                onChange={() => handleCategoryChange(category.categoryName)}
+                // onChange se mantiene eliminado
                 className="hidden"
               />
             </li>

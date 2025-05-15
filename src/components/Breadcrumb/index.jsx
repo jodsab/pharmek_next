@@ -14,7 +14,7 @@ const Breadcrumb = ({ items }) => {
   return (
     // Contenedor de navegación semántico
     <nav
-      className="text-gray-600 dark:text-gray-400 text-sm mb-0 ml-0"
+      className="text-gray-600 dark:text-gray-400 text-sm ml-0 mt-2 mb-4 lg:my-0"
       aria-label="breadcrumb"
     >
       {/* Lista ordenada de ítems */}

@@ -21,16 +21,11 @@ const ProductBreadcrumb = ({ productName }) => {
   return (
     // Contenedor de navegación semántico para accesibilidad
     <nav
-      className="text-gray-600 dark:text-gray-400 text-sm mb-0"
+      className="text-gray-600 dark:text-gray-400 text-sm ml-0 mt-2 mb-4  md:my-0"
       aria-label="breadcrumb"
     >
-      {/* Lista ordenada para los ítems del breadcrumb */}
       <ol className="list-none p-0 inline-flex flex-wrap">
-        {" "}
-        {/* flex-wrap para mejor manejo en mobile si el nombre es largo */}
-        {/* Item "Home" */}
         <li className="flex items-center">
-          {/* Link a la página principal */}
           <Link
             href="/"
             className="text-blue-600 hover:underline dark:text-blue-400 dark:hover:underline transition-colors duration-200"
