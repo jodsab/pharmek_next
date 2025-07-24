@@ -14,6 +14,12 @@ const nextConfig = {
         hostname: "swiperjs.com",
         port: "",
       },
+      {
+        protocol: "http", // O 'https', dependiendo de la URL exacta
+        hostname: "googleusercontent.com",
+        port: "", // Deja vacío si no hay un puerto específico
+        pathname: "/image_generation_content/**", // Permite cualquier path bajo este segmento
+      },
     ],
   },
 };

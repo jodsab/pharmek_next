@@ -17,17 +17,12 @@ import PetList from "@/components/PetList";
 import { useGetCategories } from "@/hooks/categories/useGetCategories.hook";
 import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
 import { useGetProductsDestacados } from "@/hooks/categories/useGetProductsDestacados.hook";
-// Import stores if still needed
-// import { useCategoriesStore } from "@/libs/store-categories";
-// import { useProductsStore } from "@/libs/store-products";
+import HeroSection from "@/components/Portada";
 import Aos from "aos";
 import "aos/dist/aos.css";
-
 import "./styles.scss";
 import BlogCard from "./components/BlogCard";
 
-// --- SIMULACIÓN DE DATOS DE VIDEOS DE TIKTOK ---
-// Replace this with your actual data fetching logic
 const tiktokVideoIds = [
   "7382760567544548613",
   "7380443882275753222",
@@ -54,14 +49,7 @@ export default function Home({ session }) {
       />
 
       <WithNavbarAndFooter>
-        <Image
-          src="/img/portadas/pharmekportada.jpg"
-          alt="Pharmek portada"
-          width={1920}
-          height={500}
-          className="portada_img"
-          priority
-        />
+        <HeroSection />
         <div className="home_container">
           <section className="section_slider content" data-aos="zoom-out">
             {loadingProductsDestacados ? (

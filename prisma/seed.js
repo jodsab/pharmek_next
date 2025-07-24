@@ -5,7 +5,6 @@ const fs = require("fs").promises;
 const prisma = new PrismaClient();
 
 async function main() {
-  // --- Opción 1: Borrar todos los datos para empezar de cero (Descomentar si es necesario) ---
   try {
     await prisma.productsOnCategories.deleteMany({});
     await prisma.productsOnDistributorLocations.deleteMany({});
@@ -20,31 +19,19 @@ async function main() {
     console.error("Error durante el borrado de datos:", error);
   }
 
-  // --- Fin Opción 1: Borrado ---
-
   try {
-    // Almacenar los objetos creados/encontrados para usarlos al crear relaciones
     const categories = {};
     const products = {};
 
-    // >>>>>> Declaraciones únicas al principio <<<<<<
-    const allProductImages = {}; // Objeto para almacenar todas las imágenes creadas/encontradas, mapeadas por URL
-    const imageCreationPromises = []; // Array para recolectar promesas de creación de imagen
+    const allProductImages = {};
+    const imageCreationPromises = [];
 
-    // Define mapping of product object variable name in seed script to subdirectory name
-    // Declarada una vez aquí
     const productDirectoryMapping = {
       adeganForte: "Adegan",
       dermicare: "Dermicare",
       pracanex: "Pracanex",
       pracanexPlus: "PracanexPlus",
       trakLa: "TrakLa",
-      // Add other products here if they get directories later, e.g:
-      // aifen10: 'Aifen',
-      // ecofinexDuo: 'EcofinexDuo',
-      // trakLaAde: 'TrakLaAde',
-      // axfomax: 'Axfomax', // Si decides añadirle imágenes
-      // ectofinex: 'Ectofinex',
     };
     const baseImagesDir = path.join(
       __dirname,
@@ -54,10 +41,7 @@ async function main() {
       "products"
     );
     const publicPathPrefix = "/images/products/";
-    // >>>>>> Fin Declaraciones únicas <<<<<<
 
-    // CREANDO/ENCONTRANDO CATEGORÍAS
-    console.log("Creando/Encontrando Categorías...");
     let cat = await prisma.categories.findUnique({
       where: { categoryName: "Dermatológica" },
     });
@@ -466,26 +450,14 @@ async function main() {
           console.log(
             `    Registro de imagen para "${fileName}" vinculado a "${product.nombre}" ya existe.`
           );
-          // Si ya existe, lo almacenamos en allProductImages para usarlo en destacados si es necesario
-          // Hacemos esto aquí para asegurar que allProductImages se pueble con imágenes existentes también
           allProductImages[imageUrl] = existingImage;
         }
       }
     }
-
-    // Ejecutar todas las promesas de creación de imagen recolectadas hasta ahora
-    // NOTA: Promise.all aquí solo espera las creaciones que se han *pushed* a imageCreationPromises.
-    // Las imágenes existentes (que no necesitan creación) ya están en allProductImages si se encontraron.
-    // Para asegurarnos de que allProductImages tenga TODOS los objetos (creados Y existentes)
-    // necesarios para los destacados, necesitamos refetch después de las creaciones.
     await Promise.all(imageCreationPromises);
     console.log(
       `  ${imageCreationPromises.length} registros de imagen puestos en cola para creación/actualización.`
     );
-
-    // Ahora, volvemos a obtener TODAS las ProductImages que se crearon o ya existían
-    // y están vinculadas a los productos que procesamos.
-    // Esto asegura que 'allProductImages' contenga los objetos completos con sus IDs para usar en destacados.
     const allProcessedProductsIds = Object.values(products)
       .map((p) => p.id)
       .filter((id) => id !== undefined);
@@ -534,8 +506,6 @@ async function main() {
               // Usar la relación 'product' con 'connect' para vincular a un producto existente
               connect: { id: products.trakLa.id },
             },
-            // >>>>>> OPCIONAL: Vincular una imagen principal destacada <<<<<<
-            // Añade 'imagenPrincipal' solo si encontramos la imagen correspondiente en el objeto allProductImages
             ...(trakLaMainImage && {
               // Esto añade 'imagenPrincipal' si trakLaMainImage existe
               imagenPrincipal: {
@@ -552,15 +522,6 @@ async function main() {
         console.log(
           `  Producto destacado para ${products.trakLa.nombre} (Orden 1) ya existe.`
         );
-        // Opcional: Actualizar imagen si el destacado ya existe y la imagen fue creada/encontrada
-        // const trakLaMainImage = allProductImages[publicPathPrefix + 'TrakLa/trakla1.webp'];
-        // if(trakLaMainImage && destacado.productImagesId !== trakLaMainImage.id) {
-        //    await prisma.productsDestacados.update({
-        //      where: { id: destacado.id }, // O buscar por orden si es único y conocido
-        //      data: { productImagesId: trakLaMainImage.id }
-        //    });
-        //    console.log(`  Producto destacado para ${products.trakLa.nombre} (Orden 1) actualizado con imagen.`);
-        // }
       }
     } else {
       console.log(
@@ -602,15 +563,6 @@ async function main() {
         console.log(
           `  Producto destacado para ${products.dermicare.nombre} (Orden 2) ya existe.`
         );
-        // Opcional: Actualizar imagen
-        // const dermicareMainImage = allProductImages[publicPathPrefix + 'Dermicare/dermicare1.webp'];
-        //  if(dermicareMainImage && destacado.productImagesId !== dermicareMainImage.id) {
-        //     await prisma.productsDestacados.update({
-        //       where: { id: destacado.id },
-        //       data: { productImagesId: dermicareMainImage.id }
-        //     });
-        //    console.log(`  Producto destacado para ${products.dermicare.nombre} (Orden 2) actualizado con imagen.`);
-        //  }
       }
     } else {
       console.log(
@@ -652,89 +604,9 @@ async function main() {
         console.log(
           `  Producto destacado para ${products.pracanex.nombre} (Orden 3) ya existe.`
         );
-        // Opcional: Actualizar imagen
-        // const pracanexMainImage = allProductImages[publicPathPrefix + 'Pracanex/pracanex1.webp'];
-        // if(prac anexMainImage && destacado.productImagesId !== pracanexMainImage.id) {
-        //    await prisma.productsDestacados.update({
-        //      where: { id: destacado.id },
-        //      data: { productImagesId: pracanexMainImage.id }
-        //    });
-        //    console.log(`  Producto destacado para ${products.pracanex.nombre} (Orden 3) actualizado con imagen.`);
-        // }
       }
     } else {
-      console.log(
-        "  Producto Pracanex no encontrado, no se puede crear destacado Orden 3."
-      );
     }
-
-    console.log("Productos Destacados verificados/creados.");
-
-    // --- Puedes añadir Distribuidores y DistributorLocations aquí de forma similar ---
-    /*
-    // CREANDO/ENCONTRANDO DISTRIBUIDORES
-    console.log("\nCreando/Encontrando Distribuidores...");
-    const distributors = {};
-    let dist = await prisma.distributors.findUnique({ where: { name: "Distribuidor Principal" } });
-    if (!dist) { dist = await prisma.distributors.create({ data: { name: "Distribuidor Principal" } }); console.log("  Distribuidor 'Distribuidor Principal' creado"); } else { console.log("  Distribuidor 'Distribuidor Principal' ya existe"); }
-    distributors.principal = dist;
-    console.log("Distribuidores verificados/creados.");
-
-    // CREANDO/ENCONTRANDO UBICACIONES DE DISTRIBUIDOR
-    console.log("\nCreando/Encontrando Ubicaciones de Distribuidor...");
-    const distributorLocations = {};
-    // Asegúrate de que el distribuidor principal existe antes de crear su ubicación
-    if (distributors.principal) {
-      let loc = await prisma.distributorLocation.findFirst({ // Usamos findFirst si la combinación no es única
-        where: {
-          address: "Calle Falsa 123",
-          distributorId: distributors.principal.id // Filtra por la FK
-        }
-      });
-      if (!loc) {
-        loc = await prisma.distributorLocation.create({
-          data: {
-            address: "Calle Falsa 123",
-            latitude: 40.7128,
-            longitude: -74.0060,
-            contact: "info@distribuidor.com",
-            googleMapUrl: "https://maps.google.com/...",
-            distributor: { // Usar la relación 'distributor' con 'connect'
-                connect: { id: distributors.principal.id }
-            }
-          }
-        });
-        console.log("  Ubicación 'Calle Falsa 123' creada");
-      } else { console.log("  Ubicación 'Calle Falsa 123' ya existe"); }
-       distributorLocations.loc1 = loc;
-    } else { console.log("  Distribuidor Principal no encontrado, no se puede crear ubicación."); }
-    console.log("Ubicaciones de Distribuidor verificadas/creadas.");
-
-    // Vínculos Products <-> DistributorLocation (ProductsOnDistributorLocations) - Opcional
-    console.log("\nCreando vínculos Producto <-> Ubicación Distribuidor (Opcional)...");
-    const productLocationLinks = [];
-    // Ejemplo: Vincular Dermicare6 a una ubicación si existen (necesitas sembrar distribuidores/ubicaciones primero)
-    // if(products.dermicare && distributorLocations.loc1) { // Asumiendo que sembraste ubicaciones y las guardaste en 'distributorLocations.loc1'
-    // 	 productLocationLinks.push(prisma.productsOnDistributorLocations.create({
-    // 		 data: {
-    // 			 product: { connect: { id: products.dermicare.id } }, // Usar connect
-    // 			 distributorLocation: { connect: { id: distributorLocations.loc1.id } } // Usar connect
-    // 		 }
-    // 	 }));
-         console.log(`  Vínculo entre ${products.dermicare.nombre} y Ubicación 1 creado`);
-     } else { console.log("  Producto Dermicare6 o Ubicación 1 no encontrado, no se puede crear vínculo."); }
-
-    // ... Añadir más vínculos entre productos y ubicaciones ...
-
-    await Promise.all(productLocationLinks);
-    console.log("Vínculos Producto <-> Ubicación Distribuidor creados (Opcional).");
-    */
-
-    // CREAR VÍNCULOS EN LAS TABLAS DE UNIÓN EXPLÍCITAS
-    // Esto se hace DESPUÉS de que todas las entidades (productos, categorías, ubicaciones, etc.) existen
-    // Creamos registros en ProductsOnCategories y ProductsOnDistributorLocations
-
-    console.log("\nCreando vínculos Producto <-> Categoría...");
     const productCategoryLinks = [];
 
     // Mapear productos a sus categorías
@@ -832,8 +704,6 @@ async function main() {
         })
       );
 
-    // ELIMINADA según tu lista: if (products.axfomax && categories.antiparasitario)
-
     if (products.ectofinex && categories.antiparasitario)
       productCategoryLinks.push(
         prisma.productsOnCategories.create({
@@ -847,27 +717,6 @@ async function main() {
     // Ejecutar todas las creaciones de vínculos de categoría en paralelo
     await Promise.all(productCategoryLinks);
     console.log("Vínculos Producto <-> Categoría creados.");
-
-    // Vínculos Products <-> DistributorLocation (ProductsOnDistributorLocations) - Opcional
-    /*
-    console.log("\nCreando vínculos Producto <-> Ubicación Distribuidor (Opcional)...");
-    const productLocationLinks = [];
-    // Ejemplo: Vincular Dermicare6 a una ubicación si existen (necesitas sembrar distribuidores/ubicaciones primero)
-    // if(products.dermicare && distributorLocations.loc1) { // Asumiendo que sembraste ubicaciones y las guardaste en 'distributorLocations.loc1'
-    // 	 productLocationLinks.push(prisma.productsOnDistributorLocations.create({
-    // 		 data: {
-    // 			 product: { connect: { id: products.dermicare.id } }, // Usar connect
-    // 			 distributorLocation: { connect: { id: distributorLocations.loc1.id } } // Usar connect
-    // 		 }
-    // 	 }));
-         console.log(`  Vínculo entre ${products.dermicare.nombre} y Ubicación 1 creado`);
-     } else { console.log("  Producto Dermicare6 o Ubicación 1 no encontrado, no se puede crear vínculo."); }
-
-    // ... Añadir más vínculos entre productos y ubicaciones ...
-
-    await Promise.all(productLocationLinks);
-    console.log("Vínculos Producto <-> Ubicación Distribuidor creados (Opcional).");
-    */
   } catch (e) {
     console.error("Error durante el seeding:", e);
     process.exit(1);

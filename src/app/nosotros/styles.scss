@@ -1,29 +1,148 @@
+/* styles.scss */
 @import "../../resources/styles/colors.scss";
 
 .nosotros_container {
-  h3 {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 20px; // Opcional para dar espacio entre el h3 y el contenido
+  padding: 20px;
+  max-width: 1200px; /* Limita el ancho del contenido principal */
+  margin: 0 auto; /* Centra el contenedor */
+}
 
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -7px; // Ajusta según la distancia que quieras entre el h3 y la línea
-      left: 0;
-      width: 0;
-      height: 4px;
-      background-color: $primary; // Línea verde
-      animation: lineAnimation 2s ease-out forwards;
+.main-page-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5em; /* Tamaño de fuente para el título principal */
+  color: #008556; /* Color representativo de tu marca, por ejemplo */
+}
+
+.section {
+  display: flex;
+  align-items: center; /* Alinea verticalmente el contenido */
+  gap: 30px; /* Espacio entre el texto y la imagen */
+  margin-bottom: 60px; /* Espacio entre cada sección */
+  padding: 20px 0; /* Padding vertical para cada sección */
+  background-color: $primary;
+  border-radius: 12px;
+  padding: 40px 20px 40px 40px;
+  h3,
+  p {
+    color: white;
+  }
+
+  &:last-child {
+    margin-bottom: 0; /* Elimina el margen inferior de la última sección */
+  }
+}
+
+.text-content {
+  flex: 1; /* Permite que el texto ocupe el espacio restante */
+  text-align: justify; /* Justifica el texto para una mejor lectura */
+
+  h3 {
+    font-size: 1.8em; /* Tamaño de fuente para los subtítulos de sección */
+    color: white; /* Color de los subtítulos */
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  p {
+    line-height: 1.6; /* Espaciado de línea para legibilidad */
+    margin-bottom: 10px;
+  }
+}
+
+.image-content {
+  flex: 1; /* Permite que la imagen ocupe el espacio restante */
+  display: flex;
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+
+  .image-wrapper {
+    overflow: hidden; /* Muy importante para que el zoom no se salga */
+    border-radius: 12px; /* Bordes más redondeados para un aspecto moderno */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
+    transition: box-shadow 0.3s ease-in-out; /* Transición suave para la sombra */
+    width: 100%; /* Asegura que el wrapper ocupa el 100% del espacio flex */
+    max-width: 500px; /* Limita el tamaño máximo de la imagen para que no sea enorme */
+    /* Asegura un aspect ratio o permite que la imagen lo defina */
+
+    /* Efecto de acercamiento */
+    img {
+      display: block; /* Elimina el espacio extra debajo de la imagen */
+      width: 100%; /* La imagen siempre llena el wrapper */
+      height: auto; /* Mantiene la proporción de la imagen */
+      transition: transform 0.4s ease-in-out; /* Transición más suave para el zoom */
+    }
+
+    &:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); /* Sombra más fuerte al hacer hover */
+    }
+
+    &:hover img {
+      transform: scale(1.08); /* Ligeramente más zoom para que sea notorio */
     }
   }
 }
 
-@keyframes lineAnimation {
-  0% {
-    width: 0;
+/* Estilo para invertir el orden (Imagen a la izquierda, Texto a la derecha) */
+.section.reversed-order {
+  flex-direction: row-reverse;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  /* Para tablets y pantallas medianas */
+  .section {
+    gap: 20px;
+    margin-bottom: 40px;
   }
-  100% {
-    width: 100%;
+  .main-page-title {
+    font-size: 2em;
+  }
+  .text-content h3 {
+    font-size: 1.6em;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Para móviles */
+  .nosotros_container {
+    padding: 15px;
+  }
+
+  .main-page-title {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+
+  .section {
+    flex-direction: column; /* Apila el texto y la imagen verticalmente */
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+
+  /* Asegura que el texto va primero y la imagen después en todas las secciones en móvil */
+  .section.reversed-order {
+    flex-direction: column; /* También se apila en reversa para mantener el texto arriba */
+  }
+
+  .image-content {
+    order: 2; /* Las imágenes siempre van debajo del texto en móvil */
+  }
+  .text-content {
+    order: 1; /* El texto siempre va encima de la imagen en móvil */
+  }
+
+  .image-content .image-wrapper {
+    max-width: 100%; /* Ocupa todo el ancho disponible en móvil */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ajustes para móviles muy pequeños */
+  .text-content h3 {
+    font-size: 1.4em;
+  }
+  .text-content p {
+    font-size: 0.95em;
   }
 }

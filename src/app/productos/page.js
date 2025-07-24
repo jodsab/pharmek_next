@@ -184,17 +184,19 @@ const Productos = ({ searchParams }) => {
           Productos Nuevos
         </h2>
         <div className="flex justify-center md:block">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
-            {Array(4) // Dummy data
-              .fill(null)
-              .map((dummyItem, index) => (
-                <div
-                  key={`new-product-${index}`}
-                  className="w-full sm:max-w-sm hover:scale-105 transition-transform duration-200 ease-in-out"
-                >
-                  <SeeProduct product={dummyItem} />
-                </div>
-              ))}
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+              {Array(4)
+                .fill(null)
+                .map((dummyItem, index) => (
+                  <div
+                    key={`new-product-${index}`}
+                    className="flex justify-center"
+                  >
+                    <SeeProduct product={dummyItem} />
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>

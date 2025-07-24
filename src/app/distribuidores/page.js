@@ -29,13 +29,14 @@ const Distribuidores = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [map, setMap] = useState(null);
   const [autocomplete, setAutocomplete] = useState(null);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]); // This stores an array of product IDs (numbers)
 
   const distribuidoresStore = useDistribuidoresSTore(
     (state) => state.distribuidores
   );
 
   const categoriesStore = useCategoriesStore((state) => state.categories);
+  // console.log(categoriesStore); // You can keep this for debugging if needed
 
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY;
 
@@ -61,13 +62,17 @@ const Distribuidores = () => {
     () =>
       categoriesStore.map((category) => ({
         label: category.categoryName,
+        key: category.id, // CLAVE para el grupo de categoría
         options: category.products.map((product) => ({
           label: product.nombre,
-          value: product.id,
+          value: product.productId,
+          key: product.productId, // CLAVE para cada opción de producto
         })),
       })),
     [categoriesStore]
   );
+
+  console.log(formattedOptions);
 
   const handlePlaceSelected = () => {
     if (autocomplete) {
@@ -85,8 +90,16 @@ const Distribuidores = () => {
 
   const filteredDistribuidores = useMemo(() => {
     if (selectedProducts.length === 0) return distribuidoresStore;
-    return distribuidoresStore.filter((dist) =>
-      dist.products.some((product) => selectedProducts.includes(product.id))
+    return distribuidoresStore.filter(
+      (dist) =>
+        // Ensure that 'dist.products' also contains objects with 'id' or 'productId'
+        // that matches the 'selectedProducts' values.
+        // Based on your previous Prisma setup for distributors,
+        // you'll need to make sure distributor products also have a direct 'id' or 'productId'
+        // if they are coming from a similar join table inclusion.
+        dist.products.some((product) =>
+          selectedProducts.includes(product.productId)
+        ) // Assuming distributor products also have 'productId'
     );
   }, [selectedProducts, distribuidoresStore]);
 
@@ -121,6 +134,7 @@ const Distribuidores = () => {
                   onChange={setSelectedProducts}
                   style={{ width: "100%" }}
                   options={formattedOptions}
+                  virtual={false} // <--- Deshabilita la virtualización
                 />
               </div>
             </div>

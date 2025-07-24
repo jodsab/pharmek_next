@@ -59,7 +59,18 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-pharmek">
-          <p>PHARMEK</p>
+          <p className="logo-footer">PHARMEK</p>
+          <div className="footer_mapa">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3900.871972329881!2d-77.04279338459884!3d-12.109681191424235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c8c542e2d4c1%3A0xd7c997d9f3d7a99!2sAv.%20Pardo%20y%20Aliaga%2C%20San%20Isidro%2015073!5e0!3m2!1ses!2spe!4v1718733370260!5m2!1ses!2spe"
+              width="100%"
+              height="150"
+              style={{ border: 0, borderRadius: "8px" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
         </div>
       </div>
       <div className="linea_blanca"></div>

@@ -9,6 +9,13 @@ const myriad = localFont({
   display: "swap",
 });
 
+const futura = localFont({
+  src: "../resources/fonts/Futurabold/futuraboldcondensedoriginal.otf",
+  display: "swap",
+  weight: "700",
+  variable: "--font-futura",
+});
+
 export const metadata = {
   title: "Pharmek",
   description:
@@ -32,7 +39,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="es">
-      <body className={myriad.className}>
+      <body className={`${myriad.variable} ${futura.variable}`}>
         <SessionProviderWrapper session={session}>
           {children}
         </SessionProviderWrapper>
