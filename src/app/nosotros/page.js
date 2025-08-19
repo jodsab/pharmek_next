@@ -16,34 +16,18 @@ const NosotrosPage = () => {
       <div className="nosotros_container content">
         <section className="section">
           <div className="text-content">
-            <h3>NOSOTROS</h3>
+            <h3>¿QUIENES SOMOS?</h3>
             <div>
               <p>
-                Pharmek es una compañía farmacéutica veterinaria, nació en abril
-                del año 2010 constituida con capital 100% peruano, el objetivo
-                era producir productos propios eso era la idea desde un
-                principio, realizamos todas las exigencias que solicita Senasa
-                para poder realizar los estudios de estabilidad, pruebas de
-                campo, para demostrar la eficacia y respuesta de nuestros
-                productos en campo dirigida al gremio de la ganadería y animales
-                de compañía de gran importancia para el sector pecuario. A
-                partir del año 2014 se inicia las operaciones comerciales con el
-                objetivo de proyectarse a ser una empresa de productos de
-                calidad y de buen servicio. La premisa fundamental de Pharmek es
-                ofrecer productos que respondan a las necesidades del sector
-                pecuario con buena calidad y precios competitivos.
-              </p>
-              <p>
-                De igual manera hemos definido un proyecto de desarrollo de
-                nuevos productos, proyecto que va por buen camino y que
-                seguramente dará sus frutos durante el próximo año.
-              </p>
-              <p>
-                Con el apoyo y compromiso de todos ustedes lograremos ubicar a
-                Pharmek en los primeros lugares del mercado Nacional y su
-                crecimiento redundará en el crecimiento personal de nuestros
-                empleados y en la apertura de nuevos puestos de trabajo que
-                contribuirán al cumplimiento de su objetivo social.
+                Pharmek International Corporation SAC es una empresa y
+                laboratorio peruano fundado en octubre de 2020, dedicado a la
+                fabricación, distribución y comercialización de productos
+                veterinarios propios. Comprometido con la salud animal,
+                desarrolla soluciones seguras, eficaces y de alta calidad para
+                clínicas, distribuidores y productores pecuarios. Gracias a
+                materias primas certificadas, tecnología moderna e innovación
+                constante, Pharmek se ha consolidado como una alternativa
+                confiable y competitiva en el mercado veterinario.
               </p>
             </div>
           </div>
@@ -76,9 +60,11 @@ const NosotrosPage = () => {
           <div className="text-content">
             <h3>MISIÓN</h3>
             <p>
-              Consolidar nuestra presencia en el mercado nacional, así como
-              también expandirnos en los mercados internacionales respaldados
-              con productos de excelentes estándares de calidad.
+              Desarrollar, fabricar y comercializar productos veterinarios de
+              excelencia que contribuyan a la salud y bienestar animal,
+              respaldados por procesos productivos eficientes, materias primas
+              certificadas y un equipo comprometido con la mejora continua y la
+              satisfacción del cliente.
             </p>
           </div>
         </section>
@@ -99,10 +85,35 @@ const NosotrosPage = () => {
           <div className="text-content">
             <h3>VISIÓN</h3>
             <p>
-              Ser reconocidos como una empresa líder en el mercado farmacéutico
-              veterinario, innovando constantemente y ofreciendo soluciones
-              integrales para la salud y el bienestar animal.
+              Ser una empresa líder en el sector veterinario latinoamericano,
+              reconocida por la calidad, eficacia y seguridad de nuestros
+              productos, el compromiso con nuestros clientes y el impulso
+              constante hacia la innovación científica.
             </p>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="text-content">
+            <h3>PORQUE CONFIAR EN NOSOTROS?</h3>
+            <div>
+              <p>✅ Fabricación propia con control total de calidad</p>
+              <p>✅ Insumos de proveedores certificados</p>
+              <p>✅ Fórmulas seguras y efectivas</p>
+              <p>✅ Atención personalizada y soporte técnico</p>
+              <p>✅ Comprometidos con el bienestar animal</p>
+            </div>
+          </div>
+          <div className="image-content">
+            <div className="image-wrapper">
+              <Image
+                src={"/grupo.png"}
+                alt="Imagen Nosotros Pharmek"
+                width={500} // Puedes ajustar el ancho y alto según tus necesidades de diseño
+                height={300}
+                style={{ objectFit: "cover" }}
+              />
+            </div>
           </div>
         </section>
       </div>

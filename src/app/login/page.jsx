@@ -1,17 +1,15 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import logo from "../../../public/img/logo.png";
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
+import supabase from "@/libs/supabase";
 
 import "./styles.scss";
 
 const Login = () => {
-  const { data: session, status } = useSession();
-
   const {
     register,
     handleSubmit,
@@ -20,30 +18,22 @@ const Login = () => {
   const router = useRouter();
   const [error, setError] = useState(null);
 
-  const onSubmit = handleSubmit(async (data) => {
-    const res = await signIn("credentials", {
-      email: data.email,
-      password: data.password,
-      redirect: false,
+  const onSubmit = handleSubmit(async ({ email, password }) => {
+    setError(null);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
 
-    if (res.error) {
-      setError(res.error);
-    } else {
-      router.push("/");
-      router.refresh();
+    if (error) {
+      setError(error.message);
+      return;
     }
+
+    // Login exitoso: redirigir, guardar info, etc.
+    router.push("/"); // O la ruta que quieras
   });
-
-  useEffect(() => {
-    if (status === "loading") {
-    }
-
-    if (!session) {
-    } else {
-      router.push("/");
-    }
-  }, [session]);
 
   return (
     <WithNavbarAndFooter>

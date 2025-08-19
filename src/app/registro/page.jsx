@@ -2,15 +2,14 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import logo from "../../../public/img/logo.png";
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
+import supabase from "@/libs/supabase";
 
 import "./styles.scss";
 
 const Regitro = () => {
-  const { data: session, status } = useSession();
   const {
     register,
     handleSubmit,
@@ -20,42 +19,45 @@ const Regitro = () => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (data.password !== data.confirmPassword) {
-      return alert("Las contraseñas no coinciden");
+      alert("Las contraseñas no coinciden");
+      return;
     }
 
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({
-          username: data.username,
-          email: data.email,
-          password: data.password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const resJson = await res.json();
+    const { email, password, username, celular } = data;
 
-      if (res.ok) {
-        router.push("/login");
-      } else {
-        alert(resJson);
+    // 1. Registrar usuario en auth
+    const { data: signupData, error: signupError } = await supabase.auth.signUp(
+      {
+        email,
+        password,
       }
-    } catch (error) {
-      console.log(error);
+    );
+
+    if (signupError) {
+      alert("Error registrando: " + signupError.message);
+      return;
     }
+
+    const user = signupData.user;
+
+    // 2. Guardar datos adicionales en tu tabla `usuarios`
+    const { error: insertError } = await supabase.from("usuarios").insert([
+      {
+        id_user: user.id, // debe coincidir con el campo de tu tabla
+        nombre: username,
+        celular: celular,
+        email: email,
+      },
+    ]);
+
+    if (insertError) {
+      alert("Error guardando datos del usuario: " + insertError.message);
+      return;
+    }
+
+    alert("¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.");
+    router.push("/login"); // o a donde quieras redirigir
   });
-
-  useEffect(() => {
-    if (status === "loading") {
-    }
-
-    if (!session) {
-    } else {
-      router.push("/");
-    }
-  }, [session]);
 
   return (
     <WithNavbarAndFooter>
@@ -114,6 +116,29 @@ const Regitro = () => {
             {errors.email && (
               <span className="text-red-500 text-xs">
                 {errors.email.message}
+              </span>
+            )}
+
+            <label
+              htmlFor="celular"
+              className="text-slate-500 mb-2 block text-sm"
+            >
+              Celular:
+            </label>
+            <input
+              type="text"
+              {...register("celular", {
+                required: {
+                  value: true,
+                  message: "El celular es requerido",
+                },
+              })}
+              className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
+              placeholder="Ingresa tu número de celular"
+            />
+            {errors.celular && (
+              <span className="text-red-500 text-xs">
+                {errors.celular.message}
               </span>
             )}
 

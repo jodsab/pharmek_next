@@ -1,25 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaUser, FaUserTimes, FaUserPlus } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
 import logo from "@public/img/logo.jpg";
+import { useAuthStore } from "@/store/useAuthStore";
 
 import "./styles.scss";
 
 const ICONS_SIZE = 14;
 
 const NavbarDesktop = () => {
-  const { data: session, status } = useSession();
-
-  if (status === "loading") {
-  }
-
-  if (!session) {
-  } else {
-  }
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <div className="navbar_container_mobile">
@@ -73,13 +67,13 @@ const NavbarDesktop = () => {
               </Link>
             </li>
           </ul>
-          {session ? (
+          {user ? (
             <div className="flex items-center gap-4">
               <p>
-                Hola, <strong>{session.user.name}</strong>!
+                Hola, <strong>{user?.email}</strong>!
               </p>
               <button
-                onClick={() => signOut()}
+                onClick={logout}
                 className="flex items-center gap-2 border border-red-600 bg-white text-red-600 py-2 px-3 rounded hover:bg-red-600 hover:text-white"
               >
                 <FaUserTimes size={16} />

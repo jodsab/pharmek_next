@@ -1,8 +1,7 @@
 import localFont from "next/font/local";
-import SessionProviderWrapper from "./SessionProviderWrapper";
+import { AuthProvider } from "@/context/AuthContext";
 import "./globals.scss";
 import "./globals.css";
-import { getServerSession } from "next-auth";
 
 const myriad = localFont({
   src: "../resources/fonts/Myriad/Myriad Pro-Regular.woff2",
@@ -35,14 +34,10 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession();
-
   return (
     <html lang="es">
       <body className={`${myriad.variable} ${futura.variable}`}>
-        <SessionProviderWrapper session={session}>
-          {children}
-        </SessionProviderWrapper>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

@@ -1,13 +1,6 @@
 @import "../../resources/styles/colors.scss";
 @import "../../resources/styles/mediaQueries.scss";
 
-@font-face {
-  font-family: "primetime";
-  src: url("../../app/primetime.ttf");
-  font-weight: 400;
-  font-style: normal;
-}
-
 footer {
   background-color: $primary;
   display: flex;
@@ -44,7 +37,6 @@ footer {
   }
 
   .footer-pharmek {
-    font-family: "primetime";
     font-size: 40px;
     .footer_mapa iframe {
       width: 100%;

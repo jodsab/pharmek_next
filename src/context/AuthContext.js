@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAppStore } from "@/store/useAppStore";
-import supabase from "@/lib/supabaseClient";
+import { useAuthStore } from "@/store/useAuthStore";
+import supabase from "@/libs/supabase";
 
 export function AuthProvider({ children }) {
-  const setUser = useAppStore((state) => state.setUser);
+  const setUser = useAuthStore((state) => state.setUser);
 
   useEffect(() => {
     // Revisa sesión activa al cargar
