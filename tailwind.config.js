@@ -14,13 +14,13 @@ module.exports = {
         // Personaliza el color 'green'
         green: {
           DEFAULT: "#008556", // Este es el verde que se aplicará al usar `bg-green` o `text-green`
-          light: "#98FB98", // Puedes agregar otras variantes de `green` si quieres
-          dark: "#006400",
+          light: "#4caf89", // Puedes agregar otras variantes de `green` si quieres
+          dark: "#005f3c",
         },
         blue: {
           DEFAULT: "#1226aa", // Este es el verde que se aplicará al usar `bg-green` o `text-green`
-          light: "#98FB98", // Puedes agregar otras variantes de `green` si quieres
-          dark: "#006400",
+          light: "#3f51d1", // Puedes agregar otras variantes de `green` si quieres
+          dark: "#0a1970",
         },
       },
     },

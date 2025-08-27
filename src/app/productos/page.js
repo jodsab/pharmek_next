@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
 import SeeProduct from "@/components/SeeProduct";
 import Anuncio from "@/components/Anuncio";
-// Asegúrate de que useGetProducts ahora trae los productos *incluyendo* las categorías a través de la tabla de unión
 import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
 import FilterSidebar from "./components/FilterSidebar";
 import { useProductsStore } from "@/libs/store-products";
@@ -16,70 +15,43 @@ const Productos = ({ searchParams }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useGetProducts debería obtener los productos *incluyendo* las categorías a través de la tabla de unión
-  useGetProducts(); // Este hook debería actualizar useProductsStore
+  useGetProducts();
 
   const products = useProductsStore((state) => state.products);
   const productLoading = useProductsStore((state) => state.loading);
   const categories = useCategoriesStore((state) => state.categories);
 
-  // >>>>>>>>>> LOGS DE DEPURACIÓN <<<<<<<<<<
   useEffect(() => {
     if (!productLoading) {
       if (products && products.length > 0) {
-        setSelectedProducts(products); // Inicializa con todos los productos si hay
+        setSelectedProducts(products);
       } else {
-        setSelectedProducts([]); // Vacío si no hay productos
+        setSelectedProducts([]);
       }
       setLoading(false);
     }
-  }, [products, productLoading, categories]); // Añadido 'categories' a las dependencias por si acaso
+  }, [products, productLoading, categories]);
 
   const handleFilterChange = (selectedCategories) => {
-    // console.log("Filtro cambiado. Categorías seleccionadas:", selectedCategories); // Log opcional
-    // console.log("Productos disponibles para filtrar:", products); // Log opcional
-
     if (!products || products.length === 0) {
-      // console.log("No hay productos para filtrar. Estableciendo selectedProducts a []"); // Log opcional
       setSelectedProducts([]);
       return;
     }
 
     if (selectedCategories.length === 0) {
-      // console.log("No hay categorías seleccionadas. Mostrando todos los productos."); // Log opcional
-      setSelectedProducts(products); // Mostrar todos los productos si no hay filtros seleccionados
+      setSelectedProducts(products);
     } else {
-      // console.log("Aplicando filtro..."); // Log opcional
       const filtered = products.filter((product) => {
-        // console.log("  Evaluando producto:", product.nombre); // Log opcional
-
-        // --- Lógica de Filtrado CORREGIDA para tabla de unión explícita ---
-        // 1. Verifica si el producto tiene el campo de relación de la tabla de unión
-        //    y si es un array
         if (!Array.isArray(product.categoriesOnProducts)) {
-          // console.log("    Producto no tiene categoriesOnProducts como array. Ignorando."); // Log opcional
-          return false; // Si no tiene la relación o no es array, no puede coincidir
         }
-
-        // 2. Verifica si *alguno* de los vínculos en la tabla de unión para este producto
-        //    coincide con alguna de las categorías seleccionadas
         const isMatch = product.categoriesOnProducts.some((link) => {
-          // console.log("    Chequeando vínculo:", link); // Log opcional
-          // 3. Asegúrate de que el objeto de categoría real está incluido en el vínculo
           if (!link.category) {
-            // console.log("    Vínculo no tiene el objeto category anidado. Ignorando."); // Log opcional
-            return false; // Si la categoría real no está incluida, este vínculo no sirve para filtrar por nombre
+            return false;
           }
-          // 4. Compara el nombre de la categoría real anidada con las categorías seleccionadas
-          // console.log("    Comparando categoría anidada:", link.category.categoryName, "con seleccionadas:", selectedCategories); // Log opcional
           return selectedCategories.includes(link.category.categoryName);
         });
-        // --- Fin Lógica de Filtrado CORREGIDA ---
-
-        // console.log("  Producto", product.nombre, "es un match?", isMatch); // Log opcional
         return isMatch;
       });
-      // console.log("Productos filtrados:", filtered); // Log opcional
       setSelectedProducts(filtered);
     }
   };
@@ -126,14 +98,12 @@ const Productos = ({ searchParams }) => {
             { label: "Productos" }, // Último item, sin href
           ]}
         />
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-8 text-center md:text-left">
+        <h2 className="text-4xl md:text-4xl font-bold text-blue-dark dark:text-white mb-8 text-center md:text-left">
           Nuestros Productos
-        </h1>
+        </h2>
 
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-          <div className="w-full md:w-64 lg:w-80 flex-shrink-0">
-            {/* FilterSidebar probablemente necesita la lista plana de categorías */}
-            {/* Asegúrate de que useCategoriesStore trae solo los objetos de categoría { id, categoryName } */}
+        <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+          <div className="w-full md:w-64 lg:w-75 flex-shrink-0">
             <FilterSidebar
               onFilterChange={handleFilterChange}
               categories={categories}
@@ -172,13 +142,9 @@ const Productos = ({ searchParams }) => {
           </div>
         </div>
       </div>
-
-      {/* === ANUNCIO === */}
       <div className="w-full dark:bg-gray-800 my-10">
         <Anuncio />
       </div>
-
-      {/* === SEGUNDO CONTAINER: Productos Nuevos === */}
       <div className="container mx-auto px-4 py-8 md:py-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center md:text-left">
           Productos Nuevos

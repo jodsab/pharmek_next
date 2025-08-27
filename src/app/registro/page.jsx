@@ -1,62 +1,62 @@
 "use client";
+
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/img/logo.png";
 import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import supabase from "@/libs/supabase";
+import { useAuth } from "@/hooks/auth/useAuthSession.hook";
 
 import "./styles.scss";
 
-const Regitro = () => {
+function parseError(err) {
+  console.log(err);
+  if (!err) return null;
+  if (typeof err === "string") return err;
+  if (err.message) return err.message;
+  if (err.error_description) return err.error_description;
+  return "Ha ocurrido un error inesperado";
+}
+
+const Registro = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const router = useRouter();
+  const { register: registerUser } = useAuth();
+
+  const [error, setError] = useState(null); // null | string
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = handleSubmit(async (data) => {
+    setError(null);
+    setLoading(true);
+
     if (data.password !== data.confirmPassword) {
-      alert("Las contraseñas no coinciden");
+      setError("Las contraseñas no coinciden");
+      setLoading(false);
       return;
     }
 
-    const { email, password, username, celular } = data;
+    try {
+      const { ok, message } = await registerUser(data);
 
-    // 1. Registrar usuario en auth
-    const { data: signupData, error: signupError } = await supabase.auth.signUp(
-      {
-        email,
-        password,
+      if (!ok) {
+        setError(message);
+        setLoading(false);
+        return;
       }
-    );
 
-    if (signupError) {
-      alert("Error registrando: " + signupError.message);
-      return;
+      alert("¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.");
+      router.push("/");
+    } catch (err) {
+      setError(parseError(err));
+    } finally {
+      setLoading(false);
     }
-
-    const user = signupData.user;
-
-    // 2. Guardar datos adicionales en tu tabla `usuarios`
-    const { error: insertError } = await supabase.from("usuarios").insert([
-      {
-        id_user: user.id, // debe coincidir con el campo de tu tabla
-        nombre: username,
-        celular: celular,
-        email: email,
-      },
-    ]);
-
-    if (insertError) {
-      alert("Error guardando datos del usuario: " + insertError.message);
-      return;
-    }
-
-    alert("¡Registro exitoso! Revisa tu correo para confirmar tu cuenta.");
-    router.push("/login"); // o a donde quieras redirigir
   });
 
   return (
@@ -70,46 +70,54 @@ const Regitro = () => {
             height={0}
             alt="logo"
           />
-          <p className="text-3xl mx-auto my-4">Registrate en Pharmek</p>
+          <p className="text-3xl mx-auto my-4">Regístrate en Pharmek</p>
+
           <form onSubmit={onSubmit} className="w-200">
-            <label
-              htmlFor="username"
-              className="text-slate-500 mb-2 block text-sm"
-            >
-              Nombre:
+            {error && (
+              <p className="bg-red-500 text-white p-3 rounded mb-2">{error}</p>
+            )}
+
+            {/* full_name */}
+            <label className="text-slate-500 mb-2 block text-sm">
+              Nombre completo:
             </label>
             <input
               type="text"
-              {...register("username", {
-                required: {
-                  value: true,
-                  message: "El nombre es requerido",
-                },
+              {...register("full_name", {
+                required: "El nombre completo es requerido",
               })}
               className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
-              placeholder="Ingresa tu nombre"
+              placeholder="Ingresa tu nombre completo"
             />
-
-            {errors.username && (
+            {errors.full_name && (
               <span className="text-red-500 text-xs">
-                {errors.username.message}
+                {errors.full_name.message}
               </span>
             )}
 
-            <label
-              htmlFor="email"
-              className="text-slate-500 mb-2 block text-sm"
-            >
-              Email:
+            {/* user_name */}
+            <label className="text-slate-500 mb-2 block text-sm">
+              Nombre de usuario:
             </label>
             <input
-              type="email"
-              {...register("email", {
-                required: {
-                  value: true,
-                  message: "El correo es requerido",
-                },
+              type="text"
+              {...register("user_name", {
+                required: "El nombre de usuario es requerido",
               })}
+              className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
+              placeholder="Ej: juan_perez"
+            />
+            {errors.user_name && (
+              <span className="text-red-500 text-xs">
+                {errors.user_name.message}
+              </span>
+            )}
+
+            {/* email */}
+            <label className="text-slate-500 mb-2 block text-sm">Email:</label>
+            <input
+              type="email"
+              {...register("email", { required: "El correo es requerido" })}
               className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
               placeholder="Ingresa tu correo electrónico"
             />
@@ -119,20 +127,13 @@ const Regitro = () => {
               </span>
             )}
 
-            <label
-              htmlFor="celular"
-              className="text-slate-500 mb-2 block text-sm"
-            >
+            {/* celular */}
+            <label className="text-slate-500 mb-2 block text-sm">
               Celular:
             </label>
             <input
               type="text"
-              {...register("celular", {
-                required: {
-                  value: true,
-                  message: "El celular es requerido",
-                },
-              })}
+              {...register("celular", { required: "El celular es requerido" })}
               className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
               placeholder="Ingresa tu número de celular"
             />
@@ -142,19 +143,14 @@ const Regitro = () => {
               </span>
             )}
 
-            <label
-              htmlFor="password"
-              className="text-slate-500 mb-2 block text-sm"
-            >
+            {/* password */}
+            <label className="text-slate-500 mb-2 block text-sm">
               Contraseña:
             </label>
             <input
               type="password"
               {...register("password", {
-                required: {
-                  value: true,
-                  message: "La contraseña es requerida",
-                },
+                required: "La contraseña es requerida",
               })}
               className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
               placeholder="********"
@@ -165,19 +161,14 @@ const Regitro = () => {
               </span>
             )}
 
-            <label
-              htmlFor="confirmPassword"
-              className="text-slate-500 mb-2 block text-sm"
-            >
+            {/* confirmPassword */}
+            <label className="text-slate-500 mb-2 block text-sm">
               Confirma tu contraseña:
             </label>
             <input
               type="password"
               {...register("confirmPassword", {
-                required: {
-                  value: true,
-                  message: "Confirmar las contraseña es requerida",
-                },
+                required: "Confirmar la contraseña es requerido",
               })}
               className="p-3 rounded block mb-2 bg-slate-100 w-full outline-none"
               placeholder="********"
@@ -188,8 +179,16 @@ const Regitro = () => {
               </span>
             )}
 
-            <button className="w-full bg-green hover:bg-blue text-white p-3 rounded-lg mt-2">
-              Registrarme
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full p-3 rounded-lg mt-2 text-white ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green hover:bg-blue"
+              }`}
+            >
+              {loading ? "Registrando..." : "Registrarme"}
             </button>
           </form>
         </div>
@@ -198,4 +197,4 @@ const Regitro = () => {
   );
 };
 
-export default Regitro;
+export default Registro;

@@ -1,64 +1,36 @@
-import { useAppStore } from "@/store/useAuthStore";
-import { supabase } from "@/lib/supabase"; // Asegúrate de importar correctamente tu instancia
+import { useAuthStore } from "@/store/useAuthStore";
+import * as authService from "@/services/authService";
 
-export const useAuthSession = () => {
-  const setUser = useAppStore((state) => state.setUser);
+export const useAuth = () => {
+  const { user, setUser, clearUser } = useAuthStore();
 
-  // 🟢 LOGIN
-  const login = async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+  const register = async (values) => {
+    const res = await authService.register(values);
 
-    if (error) {
-      console.error("Login error:", error.message);
-      return { error };
+    if (res.user) {
+      setUser(res.user);
+      return { ok: true, ...res };
     }
 
-    if (data?.session?.user) {
-      setUser(data.session.user);
-    }
-
-    return { data };
+    return { ok: false, ...res };
   };
 
-  // 🔴 LOGOUT
+  const login = async ({ email, password }) => {
+    const res = await authService.login({ email, password });
+
+    if (res.user) {
+      setUser(res.user);
+      return { ok: true, ...res };
+    }
+
+    return { ok: false, ...res };
+  };
+
   const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error("Logout error:", error.message);
-      return { error };
-    }
-
-    setUser(null);
-    return { success: true };
+    const res = await authService.logout();
+    if (res.ok) clearUser();
+    return res;
   };
 
-  // 🟡 REGISTER
-  const register = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error("Register error:", error.message);
-      return { error };
-    }
-
-    // No se inicia sesión automáticamente si Supabase tiene activado el email de confirmación
-    if (data?.user) {
-      setUser(data.user);
-    }
-
-    return { data };
-  };
-
-  return {
-    login,
-    logout,
-    register,
-  };
+  return { user, register, login, logout };
 };
