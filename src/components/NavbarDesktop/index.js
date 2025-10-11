@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FaUser, FaUserTimes, FaUserPlus } from "react-icons/fa";
-import { CiLogout } from "react-icons/ci";
+import { useRouter } from "next/navigation";
+import { FaUser, FaUserTimes, FaUserPlus, FaHome } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { HiOutlineUser } from "react-icons/hi";
 import logo from "@public/img/logo.jpg";
@@ -18,57 +18,91 @@ import "./styles.scss";
 const ICONS_SIZE = 14;
 
 const NavbarDesktop = () => {
-  const user = useAuthStore((state) => state.user); // solo leemos el user del store
-  const { logout } = useAuth(); // 👈 traemos la función desde el hook
+  const user = useAuthStore((state) => state.user);
+  const { logout } = useAuth();
+  const router = useRouter();
+
+  const handleClickOnProfile = () => {
+    router.push("/perfil");
+  };
 
   return (
     <div className="navbar_container_mobile">
       <div className="desktop_container_area"></div>
       <div className="desktop_container">
-        <nav>
+        <nav className="flex items-center justify-between">
+          {/* Logo */}
           <Link className="logo_link" href="/">
             <Image
               className="logo"
-              height={500}
-              width={"100%"}
+              height={50}
+              width={120}
               src={logo}
               alt="logo"
             />
           </Link>
 
-          <ul className="menu_bar">
+          {/* Menu */}
+          <ul className="menu_bar flex items-center gap-6">
             <li>
-              <Link href="/productos">
+              <Link
+                href="/productos"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Productos</p>
               </Link>
             </li>
             <li>
-              <Link href="/distribuidores">
+              <Link
+                href="/distribuidores"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Distribuidores</p>
               </Link>
             </li>
             <li>
-              <Link href="/contactenos">
+              <Link
+                href="/contactenos"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Contáctenos</p>
               </Link>
             </li>
             <li>
-              <Link href="/nosotros">
+              <Link
+                href="/nosotros"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Nosotros</p>
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link
+                href="/albergue"
+                className="flex items-center gap-2 hover:text-green"
+              >
+                <p>Albergue</p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Asesoría</p>
               </Link>
             </li>
             <li>
-              <Link href="/">
+              <Link
+                href="/"
+                className="flex items-center gap-2 hover:text-green"
+              >
                 <p>Blog</p>
               </Link>
             </li>
           </ul>
 
+          {/* Auth Options */}
           {user ? (
             <Dropdown
               menu={{
@@ -76,9 +110,11 @@ const NavbarDesktop = () => {
                   {
                     key: "1",
                     label: (
-                      <p>
-                        Hola, <strong>{user?.email}</strong>!
-                      </p>
+                      <button onClick={handleClickOnProfile}>
+                        <p>
+                          Hola, <strong>{user?.email}</strong>!
+                        </p>
+                      </button>
                     ),
                   },
                   {
@@ -86,7 +122,7 @@ const NavbarDesktop = () => {
                     label: (
                       <button
                         onClick={logout}
-                        className="flex items-center gap-2 border border-red-600 bg-white text-red-600 py-2 px-3 rounded hover:bg-red-600 hover:text-white"
+                        className="flex items-center gap-2 border w-full border-red-600 bg-white text-red-600 py-2 px-3 rounded hover:bg-red-600 hover:text-white"
                       >
                         <FaUserTimes size={16} />
                         <p>Cerrar sesión</p>
@@ -99,7 +135,7 @@ const NavbarDesktop = () => {
             >
               <a
                 onClick={(e) => e.preventDefault()}
-                className="flex items-center gap-1"
+                className="flex items-center gap-1 cursor-pointer"
               >
                 <HiOutlineUser />
                 Mi cuenta
