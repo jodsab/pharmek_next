@@ -1,4 +1,4 @@
-@import "../resources/styles/mediaQueries.scss";
+@import "@styles/mediaQueries.scss";
 
 * {
   box-sizing: border-box;
@@ -37,7 +37,7 @@ body {
 
 @font-face {
   font-family: "Myriad";
-  src: url("../resources/fonts/Myriad/Myriad Pro-Regular.woff2") format("woff2");
+  src: url("../src/assets/fonts/Myriad/MyriadPro.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

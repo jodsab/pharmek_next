@@ -19,10 +19,11 @@
     "incremental": true,
     "types": ["node"],
     "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@/*": ["src/*"],
+      "@styles/*": ["src/ui/styles/*"],
+      "@components/*": ["src/ui/components/*"],
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
