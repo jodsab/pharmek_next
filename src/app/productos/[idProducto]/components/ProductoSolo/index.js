@@ -1,23 +1,22 @@
-"use client";
+'use client'
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion"; // Importa motion y AnimatePresence
-
-import { FaWhatsapp } from "react-icons/fa";
-import { FaBuildingCircleArrowRight } from "react-icons/fa6";
+import { AnimatePresence, motion } from 'framer-motion' // Importa motion y AnimatePresence
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
+import { FaWhatsapp } from 'react-icons/fa'
+import { FaBuildingCircleArrowRight } from 'react-icons/fa6'
 
 // Si usas un archivo SCSS para estilos adicionales, mantenlo
 // import "./styles.scss";
 
 // Define la URL de tu imagen de fallback en el directorio public
-const DEFAULT_IMAGE_URL = "/images/defaultproduct.png"; // <-- Verifica esta ruta
+const DEFAULT_IMAGE_URL = '/images/defaultproduct.png' // <-- Verifica esta ruta
 
 // Variantes de animación para la aparición del contenedor principal
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+}
 
 // Variantes de animación para la transición de la imagen principal
 const mainImageVariants = {
@@ -25,14 +24,14 @@ const mainImageVariants = {
   animate: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.3, ease: "easeOut" },
+    transition: { duration: 0.3, ease: 'easeOut' }
   },
   exit: {
     opacity: 0,
     scale: 0.95,
-    transition: { duration: 0.2, ease: "easeIn" },
-  }, // Para cuando una imagen sale
-};
+    transition: { duration: 0.2, ease: 'easeIn' }
+  } // Para cuando una imagen sale
+}
 
 const ProductoSolo = ({ data }) => {
   const {
@@ -44,39 +43,32 @@ const ProductoSolo = ({ data }) => {
     presentaciones,
     registro_senasa,
     animal_mayor_menor,
-    images = [], // Asegura que sea un array
-  } = data || {};
+    images = [] // Asegura que sea un array
+  } = data || {}
 
   // Estado para la URL de la imagen principal
   const [mainImageUrl, setMainImageUrl] = useState(
     images && images.length > 0 ? images[0].url : DEFAULT_IMAGE_URL
-  );
+  )
 
   // Efecto para actualizar la imagen principal si cambian los datos (ej: cambio de producto en ruta dinámica)
   useEffect(() => {
-    setMainImageUrl(
-      images && images.length > 0 ? images[0].url : DEFAULT_IMAGE_URL
-    );
-  }, [images, id]); // Dependencia en el array de imágenes y el ID del producto
+    setMainImageUrl(images && images.length > 0 ? images[0].url : DEFAULT_IMAGE_URL)
+  }, [images, id]) // Dependencia en el array de imágenes y el ID del producto
 
   // Define tamaños de imagen.
-  const mainImageSize = 500; // Referencia para el contenedor
-  const thumbSize = 80; // Tamaño para las miniaturas
+  const mainImageSize = 500 // Referencia para el contenedor
+  const thumbSize = 80 // Tamaño para las miniaturas
 
   // Verifica si el producto tiene imágenes reales (excluyendo el fallback)
-  const hasRealImages = images && images.length > 0;
+  const hasRealImages = images && images.length > 0
 
   return (
     // Contenedor principal con animación de aparición
-    <motion.div
-      className="content"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <motion.div className="content" variants={containerVariants} initial="hidden" animate="visible">
       {/* Título del Producto */}
       <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center md:text-left">
-        {nombre || "Producto sin nombre"}
+        {nombre || 'Producto sin nombre'}
       </h1>
 
       {/* Contenedor principal de layout: flex en desktop (row), columnas por defecto en mobile */}
@@ -89,7 +81,7 @@ const ProductoSolo = ({ data }) => {
           <div className="relative w-full aspect-square md:aspect-auto md:h-[500px] lg:h-[500px] mb-4 rounded-lg overflow-hidden shadow-md  dark:bg-gray-700 flex items-center justify-center">
             {/* Usamos AnimatePresence y motion para animar la transición de la imagen principal */}
             <AnimatePresence mode="wait">
-              {" "}
+              {' '}
               {/* mode="wait" espera a que la salida termine antes de que la entrada empiece */}
               {mainImageUrl ? (
                 <motion.div
@@ -102,7 +94,7 @@ const ProductoSolo = ({ data }) => {
                 >
                   <Image
                     src={mainImageUrl} // Usa la URL del estado
-                    alt={`Imagen principal de ${nombre || "producto"}`} // Alt text dinámico
+                    alt={`Imagen principal de ${nombre || 'producto'}`} // Alt text dinámico
                     layout="fill" // La imagen llena el contenedor padre
                     objectFit="contain" // O "cover" si prefieres que recorte
                     priority={true} // Considera añadir priority si esta es la imagen principal visible al cargar
@@ -127,11 +119,7 @@ const ProductoSolo = ({ data }) => {
           {/* Solo muestra las miniaturas si hay imágenes reales */}
           {hasRealImages && (
             // Contenedor de las miniaturas. Aplica flex y overflow horizontal para el scroll.
-            <div
-              className={`miniaturas mt-4 ${
-                images.length > 11 ? "slidable" : ""
-              }`}
-            >
+            <div className={`miniaturas mt-4 ${images.length > 11 ? 'slidable' : ''}`}>
               {/* Contenedor interno flex para las miniaturas */}
               <div className="miniaturas_container flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
                 {/* Mapea sobre las imágenes reales para crear miniaturas */}
@@ -141,14 +129,14 @@ const ProductoSolo = ({ data }) => {
                     key={image.id || index} // Usa el ID de la imagen como key, si no, el index
                     className={`thumbnail-item flex-shrink-0 w-20 h-20 relative cursor-pointer border-2 rounded-md overflow-hidden transition-all duration-200 ease-in-out ${
                       image.url === mainImageUrl
-                        ? "border-blue-500 shadow-md"
-                        : "border-transparent opacity-75 hover:opacity-100"
+                        ? 'border-blue-500 shadow-md'
+                        : 'border-transparent opacity-75 hover:opacity-100'
                     }`}
                     onClick={() => setMainImageUrl(image.url)} // Al hacer clic, cambia la imagen principal
                   >
                     <Image
                       src={image.url} // URL de la miniatura
-                      alt={`Miniatura ${index + 1} de ${nombre || "producto"}`} // Alt text dinámico
+                      alt={`Miniatura ${index + 1} de ${nombre || 'producto'}`} // Alt text dinámico
                       width={thumbSize} // Tamaño para next/image (importante para optimización)
                       height={thumbSize} // Tamaño para next/image
                       objectFit="cover" // Cubre el área de la miniatura
@@ -177,26 +165,26 @@ const ProductoSolo = ({ data }) => {
           <div className="description mt-4 md:mt-0 space-y-4 text-gray-700 dark:text-gray-300">
             <p>
               <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Descripción:{" "}
+                Descripción:{' '}
               </strong>
               {composicion}
             </p>
             <p>
               <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Dosis y vía:{" "}
+                Dosis y vía:{' '}
               </strong>
               {dosis_y_via}
             </p>
             <p>
               <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                Indicaciones:{" "}
+                Indicaciones:{' '}
               </strong>
               {indicaciones}
             </p>
             {registro_senasa && (
               <p>
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                  Registro Senasa:{" "}
+                  Registro Senasa:{' '}
                 </strong>
                 {registro_senasa}
               </p>
@@ -204,7 +192,7 @@ const ProductoSolo = ({ data }) => {
             {presentaciones && (
               <p>
                 <strong className="font-semibold text-gray-900 dark:text-gray-100">
-                  Presentaciones:{" "}
+                  Presentaciones:{' '}
                 </strong>
                 {presentaciones}
               </p>
@@ -220,8 +208,8 @@ const ProductoSolo = ({ data }) => {
           <div className="additional mt-6 flex flex-col sm:flex-row items-center gap-4">
             <a
               href={`https://wa.me/?text=Hola, me interesa el producto ${
-                nombre || ""
-              } (ID: ${id || ""}).`}
+                nombre || ''
+              } (ID: ${id || ''}).`}
               target="_blank"
               rel="noopener noreferrer"
               className="solicitalo flex items-center justify-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-md hover:bg-green-600 transition-colors no-underline flex-shrink-0 w-full sm:w-auto" // Añadido w-full sm:w-auto para ocupar todo el ancho en mobile si es necesario
@@ -242,7 +230,7 @@ const ProductoSolo = ({ data }) => {
         </div>
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default ProductoSolo;
+export default ProductoSolo

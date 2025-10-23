@@ -1,21 +1,12 @@
-import React from "react";
-import Image from "next/image";
-import { CiHeart } from "react-icons/ci";
-import pet from "./assets/pet.png";
+import './styles.scss'
 
-import "./styles.scss";
+import React from 'react'
+import { CiHeart } from 'react-icons/ci'
 
 const PetCard = () => {
   return (
     <div className="pet_card_container">
       <div className="pet_top">
-        <Image
-          className="pet_img"
-          width={200}
-          height={200}
-          src={pet}
-          alt="pet_image"
-        />
         <button className="heart">
           <CiHeart />
         </button>
@@ -30,7 +21,7 @@ const PetCard = () => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PetCard;
+export default PetCard

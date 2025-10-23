@@ -1,5 +1,5 @@
-@import "../../../../resources/styles/colors.scss";
-@import "../../../../resources/styles/mediaQueries.scss";
+@import '../../../../resources/styles/colors.scss';
+@import '../../../../resources/styles/mediaQueries.scss';
 
 .slide_container {
   height: 100%;
@@ -62,7 +62,7 @@
     }
 
     .button_cto_ask::before {
-      content: "";
+      content: '';
       position: absolute;
       top: 100%;
       left: 0;

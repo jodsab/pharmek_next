@@ -1,44 +1,39 @@
 // app/page.js (Assuming App Router)
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import Script from "next/script"; // Import Script component
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import SectionHeader from "@/components/SectionHeader";
-import Slider from "./components/Slider";
-import productos from "./assets/productos.png";
-import tiktok from "./assets/tiktok.png";
-import { FaPills } from "react-icons/fa";
-import Image from "next/image";
-import CardCategorie from "@/components/Skeletons/CardCategories/CardCategorie";
+import 'aos/dist/aos.css'
+import './styles.scss'
+
+import Aos from 'aos'
+import Script from 'next/script' // Import Script component
+import { useEffect } from 'react'
+
+import PetList from '@/components/PetList'
+import HeroSection from '@/components/Portada'
+import SectionHeader from '@/components/SectionHeader'
+import CardCategorie from '@/components/Skeletons/CardCategories/CardCategorie'
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+import { useGetCategories } from '@/hooks/categories/useGetCategories.hook'
+import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
+import { useGetProductsDestacados } from '@/hooks/categories/useGetProductsDestacados.hook'
+
+import productos from './assets/productos.png'
+import tiktok from './assets/tiktok.png'
+import Slider from './components/Slider'
 // import Tiktok from "./components/Tiktok"; // Remove the old Tiktok import
-import TiktokEmbed from "./components/TiktokEmbed"; // Import the new component
-import PetList from "@/components/PetList";
-import { useGetCategories } from "@/hooks/categories/useGetCategories.hook";
-import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
-import { useGetProductsDestacados } from "@/hooks/categories/useGetProductsDestacados.hook";
-import HeroSection from "@/components/Portada";
-import Aos from "aos";
-import "aos/dist/aos.css";
-import "./styles.scss";
-import BlogCard from "./components/BlogCard";
+import TiktokEmbed from './components/TiktokEmbed' // Import the new component
 
-const tiktokVideoIds = [
-  "7382760567544548613",
-  "7380443882275753222",
-  "7377833903316389125",
-];
+const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 // --- FIN DE SIMULACIÓN ---
 
 export default function Home({ session }) {
-  const { loading: loadingCategories, categories } = useGetCategories();
-  const { loading: loadingProducts, products: productsHook } = useGetProducts();
-  const { loading: loadingProductsDestacados, productsDestacados } =
-    useGetProductsDestacados();
+  const { loading: loadingCategories, categories } = useGetCategories()
+  const { loading: loadingProducts, products: productsHook } = useGetProducts()
+  const { loading: loadingProductsDestacados, productsDestacados } = useGetProductsDestacados()
 
   useEffect(() => {
-    Aos.init();
-  }, []);
+    Aos.init()
+  }, [])
 
   return (
     <main className="main">
@@ -55,9 +50,7 @@ export default function Home({ session }) {
             {loadingProductsDestacados ? (
               <Slider loadingProductsDestacados={loadingProductsDestacados} />
             ) : (
-              productsDestacados && (
-                <Slider productsDestacados={productsDestacados} />
-              )
+              productsDestacados && <Slider productsDestacados={productsDestacados} />
             )}
           </section>
 
@@ -73,7 +66,7 @@ export default function Home({ session }) {
               ) : (
                 categories &&
                 categories?.map((category, index) => {
-                  return <CardCategorie key={index} category={category} />;
+                  return <CardCategorie key={index} category={category} />
                 })
               )}
             </div>
@@ -81,11 +74,7 @@ export default function Home({ session }) {
 
           {/* TikTok Section */}
           <section className="section_tiktok content">
-            <SectionHeader
-              title="TIKTOK"
-              subtitle="Síguenos para ver más contenido"
-              src={tiktok}
-            />
+            <SectionHeader title="TIKTOK" subtitle="Síguenos para ver más contenido" src={tiktok} />
             {/* Render the list of TikTok embeds */}
             <ul className="tiktok_list" data-aos="fade-up">
               {/* Map over your array of video data */}
@@ -100,5 +89,5 @@ export default function Home({ session }) {
         </div>
       </WithNavbarAndFooter>
     </main>
-  );
+  )
 }

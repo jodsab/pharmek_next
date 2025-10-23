@@ -1,32 +1,33 @@
-import { useState, useEffect } from "react";
-import Api from "@/api/Api";
-import { useCategoriesStore } from "@/libs/store-categories";
+import { useEffect, useState } from 'react'
+
+import Api from '@/api/Api'
+import { useCategoriesStore } from '@/libs/store-categories'
 
 const useGetCategories = () => {
-  const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const { setCagoriesStore } = useCategoriesStore();
+  const [loading, setLoading] = useState(false)
+  const [categories, setCategories] = useState([])
+  const { setCagoriesStore } = useCategoriesStore()
 
   const getCategories = async () => {
     try {
-      setLoading(true);
-      const data = await Api.get("/api/categories");
-      const dataJson = await data.json();
+      setLoading(true)
+      const data = await Api.get('/api/categories')
+      const dataJson = await data.json()
       if (dataJson) {
-        setCategories(dataJson);
-        setCagoriesStore(dataJson);
+        setCategories(dataJson)
+        setCagoriesStore(dataJson)
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    getCategories();
-  }, []);
-  return { loading, categories };
-};
+    getCategories()
+  }, [])
+  return { loading, categories }
+}
 
-export { useGetCategories };
+export { useGetCategories }

@@ -1,0 +1,168 @@
+$wsp-color-start: #25d366;
+$wsp-color-end-1: #1da851;
+$wsp-color-end-2: #128c7e;
+$wsp-shadow-color: rgba(37, 211, 102, 0.4);
+$wsp-shadow-color-hover: rgba(37, 211, 102, 0.6);
+
+.btn_float {
+  position: fixed;
+  right: 2rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: float 3s ease-in-out infinite;
+  cursor: pointer;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &::before {
+    inset: -4px;
+    z-index: -1;
+  }
+
+  &::after {
+    inset: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  }
+
+  &:hover {
+    transform: scale(1.15) rotate(5deg);
+
+    &::before {
+      opacity: 0.3;
+      animation: rotate 2s linear infinite;
+    }
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &:active {
+    transform: scale(1.05);
+    transition: transform 0.1s;
+  }
+
+  > * {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover > * {
+    transform: scale(1.1);
+    animation: wiggle 0.5s ease;
+  }
+}
+
+// --- Estilos específicos para WhatsApp ---
+.btn_wsp {
+  bottom: 2rem;
+  background: linear-gradient(
+    135deg,
+    $wsp-color-start 0%,
+    $wsp-color-end-1 50%,
+    $wsp-color-end-2 100%
+  );
+  box-shadow:
+    0 8px 24px $wsp-shadow-color,
+    0 4px 8px $wsp-shadow-color;
+  animation-name: float, pulse-glow-wsp;
+  animation-duration: 3s, 2s;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+
+  &::before {
+    background: linear-gradient(135deg, $wsp-color-start, $wsp-color-end-2);
+  }
+
+  &:hover {
+    box-shadow:
+      0 12px 32px $wsp-shadow-color-hover,
+      0 8px 16px $wsp-shadow-color-hover,
+      0 0 40px $wsp-shadow-color;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn_float {
+    width: 72px;
+    height: 72px;
+    right: 3rem;
+  }
+  .btn_wsp {
+    bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .btn_float {
+    width: 76px;
+    height: 76px;
+    left: 2rem;
+  }
+  .btn_wsp {
+    bottom: 2rem;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-glow-wsp {
+  0%,
+  100% {
+    box-shadow:
+      0 8px 24px $wsp-shadow-color,
+      0 4px 8px $wsp-shadow-color;
+  }
+  50% {
+    box-shadow:
+      0 8px 32px $wsp-shadow-color-hover,
+      0 4px 12px $wsp-shadow-color-hover,
+      0 0 20px $wsp-shadow-color;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  25% {
+    transform: rotate(-10deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(10deg) scale(1.1);
+  }
+}

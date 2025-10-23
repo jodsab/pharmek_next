@@ -1,43 +1,33 @@
-// app/page.js (Assuming App Router)
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import Script from "next/script";
-import SectionHeader from "@/components/SectionHeader";
-import Slider from "./components/Slider";
-import productos from "./assets/productos.png";
-import tiktok from "./assets/tiktok.png";
-import { FaPills } from "react-icons/fa";
-import Image from "next/image";
-import CardCategorie from "@/components/Skeletons/CardCategories/CardCategorie";
-// import Tiktok from "./components/Tiktok"; // Remove the old Tiktok import
-import TiktokEmbed from "./components/TiktokEmbed"; // Import the new component
-import PetList from "@/components/PetList";
-import { useGetCategories } from "@/hooks/categories/useGetCategories.hook";
-import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
-import { useGetProductsDestacados } from "@/hooks/categories/useGetProductsDestacados.hook";
-import Portada from './components/Portada';
-import Aos from "aos";
-import "aos/dist/aos.css";
-import "./styles.scss";
-import BlogCard from "./components/BlogCard";
+import 'aos/dist/aos.css'
+import './styles.scss'
 
-const tiktokVideoIds = [
-  "7382760567544548613",
-  "7380443882275753222",
-  "7377833903316389125",
-];
-// --- FIN DE SIMULACIÓN ---
+import SectionHeader from '@components/SectionHeader'
+import Slider from '@components/Slider'
+import Aos from 'aos'
+import Script from 'next/script'
+import { useEffect } from 'react'
+
+import { useGetCategories } from '@/hooks/categories/useGetCategories.hook'
+import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
+import { useGetProductsDestacados } from '@/hooks/categories/useGetProductsDestacados.hook'
+
+import CardCategorie from './components/CardCategorie'
+import PetList from './components/PetList'
+import Portada from './components/Portada'
+import TiktokEmbed from './components/TiktokEmbed' // Import the new component
+
+const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 
 export default function Home({ session }) {
-  const { loading: loadingCategories, categories } = useGetCategories();
-  const { loading: loadingProducts, products: productsHook } = useGetProducts();
-  const { loading: loadingProductsDestacados, productsDestacados } =
-    useGetProductsDestacados();
+  const { loading: loadingCategories, categories } = useGetCategories()
+  const { loading: loadingProducts, products: productsHook } = useGetProducts()
+  const { loading: loadingProductsDestacados, productsDestacados } = useGetProductsDestacados()
 
   useEffect(() => {
-    Aos.init();
-  }, []);
+    Aos.init()
+  }, [])
 
   return (
     <main className="main">
@@ -52,9 +42,7 @@ export default function Home({ session }) {
           {loadingProductsDestacados ? (
             <Slider loadingProductsDestacados={loadingProductsDestacados} />
           ) : (
-            productsDestacados && (
-              <Slider productsDestacados={productsDestacados} />
-            )
+            productsDestacados && <Slider productsDestacados={productsDestacados} />
           )}
         </section>
 
@@ -62,7 +50,7 @@ export default function Home({ session }) {
           <SectionHeader
             title="PRODUCTOS"
             subtitle="Tenemos todo lo que necesitas aquí"
-            src={productos}
+            src="/assets/images/home/productos.png"
           />
           <div className="productos_section mt-3" data-aos="fade-up">
             {loadingCategories ? (
@@ -70,7 +58,7 @@ export default function Home({ session }) {
             ) : (
               categories &&
               categories?.map((category, index) => {
-                return <CardCategorie key={index} category={category} />;
+                return <CardCategorie key={index} category={category} />
               })
             )}
           </div>
@@ -80,7 +68,7 @@ export default function Home({ session }) {
           <SectionHeader
             title="TIKTOK"
             subtitle="Síguenos para ver más contenido"
-            src={tiktok}
+            src="/assets/images/home/tiktok.png"
           />
           <ul className="tiktok_list" data-aos="fade-up">
             {tiktokVideoIds.map((videoId, index) => (
@@ -93,5 +81,5 @@ export default function Home({ session }) {
         <PetList />
       </div>
     </main>
-  );
+  )
 }

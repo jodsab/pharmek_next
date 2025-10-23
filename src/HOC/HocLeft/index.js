@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
-import Aos from "aos";
-import "aos/dist/aos.css";
+import 'aos/dist/aos.css'
+
+import Aos from 'aos'
+import React, { useEffect } from 'react'
 
 const HocLeft = ({ children }) => {
   useEffect(() => {
-    Aos.init();
-  }, []);
+    Aos.init()
+  }, [])
 
-  return <div data-aos="zoom-out">{children}</div>;
-};
+  return <div data-aos="zoom-out">{children}</div>
+}
 
-export default HocLeft;
+export default HocLeft

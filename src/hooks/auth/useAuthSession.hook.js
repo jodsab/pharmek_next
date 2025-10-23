@@ -1,36 +1,36 @@
-import { useAuthStore } from "@/store/useAuthStore";
-import * as authService from "@/services/authService";
+import * as authService from '@/services/authService'
+import { useAuthStore } from '@/store/useAuthStore'
 
 export const useAuth = () => {
-  const { user, setUser, clearUser } = useAuthStore();
+  const { user, setUser, clearUser } = useAuthStore()
 
-  const register = async (values) => {
-    const res = await authService.register(values);
+  const register = async values => {
+    const res = await authService.register(values)
 
     if (res.user) {
-      setUser(res.user);
-      return { ok: true, ...res };
+      setUser(res.user)
+      return { ok: true, ...res }
     }
 
-    return { ok: false, ...res };
-  };
+    return { ok: false, ...res }
+  }
 
   const login = async ({ email, password }) => {
-    const res = await authService.login({ email, password });
+    const res = await authService.login({ email, password })
 
     if (res.user) {
-      setUser(res.user);
-      return { ok: true, ...res };
+      setUser(res.user)
+      return { ok: true, ...res }
     }
 
-    return { ok: false, ...res };
-  };
+    return { ok: false, ...res }
+  }
 
   const logout = async () => {
-    const res = await authService.logout();
-    if (res.ok) clearUser();
-    return res;
-  };
+    const res = await authService.logout()
+    if (res.ok) clearUser()
+    return res
+  }
 
-  return { user, register, login, logout };
-};
+  return { user, register, login, logout }
+}

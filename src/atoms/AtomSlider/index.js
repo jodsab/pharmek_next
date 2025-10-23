@@ -1,25 +1,23 @@
-"use client";
-import React, { useRef, useState } from "react";
-import Image from "next/image";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
+'use client'
 // Import Swiper styles
-import "swiper/scss";
-import "swiper/scss/pagination";
-import "swiper/scss/navigation";
+import 'swiper/scss'
+import 'swiper/scss/pagination'
+import 'swiper/scss/navigation'
+import './styles.scss'
 
-import "./styles.scss";
-
+import Image from 'next/image'
+import React from 'react'
 // import required modules
-import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 export default function AtomSlider({ ...props }) {
-  const { slides, items } = props;
+  const { slides, items } = props
 
-  const handleSlideChange = (swiper) => {
+  const handleSlideChange = swiper => {
     // Puedes hacer lo que quieras con el índice de la diapositiva activa
-  };
+  }
 
   const ArrData = items?.map((slide, index) => {
     return (
@@ -36,8 +34,8 @@ export default function AtomSlider({ ...props }) {
           <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
         </div>
       </SwiperSlide>
-    );
-  });
+    )
+  })
 
   return (
     <>
@@ -46,11 +44,11 @@ export default function AtomSlider({ ...props }) {
         spaceBetween={10}
         loop
         pagination={{
-          clickable: true,
+          clickable: true
         }}
         autoplay={{
           delay: 4000,
-          disableOnInteraction: false,
+          disableOnInteraction: false
         }}
         navigation
         modules={[Autoplay, Pagination, Navigation]}
@@ -61,5 +59,5 @@ export default function AtomSlider({ ...props }) {
         {ArrData}
       </Swiper>
     </>
-  );
+  )
 }

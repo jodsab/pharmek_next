@@ -1,24 +1,25 @@
-"use client";
-import React from "react";
-import { useRouter } from "next/navigation";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import SeeProduct from "@/components/SeeProduct";
-import ProductoSolo from "./components/ProductoSolo";
-import { useProductsStore } from "@/libs/store-products";
-import ProductBreadcrumb from "@/components/ProductBreadcrumb"; // <-- Importa el nuevo componente
+'use client'
+import React from 'react'
+
+import ProductBreadcrumb from '@/components/ProductBreadcrumb' // <-- Importa el nuevo componente
+import SeeProduct from '@/components/SeeProduct'
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+import { useProductsStore } from '@/libs/store-products'
+
+import ProductoSolo from './components/ProductoSolo'
 
 // Elimina o comenta la importación del archivo SCSS
 // import "./styles.scss";
 
 const ProductoId = ({ params }) => {
   // Obtiene la lista de productos de tu store global
-  const products = useProductsStore((state) => state.products);
+  const products = useProductsStore(state => state.products)
 
   // Busca el producto principal basado en el ID de la URL
-  const product = products.find((p) => p.id == params.idProducto);
+  const product = products.find(p => p.id == params.idProducto)
 
   // Nota: Lista dummy de productos relacionados (mantener por ahora para estructura)
-  const dummyRelatedProducts = Array(8).fill(product);
+  const dummyRelatedProducts = Array(8).fill(product)
 
   return (
     <WithNavbarAndFooter>
@@ -30,9 +31,7 @@ const ProductoId = ({ params }) => {
 
         {/* Renderiza el componente del producto principal si se encuentra */}
         {!product ? (
-          <div className="text-center text-red-500 text-lg">
-            Producto no encontrado.
-          </div>
+          <div className="text-center text-red-500 text-lg">Producto no encontrado.</div>
         ) : (
           <ProductoSolo data={product} />
         )}
@@ -55,7 +54,7 @@ const ProductoId = ({ params }) => {
               <div key={index} className="flex-shrink-0 w-60 sm:w-72 md:w-80">
                 <SeeProduct product={relatedProductData} />
               </div>
-            );
+            )
           })}
           {/* Mensaje si no hay productos relacionados (opcional) */}
           {dummyRelatedProducts.length === 0 && (
@@ -66,7 +65,7 @@ const ProductoId = ({ params }) => {
         </div>
       </div>
     </WithNavbarAndFooter>
-  );
-};
+  )
+}
 
-export default ProductoId;
+export default ProductoId

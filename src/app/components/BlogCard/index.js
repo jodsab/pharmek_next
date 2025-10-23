@@ -1,21 +1,16 @@
-import React from "react";
-import Image from "next/image";
-import { CiHeart, CiCalendar } from "react-icons/ci";
-import blog from "./assets/blog.jpeg";
+import './styles.scss'
 
-import "./styles.scss";
+import Image from 'next/image'
+import React from 'react'
+import { CiCalendar, CiHeart } from 'react-icons/ci'
+
+import blog from './assets/blog.jpeg'
 
 const BlogCard = () => {
   return (
     <div className="blogcard_container">
       <div className="blog_top">
-        <Image
-          className="blog_img"
-          width={200}
-          height={200}
-          src={blog}
-          alt="img blog"
-        />
+        <Image className="blog_img" width={200} height={200} src={blog} alt="img blog" />
         <button className="heart">
           <CiHeart />
         </button>
@@ -36,7 +31,7 @@ const BlogCard = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogCard;
+export default BlogCard

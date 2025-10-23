@@ -1,42 +1,40 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  Heart,
-  MapPin,
   Calendar,
-  Weight,
-  Stethoscope,
   Camera,
-  Share2,
-  Phone,
+  Heart,
   Mail,
-} from "lucide-react";
-import Image from "next/image";
+  MapPin,
+  Phone,
+  Share2,
+  Stethoscope,
+  Weight
+} from 'lucide-react'
+import Image from 'next/image'
+import { useState } from 'react'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function AnimalProfile({ animal }) {
-  const [isLiked, setIsLiked] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [expandedSection, setExpandedSection] = useState(null);
+  const [isLiked, setIsLiked] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [expandedSection, setExpandedSection] = useState(null)
 
-  const toggleSection = (section) => {
-    setExpandedSection(expandedSection === section ? null : section);
-  };
+  const toggleSection = section => {
+    setExpandedSection(expandedSection === section ? null : section)
+  }
 
-  console.log(animal.images[currentImageIndex]);
+  console.log(animal.images[currentImageIndex])
 
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <div className="relative h-96 overflow-hidden">
         <Image
-          src={
-            `/images/auximages${animal.images[currentImageIndex + 5]}` ||
-            "/placeholder.svg"
-          }
+          src={`/images/auximages${animal.images[currentImageIndex + 5]}` || '/placeholder.svg'}
           alt={animal.name}
           width={500} // Ajusta según tu diseño
           height={500} // Ajusta según tu diseño
@@ -55,17 +53,11 @@ export default function AnimalProfile({ animal }) {
             variant="secondary"
             size="sm"
             onClick={() => setIsLiked(!isLiked)}
-            className={`glass-effect ${
-              isLiked ? "text-red-500" : "text-white"
-            }`}
+            className={`glass-effect ${isLiked ? 'text-red-500' : 'text-white'}`}
           >
-            <Heart className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`} />
+            <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            className="glass-effect text-white"
-          >
+          <Button variant="secondary" size="sm" className="glass-effect text-white">
             <Share2 className="w-4 h-4" />
           </Button>
         </div>
@@ -78,14 +70,10 @@ export default function AnimalProfile({ animal }) {
             {/* Story Section */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl text-primary">
-                  Mi Historia
-                </CardTitle>
+                <CardTitle className="text-2xl text-primary">Mi Historia</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg leading-relaxed text-muted-foreground">
-                  {animal.story}
-                </p>
+                <p className="text-lg leading-relaxed text-muted-foreground">{animal.story}</p>
               </CardContent>
             </Card>
 
@@ -103,12 +91,12 @@ export default function AnimalProfile({ animal }) {
                     <div
                       key={index}
                       className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transition-all hover:scale-105 ${
-                        index === currentImageIndex ? "ring-2 ring-primary" : ""
+                        index === currentImageIndex ? 'ring-2 ring-primary' : ''
                       }`}
                       onClick={() => setCurrentImageIndex(index)}
                     >
                       <Image
-                        src={`/images/auximages${image}` || "/placeholder.svg"}
+                        src={`/images/auximages${image}` || '/placeholder.svg'}
                         alt={`${animal.name} - Foto ${index + 1}`}
                         fill
                         className="object-cover"
@@ -129,15 +117,13 @@ export default function AnimalProfile({ animal }) {
                 <div>
                   <Button
                     variant="ghost"
-                    onClick={() => toggleSection("personality")}
+                    onClick={() => toggleSection('personality')}
                     className="w-full justify-between p-0 h-auto text-left"
                   >
-                    <span className="font-semibold">
-                      Personalidad y Comportamiento
-                    </span>
-                    <span>{expandedSection === "personality" ? "−" : "+"}</span>
+                    <span className="font-semibold">Personalidad y Comportamiento</span>
+                    <span>{expandedSection === 'personality' ? '−' : '+'}</span>
                   </Button>
-                  {expandedSection === "personality" && (
+                  {expandedSection === 'personality' && (
                     <div className="mt-3 p-4 bg-muted rounded-lg">
                       <div className="flex flex-wrap gap-2">
                         {animal.personality.map((trait, index) => (
@@ -155,17 +141,15 @@ export default function AnimalProfile({ animal }) {
                   <div>
                     <Button
                       variant="ghost"
-                      onClick={() => toggleSection("needs")}
+                      onClick={() => toggleSection('needs')}
                       className="w-full justify-between p-0 h-auto text-left"
                     >
                       <span className="font-semibold">Cuidados Especiales</span>
-                      <span>{expandedSection === "needs" ? "−" : "+"}</span>
+                      <span>{expandedSection === 'needs' ? '−' : '+'}</span>
                     </Button>
-                    {expandedSection === "needs" && (
+                    {expandedSection === 'needs' && (
                       <div className="mt-3 p-4 bg-muted rounded-lg">
-                        <p className="text-muted-foreground">
-                          {animal.specialNeeds}
-                        </p>
+                        <p className="text-muted-foreground">{animal.specialNeeds}</p>
                       </div>
                     )}
                   </div>
@@ -201,7 +185,7 @@ export default function AnimalProfile({ animal }) {
                 <div className="flex items-center gap-3">
                   <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
                     <span className="text-xs text-primary-foreground font-bold">
-                      {animal.gender === "Macho" ? "M" : "H"}
+                      {animal.gender === 'Macho' ? 'M' : 'H'}
                     </span>
                   </div>
                   <div>
@@ -223,10 +207,7 @@ export default function AnimalProfile({ animal }) {
               <CardContent className="space-y-4">
                 <div>
                   <p className="font-semibold mb-2">Estado de Salud</p>
-                  <Badge
-                    variant="outline"
-                    className="bg-green-50 text-green-700 border-green-200"
-                  >
+                  <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
                     {animal.healthStatus}
                   </Badge>
                 </div>
@@ -236,9 +217,7 @@ export default function AnimalProfile({ animal }) {
                     {animal.vaccinations.map((vaccine, index) => (
                       <div key={index} className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-primary rounded-full" />
-                        <span className="text-sm text-muted-foreground">
-                          {vaccine}
-                        </span>
+                        <span className="text-sm text-muted-foreground">{vaccine}</span>
                       </div>
                     ))}
                   </div>
@@ -253,21 +232,15 @@ export default function AnimalProfile({ animal }) {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="font-semibold mb-2">
-                    {animal.contactInfo.shelter}
-                  </p>
+                  <p className="font-semibold mb-2">{animal.contactInfo.shelter}</p>
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Phone className="w-4 h-4 text-primary" />
-                      <span className="text-sm">
-                        {animal.contactInfo.phone}
-                      </span>
+                      <span className="text-sm">{animal.contactInfo.phone}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Mail className="w-4 h-4 text-primary" />
-                      <span className="text-sm">
-                        {animal.contactInfo.email}
-                      </span>
+                      <span className="text-sm">{animal.contactInfo.email}</span>
                     </div>
                   </div>
                 </div>
@@ -289,12 +262,8 @@ export default function AnimalProfile({ animal }) {
                 <div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
                   <div className="text-center">
                     <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Mapa interactivo
-                    </p>
-                    <p className="text-xs text-muted-foreground">
-                      {animal.location}
-                    </p>
+                    <p className="text-sm text-muted-foreground">Mapa interactivo</p>
+                    <p className="text-xs text-muted-foreground">{animal.location}</p>
                   </div>
                 </div>
               </CardContent>
@@ -303,5 +272,5 @@ export default function AnimalProfile({ animal }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,20 +1,21 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { FaWhatsapp } from "react-icons/fa";
-import { WHATSAPP } from "../../core/whatsapp";
-import { Button, Modal } from "antd";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+'use client'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+import './styles.scss'
 
-import "./styles.scss";
+import { Modal } from 'antd'
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { FaWhatsapp } from 'react-icons/fa'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import { WHATSAPP } from '../../core/whatsapp'
 
 const AtomModal = ({ ...props }) => {
-  const { data, isModalOpen, showModal, handleOk, handleCancel } = props;
+  const { data, isModalOpen, showModal, handleOk, handleCancel } = props
   return (
     <div className="atom_modal_container">
       <Modal
@@ -27,11 +28,7 @@ const AtomModal = ({ ...props }) => {
         width={1100}
       >
         <div className="section-bg">
-          <div
-            onClick={handleCancel}
-            className="modal__boton"
-            id="modal__boton"
-          >
+          <div onClick={handleCancel} className="modal__boton" id="modal__boton">
             x
           </div>
           <div className="modal_inicio">
@@ -53,13 +50,13 @@ const AtomModal = ({ ...props }) => {
             spaceBetween={30}
             loop={true}
             pagination={{
-              clickable: true,
+              clickable: true
             }}
             navigation={true}
             modules={[Pagination, Navigation]}
             className="mySwiper"
           >
-            {typeof data?.src === "string" ? (
+            {typeof data?.src === 'string' ? (
               <SwiperSlide>
                 <div className="img_content">
                   <Image
@@ -87,7 +84,7 @@ const AtomModal = ({ ...props }) => {
                       />
                     </div>
                   </SwiperSlide>
-                );
+                )
               })
             )}
           </Swiper>
@@ -102,6 +99,6 @@ const AtomModal = ({ ...props }) => {
         </div>
       </Modal>
     </div>
-  );
-};
-export default AtomModal;
+  )
+}
+export default AtomModal

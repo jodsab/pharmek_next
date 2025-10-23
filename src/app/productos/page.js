@@ -1,74 +1,73 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import SeeProduct from "@/components/SeeProduct";
-import Anuncio from "@/components/Anuncio";
-import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
-import FilterSidebar from "./components/FilterSidebar";
-import { useProductsStore } from "@/libs/store-products";
-import { useCategoriesStore } from "@/libs/store-categories";
+'use client'
+import { AnimatePresence, motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
 
-import { motion, AnimatePresence } from "framer-motion";
-import Breadcrumb from "@/components/Breadcrumb";
+import Anuncio from '@/components/Anuncio'
+import Breadcrumb from '@/components/Breadcrumb'
+import SeeProduct from '@/components/SeeProduct'
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
+import { useCategoriesStore } from '@/libs/store-categories'
+import { useProductsStore } from '@/libs/store-products'
+
+import FilterSidebar from './components/FilterSidebar'
 
 const Productos = ({ searchParams }) => {
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedProducts, setSelectedProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  useGetProducts();
+  useGetProducts()
 
-  const products = useProductsStore((state) => state.products);
-  const productLoading = useProductsStore((state) => state.loading);
-  const categories = useCategoriesStore((state) => state.categories);
+  const products = useProductsStore(state => state.products)
+  const productLoading = useProductsStore(state => state.loading)
+  const categories = useCategoriesStore(state => state.categories)
 
   useEffect(() => {
     if (!productLoading) {
       if (products && products.length > 0) {
-        setSelectedProducts(products);
+        setSelectedProducts(products)
       } else {
-        setSelectedProducts([]);
+        setSelectedProducts([])
       }
-      setLoading(false);
+      setLoading(false)
     }
-  }, [products, productLoading, categories]);
+  }, [products, productLoading, categories])
 
-  const handleFilterChange = (selectedCategories) => {
+  const handleFilterChange = selectedCategories => {
     if (!products || products.length === 0) {
-      setSelectedProducts([]);
-      return;
+      setSelectedProducts([])
+      return
     }
 
     if (selectedCategories.length === 0) {
-      setSelectedProducts(products);
+      setSelectedProducts(products)
     } else {
-      const filtered = products.filter((product) => {
+      const filtered = products.filter(product => {
         if (!Array.isArray(product.categoriesOnProducts)) {
         }
-        const isMatch = product.categoriesOnProducts.some((link) => {
+        const isMatch = product.categoriesOnProducts.some(link => {
           if (!link.category) {
-            return false;
+            return false
           }
-          return selectedCategories.includes(link.category.categoryName);
-        });
-        return isMatch;
-      });
-      setSelectedProducts(filtered);
+          return selectedCategories.includes(link.category.categoryName)
+        })
+        return isMatch
+      })
+      setSelectedProducts(filtered)
     }
-  };
+  }
 
   if (loading) {
     return (
       <WithNavbarAndFooter>
         <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">
-            Cargando productos...
-          </p>
+          <p className="text-xl text-gray-700 dark:text-gray-300">Cargando productos...</p>
         </div>
       </WithNavbarAndFooter>
-    );
+    )
   }
 
-  const showNoProductsMessage = !loading && selectedProducts.length === 0;
+  const showNoProductsMessage = !loading && selectedProducts.length === 0
 
   const itemVariants = {
     hidden: { opacity: 0, y: 60, scale: 0.85 },
@@ -78,24 +77,24 @@ const Productos = ({ searchParams }) => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
-      },
+        ease: 'easeOut'
+      }
     },
     exit: {
       opacity: 0,
       y: -30,
       scale: 0.85,
-      transition: { duration: 0.4, ease: "easeIn" },
-    },
-  };
+      transition: { duration: 0.4, ease: 'easeIn' }
+    }
+  }
 
   return (
     <WithNavbarAndFooter>
       <div className="content">
         <Breadcrumb
           items={[
-            { label: "Home", href: "/" },
-            { label: "Productos" }, // Último item, sin href
+            { label: 'Home', href: '/' },
+            { label: 'Productos' } // Último item, sin href
           ]}
         />
         <h2 className="text-4xl md:text-4xl font-bold text-blue-dark dark:text-white mb-8 text-center md:text-left">
@@ -104,22 +103,18 @@ const Productos = ({ searchParams }) => {
 
         <div className="flex flex-col md:flex-row gap-6 md:gap-10">
           <div className="w-full md:w-64 lg:w-75 flex-shrink-0">
-            <FilterSidebar
-              onFilterChange={handleFilterChange}
-              categories={categories}
-            />
+            <FilterSidebar onFilterChange={handleFilterChange} categories={categories} />
           </div>
 
           <div className="flex-1 flex justify-center md:block">
             {showNoProductsMessage ? (
               <div className="text-center text-xl text-gray-600 dark:text-gray-400 py-8">
-                No se encontraron productos que coincidan con los filtros
-                seleccionados.
+                No se encontraron productos que coincidan con los filtros seleccionados.
               </div>
             ) : (
               <motion.div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
                 <AnimatePresence>
-                  {selectedProducts.map((product) => (
+                  {selectedProducts.map(product => (
                     <motion.div
                       key={product.id}
                       variants={itemVariants}
@@ -129,7 +124,7 @@ const Productos = ({ searchParams }) => {
                       layout
                       className="w-full sm:max-w-sm"
                       transition={{
-                        layout: { duration: 0.4, ease: "easeInOut" },
+                        layout: { duration: 0.4, ease: 'easeInOut' }
                       }}
                       whileHover={{ scale: 1.05 }}
                     >
@@ -155,10 +150,7 @@ const Productos = ({ searchParams }) => {
               {Array(4)
                 .fill(null)
                 .map((dummyItem, index) => (
-                  <div
-                    key={`new-product-${index}`}
-                    className="flex justify-center"
-                  >
+                  <div key={`new-product-${index}`} className="flex justify-center">
                     <SeeProduct product={dummyItem} />
                   </div>
                 ))}
@@ -167,7 +159,7 @@ const Productos = ({ searchParams }) => {
         </div>
       </div>
     </WithNavbarAndFooter>
-  );
-};
+  )
+}
 
-export default Productos;
+export default Productos

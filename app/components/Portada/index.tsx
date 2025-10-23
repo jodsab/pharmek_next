@@ -1,1 +1,1 @@
-export { default } from './Portada.server';
+export { default } from './Portada.server'

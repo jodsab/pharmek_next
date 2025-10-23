@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import Image from "next/image";
-import { IoIosArrowForward } from "react-icons/io";
-import Aos from "aos";
-import "aos/dist/aos.css";
+import 'aos/dist/aos.css'
+import './styles.scss'
 
-import "./styles.scss";
+import Aos from 'aos'
+import Image from 'next/image'
+import React, { useEffect } from 'react'
+import { IoIosArrowForward } from 'react-icons/io'
 
 const SectionHeader = ({ title, subtitle, src }) => {
   useEffect(() => {
-    Aos.init();
-  }, []);
+    Aos.init()
+  }, [])
 
   return (
     // Contenedor principal
@@ -28,20 +28,18 @@ const SectionHeader = ({ title, subtitle, src }) => {
           />
         </div>
         {/* Título principal (movido aquí) */}
-        <h2 data-aos="fade-up">{title}</h2>{" "}
-        {/* Mantén las animaciones de AOS */}
+        <h2 data-aos="fade-up">{title}</h2> {/* Mantén las animaciones de AOS */}
       </div>
       {/* >>>>>> Fin del nuevo contenedor <<<<<< */}
 
       {/* Contenedor del subtítulo (ya existía) */}
       {/* Lo mostraremos directamente debajo del nuevo contenedor "image_and_title_container" */}
       <div className="green_space bordered">
-        <p data-aos="fade-left">{subtitle}</p>{" "}
-        {/* Mantén las animaciones de AOS */}
+        <p data-aos="fade-left">{subtitle}</p> {/* Mantén las animaciones de AOS */}
         <IoIosArrowForward />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SectionHeader;
+export default SectionHeader

@@ -1,6 +1,6 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
-export const useDistribuidoresSTore = create((set) => ({
+export const useDistribuidoresSTore = create(set => ({
   distribuidores: [],
-  setDistribuidores: (distribuidores) => set({ distribuidores }),
-}));
+  setDistribuidores: distribuidores => set({ distribuidores })
+}))

@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Field } from "formik";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import './styles.scss'
 
-import "./styles.scss";
+import { Field } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
 
-const ICON_SIZE = 26;
+const ICON_SIZE = 26
 
-const AtomInput = ({
-  placeholder,
-  label,
-  type,
-  className,
-  name,
-  error,
-  touched,
-}) => {
-  const [isPassword, setIsPassword] = useState(false);
+const AtomInput = ({ placeholder, label, type, className, name, error, touched }) => {
+  const [isPassword, setIsPassword] = useState(false)
 
   const togglePassword = () => {
-    setIsPassword(!isPassword);
-  };
+    setIsPassword(!isPassword)
+  }
 
   useEffect(() => {
-    type === "password" && setIsPassword(true);
-  }, [type]);
+    type === 'password' && setIsPassword(true)
+  }, [type])
 
   return (
     <div className="atom_input">
@@ -31,11 +23,11 @@ const AtomInput = ({
       <div className="input_area">
         <Field
           placeholder={placeholder}
-          className={className || "formulario-input"}
+          className={className || 'formulario-input'}
           name={name}
-          type={isPassword ? "password" : "text"}
+          type={isPassword ? 'password' : 'text'}
         />
-        {type === "password" && (
+        {type === 'password' && (
           <button className="btn_toggle_password" onClick={togglePassword}>
             {isPassword ? (
               <FaRegEyeSlash size={ICON_SIZE} color="#666666" />
@@ -48,7 +40,7 @@ const AtomInput = ({
 
       {error && touched ? <div className="input-error">{error}</div> : null}
     </div>
-  );
-};
+  )
+}
 
-export default AtomInput;
+export default AtomInput

@@ -1,10 +1,10 @@
-"use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import Image from "next/image";
+'use client'
+import gsap from 'gsap'
+import Image from 'next/image'
+import { useEffect, useRef } from 'react'
 
 export default function AnimalImage() {
-  const imageRef = useRef(null);
+  const imageRef = useRef(null)
 
   useEffect(() => {
     gsap.from(imageRef.current, {
@@ -12,12 +12,12 @@ export default function AnimalImage() {
       opacity: 0,
       duration: 1.2,
       delay: 0.5,
-      ease: "power3.out",
-    });
-  }, []);
+      ease: 'power3.out'
+    })
+  }, [])
 
   return (
-    <div ref={imageRef} style={{ overflow: "hidden" }}>
+    <div ref={imageRef} style={{ overflow: 'hidden' }}>
       <Image
         src="/portada.jpg"
         alt="Animales felices"
@@ -27,5 +27,5 @@ export default function AnimalImage() {
         className="animal-image"
       />
     </div>
-  );
+  )
 }

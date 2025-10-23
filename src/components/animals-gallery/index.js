@@ -1,126 +1,125 @@
-"use client";
+'use client'
 
-import { useState } from "react";
 import {
-  Heart,
-  MapPin,
+  AlertTriangle,
   Calendar,
   Filter,
-  Search,
-  Plus,
+  Heart,
   HelpCircle,
-  AlertTriangle,
-} from "lucide-react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
+  MapPin,
+  Plus,
+  Search
+} from 'lucide-react'
+import Image from 'next/image'
+import { useState } from 'react'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 
 const mockAnimals = [
   {
-    id: "1",
-    name: "Luna",
-    type: "dog",
-    age: "2 años",
-    breed: "Golden Retriever Mix",
+    id: '1',
+    name: 'Luna',
+    type: 'dog',
+    age: '2 años',
+    breed: 'Golden Retriever Mix',
     description:
-      "Luna es una perrita muy cariñosa que fue encontrada en las calles. Necesita un hogar lleno de amor.",
-    location: "Bogotá, Colombia",
-    image: "/golden-retriever-mix-dog-sitting-in-grass-looking-.png",
-    status: "urgent",
-    dateAdded: "2024-01-15",
+      'Luna es una perrita muy cariñosa que fue encontrada en las calles. Necesita un hogar lleno de amor.',
+    location: 'Bogotá, Colombia',
+    image: '/golden-retriever-mix-dog-sitting-in-grass-looking-.png',
+    status: 'urgent',
+    dateAdded: '2024-01-15',
     likes: 24,
-    isLiked: false,
+    isLiked: false
   },
   {
-    id: "2",
-    name: "Milo",
-    type: "cat",
-    age: "1 año",
-    breed: "Gato Doméstico",
-    description:
-      "Milo es un gatito juguetón que busca una familia que lo cuide y lo ame.",
-    location: "Medellín, Colombia",
-    image: "/golden-retriever-mix-dog-sitting-in-grass-looking-.png",
-    status: "available",
-    dateAdded: "2024-01-10",
+    id: '2',
+    name: 'Milo',
+    type: 'cat',
+    age: '1 año',
+    breed: 'Gato Doméstico',
+    description: 'Milo es un gatito juguetón que busca una familia que lo cuide y lo ame.',
+    location: 'Medellín, Colombia',
+    image: '/golden-retriever-mix-dog-sitting-in-grass-looking-.png',
+    status: 'available',
+    dateAdded: '2024-01-10',
     likes: 18,
-    isLiked: true,
+    isLiked: true
   },
   {
-    id: "3",
-    name: "Bella",
-    type: "dog",
-    age: "3 años",
-    breed: "Labrador Mix",
+    id: '3',
+    name: 'Bella',
+    type: 'dog',
+    age: '3 años',
+    breed: 'Labrador Mix',
     description:
-      "Bella se está recuperando de una cirugía menor y pronto estará lista para adopción.",
-    location: "Cali, Colombia",
-    image: "/golden-retriever-mix-dog-sitting-in-grass-looking-.png",
-    status: "recovering",
-    dateAdded: "2024-01-08",
+      'Bella se está recuperando de una cirugía menor y pronto estará lista para adopción.',
+    location: 'Cali, Colombia',
+    image: '/golden-retriever-mix-dog-sitting-in-grass-looking-.png',
+    status: 'recovering',
+    dateAdded: '2024-01-08',
     likes: 31,
-    isLiked: false,
-  },
-];
+    isLiked: false
+  }
+]
 
 export default function AnimalsGallery() {
-  const [animals, setAnimals] = useState(mockAnimals);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
-  const [selectedStatus, setSelectedStatus] = useState("all");
+  const [animals, setAnimals] = useState(mockAnimals)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedType, setSelectedType] = useState('all')
+  const [selectedStatus, setSelectedStatus] = useState('all')
 
-  const handleLike = (animalId) => {
-    setAnimals((prev) =>
-      prev.map((animal) =>
+  const handleLike = animalId => {
+    setAnimals(prev =>
+      prev.map(animal =>
         animal.id === animalId
           ? {
               ...animal,
               isLiked: !animal.isLiked,
-              likes: animal.isLiked ? animal.likes - 1 : animal.likes + 1,
+              likes: animal.isLiked ? animal.likes - 1 : animal.likes + 1
             }
           : animal
       )
-    );
-  };
+    )
+  }
 
-  const filteredAnimals = animals.filter((animal) => {
+  const filteredAnimals = animals.filter(animal => {
     const matchesSearch =
       animal.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      animal.breed.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = selectedType === "all" || animal.type === selectedType;
-    const matchesStatus =
-      selectedStatus === "all" || animal.status === selectedStatus;
+      animal.breed.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesType = selectedType === 'all' || animal.type === selectedType
+    const matchesStatus = selectedStatus === 'all' || animal.status === selectedStatus
 
-    return matchesSearch && matchesType && matchesStatus;
-  });
+    return matchesSearch && matchesType && matchesStatus
+  })
 
-  const getStatusColor = (status) => {
+  const getStatusColor = status => {
     switch (status) {
-      case "urgent":
-        return "bg-destructive text-destructive-foreground";
-      case "available":
-        return "bg-primary text-primary-foreground";
-      case "recovering":
-        return "bg-accent text-accent-foreground";
+      case 'urgent':
+        return 'bg-destructive text-destructive-foreground'
+      case 'available':
+        return 'bg-primary text-primary-foreground'
+      case 'recovering':
+        return 'bg-accent text-accent-foreground'
       default:
-        return "bg-muted text-muted-foreground";
+        return 'bg-muted text-muted-foreground'
     }
-  };
+  }
 
-  const getStatusText = (status) => {
+  const getStatusText = status => {
     switch (status) {
-      case "urgent":
-        return "Urgente";
-      case "available":
-        return "Disponible";
-      case "recovering":
-        return "Recuperándose";
+      case 'urgent':
+        return 'Urgente'
+      case 'available':
+        return 'Disponible'
+      case 'recovering':
+        return 'Recuperándose'
       default:
-        return status;
+        return status
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -129,13 +128,11 @@ export default function AnimalsGallery() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Animales que Necesitan tu{" "}
-              <span className="gradient-text">Ayuda</span>
+              Animales que Necesitan tu <span className="gradient-text">Ayuda</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Cada animal tiene una historia única. Ayúdanos a encontrarles el
-              hogar que merecen o reporta casos que requieran atención
-              veterinaria.
+              Cada animal tiene una historia única. Ayúdanos a encontrarles el hogar que merecen o
+              reporta casos que requieran atención veterinaria.
             </p>
           </div>
 
@@ -177,7 +174,7 @@ export default function AnimalsGallery() {
               <Input
                 placeholder="Buscar por nombre o raza..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 className="pl-10"
               />
             </div>
@@ -187,7 +184,7 @@ export default function AnimalsGallery() {
                 <Filter className="w-4 h-4 text-muted-foreground" />
                 <select
                   value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value)}
+                  onChange={e => setSelectedType(e.target.value)}
                   className="bg-background border border-border rounded-md px-3 py-2 text-sm"
                 >
                   <option value="all">Todos los tipos</option>
@@ -199,7 +196,7 @@ export default function AnimalsGallery() {
 
               <select
                 value={selectedStatus}
-                onChange={(e) => setSelectedStatus(e.target.value)}
+                onChange={e => setSelectedStatus(e.target.value)}
                 className="bg-background border border-border rounded-md px-3 py-2 text-sm"
               >
                 <option value="all">Todos los estados</option>
@@ -213,48 +210,38 @@ export default function AnimalsGallery() {
 
         {/* Animals Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAnimals.map((animal) => (
+          {filteredAnimals.map(animal => (
             <Card
               key={animal.id}
               className="group hover:shadow-lg transition-all duration-300 overflow-hidden"
             >
               <div className="relative">
                 <Image
-                  src={`/images/auximages${animal.image}` || "/placeholder.svg"}
+                  src={`/images/auximages${animal.image}` || '/placeholder.svg'}
                   alt={animal.name}
                   width={400}
                   height={200}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <Badge
-                  className={`absolute top-3 left-3 ${getStatusColor(
-                    animal.status
-                  )}`}
-                >
+                <Badge className={`absolute top-3 left-3 ${getStatusColor(animal.status)}`}>
                   {getStatusText(animal.status)}
                 </Badge>
                 <Button
                   size="sm"
                   variant="ghost"
                   className={`absolute top-3 right-3 bg-background/80 hover:bg-background ${
-                    animal.isLiked ? "text-red-500" : "text-muted-foreground"
+                    animal.isLiked ? 'text-red-500' : 'text-muted-foreground'
                   }`}
                   onClick={() => handleLike(animal.id)}
                 >
-                  <Heart
-                    className={`w-4 h-4 ${
-                      animal.isLiked ? "fill-current" : ""
-                    }`}
-                  />
+                  <Heart className={`w-4 h-4 ${animal.isLiked ? 'fill-current' : ''}`} />
                 </Button>
               </div>
 
               <CardHeader className="pb-3">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-xl font-semibold text-foreground">
-                      {animal.name}
-                    </h3>
+                    <h3 className="text-xl font-semibold text-foreground">{animal.name}</h3>
                     <p className="text-sm text-muted-foreground">
                       {animal.breed} • {animal.age}
                     </p>
@@ -284,9 +271,7 @@ export default function AnimalsGallery() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button className="flex-1 bg-primary hover:bg-primary/90">
-                    Ver Perfil
-                  </Button>
+                  <Button className="flex-1 bg-primary hover:bg-primary/90">Ver Perfil</Button>
                   <Button
                     variant="outline"
                     className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground bg-transparent"
@@ -303,16 +288,12 @@ export default function AnimalsGallery() {
           <div className="text-center py-12">
             <div className="text-muted-foreground mb-4">
               <Search className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p className="text-lg">
-                No se encontraron animales con los filtros seleccionados
-              </p>
-              <p className="text-sm">
-                Intenta ajustar tus criterios de búsqueda
-              </p>
+              <p className="text-lg">No se encontraron animales con los filtros seleccionados</p>
+              <p className="text-sm">Intenta ajustar tus criterios de búsqueda</p>
             </div>
           </div>
         )}
       </div>
     </div>
-  );
+  )
 }

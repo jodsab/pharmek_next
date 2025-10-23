@@ -1,28 +1,29 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Heart, Package, MapPin, Store, Settings, Filter } from "lucide-react";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
+import { Filter, Heart, MapPin, Package, Settings, Store } from 'lucide-react'
+import Image from 'next/image'
+import { useState } from 'react'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
 
 const tabs = [
-  { id: "pets", label: "Mascotas", icon: Heart },
-  { id: "products", label: "Productos", icon: Package },
-  { id: "locations", label: "Ubicaciones", icon: MapPin },
-  { id: "distributors", label: "Distribuidores", icon: Store },
-  { id: "settings", label: "Configuración", icon: Settings },
-];
+  { id: 'pets', label: 'Mascotas', icon: Heart },
+  { id: 'products', label: 'Productos', icon: Package },
+  { id: 'locations', label: 'Ubicaciones', icon: MapPin },
+  { id: 'distributors', label: 'Distribuidores', icon: Store },
+  { id: 'settings', label: 'Configuración', icon: Settings }
+]
 
 export default function ProfileTabbed() {
-  const [activeTab, setActiveTab] = useState("pets");
+  const [activeTab, setActiveTab] = useState('pets')
 
   const renderContent = () => {
     switch (activeTab) {
-      case "pets":
+      case 'pets':
         return (
           <div className="space-y-4">
             <div className="flex items-center gap-4 mb-6">
@@ -32,11 +33,8 @@ export default function ProfileTabbed() {
               </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((pet) => (
-                <Card
-                  key={pet}
-                  className="overflow-hidden hover:shadow-lg transition-shadow"
-                >
+              {[1, 2, 3, 4, 5, 6].map(pet => (
+                <Card key={pet} className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="aspect-square bg-muted relative">
                     <Image
                       src="/images/auximages/cute-puppy-daisies.png"
@@ -54,11 +52,9 @@ export default function ProfileTabbed() {
                     </Button>
                   </div>
                   <CardContent className="p-4">
-                    <h3 className="font-semibold">
-                      {pet % 2 === 0 ? "Max" : "Luna"}
-                    </h3>
+                    <h3 className="font-semibold">{pet % 2 === 0 ? 'Max' : 'Luna'}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {pet % 2 === 0 ? "Golden Retriever" : "Gato Persa"}
+                      {pet % 2 === 0 ? 'Golden Retriever' : 'Gato Persa'}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
                       <Badge variant="secondary">2 años</Badge>
@@ -69,8 +65,8 @@ export default function ProfileTabbed() {
               ))}
             </div>
           </div>
-        );
-      case "products":
+        )
+      case 'products':
         return (
           <div className="space-y-4">
             <div className="flex items-center gap-4 mb-6">
@@ -80,11 +76,8 @@ export default function ProfileTabbed() {
               </Button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1, 2, 3, 4].map((product) => (
-                <Card
-                  key={product}
-                  className="hover:shadow-lg transition-shadow"
-                >
+              {[1, 2, 3, 4].map(product => (
+                <Card key={product} className="hover:shadow-lg transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex items-start gap-3">
                       <div className="w-16 h-16 bg-muted rounded-lg flex-shrink-0">
@@ -103,11 +96,7 @@ export default function ProfileTabbed() {
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <Badge>Bovinos</Badge>
-                          <Button
-                            size="sm"
-                            variant="ghost"
-                            className="p-0 h-auto"
-                          >
+                          <Button size="sm" variant="ghost" className="p-0 h-auto">
                             <Heart className="h-4 w-4 fill-red-500 text-red-500" />
                           </Button>
                         </div>
@@ -118,8 +107,8 @@ export default function ProfileTabbed() {
               ))}
             </div>
           </div>
-        );
-      case "locations":
+        )
+      case 'locations':
         return (
           <div className="space-y-4">
             <Card>
@@ -130,26 +119,22 @@ export default function ProfileTabbed() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {[1, 2, 3].map((location) => (
+                {[1, 2, 3].map(location => (
                   <div
                     key={location}
                     className="flex items-center justify-between p-3 border rounded-lg"
                   >
                     <div>
                       <h3 className="font-medium">
-                        Clínica Veterinaria{" "}
-                        {location === 1
-                          ? "Central"
-                          : location === 2
-                          ? "Norte"
-                          : "Sur"}
+                        Clínica Veterinaria{' '}
+                        {location === 1 ? 'Central' : location === 2 ? 'Norte' : 'Sur'}
                       </h3>
                       <p className="text-sm text-muted-foreground">
                         {location === 1
-                          ? "Av. Principal 123"
+                          ? 'Av. Principal 123'
                           : location === 2
-                          ? "Calle Norte 456"
-                          : "Zona Sur 789"}
+                            ? 'Calle Norte 456'
+                            : 'Zona Sur 789'}
                       </p>
                     </div>
                     <Button variant="outline" size="sm">
@@ -160,8 +145,8 @@ export default function ProfileTabbed() {
               </CardContent>
             </Card>
           </div>
-        );
-      case "distributors":
+        )
+      case 'distributors':
         return (
           <div className="space-y-4">
             <Card>
@@ -172,27 +157,27 @@ export default function ProfileTabbed() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {[1, 2, 3].map((distributor) => (
+                {[1, 2, 3].map(distributor => (
                   <div
                     key={distributor}
                     className="flex items-center justify-between p-3 border rounded-lg"
                   >
                     <div>
                       <h3 className="font-medium">
-                        Distribuidora{" "}
+                        Distribuidora{' '}
                         {distributor === 1
-                          ? "VetMed"
+                          ? 'VetMed'
                           : distributor === 2
-                          ? "AnimalCare"
-                          : "PetHealth"}
+                            ? 'AnimalCare'
+                            : 'PetHealth'}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        Especializada en{" "}
+                        Especializada en{' '}
                         {distributor === 1
-                          ? "medicamentos bovinos"
+                          ? 'medicamentos bovinos'
                           : distributor === 2
-                          ? "productos caninos"
-                          : "dermatología veterinaria"}
+                            ? 'productos caninos'
+                            : 'dermatología veterinaria'}
                       </p>
                       <div className="flex items-center gap-2 mt-1">
                         <Badge variant="secondary">⭐ 4.8</Badge>
@@ -207,8 +192,8 @@ export default function ProfileTabbed() {
               </CardContent>
             </Card>
           </div>
-        );
-      case "settings":
+        )
+      case 'settings':
         return (
           <div className="space-y-6">
             <Card>
@@ -263,41 +248,39 @@ export default function ProfileTabbed() {
               </CardContent>
             </Card>
           </div>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <WithNavbarAndFooter>
       <div className="max-w-6xl mx-auto p-6">
         <div className="mb-8">
           <h1 className="text-3xl font-bold gradient-text">Mi Perfil</h1>
-          <p className="text-muted-foreground mt-2">
-            Gestiona tus preferencias y configuración
-          </p>
+          <p className="text-muted-foreground mt-2">Gestiona tus preferencias y configuración</p>
         </div>
 
         {/* Tabs */}
         <div className="border-b mb-6">
           <div className="flex space-x-8 overflow-x-auto">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
+            {tabs.map(tab => {
+              const Icon = tab.icon
               return (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 py-3 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                     activeTab === tab.id
-                      ? "border-primary text-primary"
-                      : "border-transparent text-muted-foreground hover:text-foreground"
+                      ? 'border-primary text-primary'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
                   }`}
                 >
                   <Icon className="h-4 w-4" />
                   {tab.label}
                 </button>
-              );
+              )
             })}
           </div>
         </div>
@@ -306,5 +289,5 @@ export default function ProfileTabbed() {
         <div className="min-h-[400px]">{renderContent()}</div>
       </div>
     </WithNavbarAndFooter>
-  );
+  )
 }

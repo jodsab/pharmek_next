@@ -1,9 +1,9 @@
-"use client";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
+'use client'
+import gsap from 'gsap'
+import { useEffect, useRef } from 'react'
 
 export default function CallToActionButton() {
-  const buttonRef = useRef(null);
+  const buttonRef = useRef(null)
 
   useEffect(() => {
     gsap.fromTo(
@@ -14,14 +14,14 @@ export default function CallToActionButton() {
         repeat: -1,
         yoyo: true,
         duration: 1,
-        ease: "power1.inOut",
+        ease: 'power1.inOut'
       }
-    );
-  }, []);
+    )
+  }, [])
 
   return (
     <button ref={buttonRef} className="cta-button">
       Ver productos
     </button>
-  );
+  )
 }

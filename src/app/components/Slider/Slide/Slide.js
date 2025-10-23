@@ -1,22 +1,23 @@
-import Image from "next/image";
-import React from "react";
-import { FaWhatsapp } from "react-icons/fa";
-import pracanex from "./pracanex.png";
-import Link from "next/link";
-import { WHATSAPP } from "@/core/whatsapp";
-import "./styles.scss";
+import './styles.scss'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+import { FaWhatsapp } from 'react-icons/fa'
+
+import { WHATSAPP } from '@/core/whatsapp'
 
 const Slide = ({ productDestacado }) => {
   const {
     product,
-    titulo = "MENSAJE DE ANUNCIO",
+    titulo = 'MENSAJE DE ANUNCIO',
     descripcion,
-    imagenPrincipal = "",
-  } = productDestacado;
+    imagenPrincipal = ''
+  } = productDestacado
 
-  console.log("productDestacado", productDestacado);
+  console.log('productDestacado', productDestacado)
 
-  const { nombre = "Nombre no disponible" } = product;
+  const { nombre = 'Nombre no disponible' } = product
 
   return (
     <div className="slide_container">
@@ -28,9 +29,7 @@ const Slide = ({ productDestacado }) => {
             <span className="green"> Y MANTÉN SANO A TU MASCOTA!</span>
           </p>
           <p className="product_description">
-            {!descripcion
-              ? "La descripción del producto no está disponible ahora"
-              : descripcion}
+            {!descripcion ? 'La descripción del producto no está disponible ahora' : descripcion}
           </p>
         </div>
         <Link
@@ -40,13 +39,13 @@ const Slide = ({ productDestacado }) => {
         >
           <span className="flex gap-3">
             <p className="text-white">Solicítalo ahora</p>
-            <FaWhatsapp size={22} color={"white"} />
+            <FaWhatsapp size={22} color={'white'} />
           </span>
         </Link>
       </div>
       <div className="imagen_container">
         <Image
-          src={imagenPrincipal?.url || "/images/products/defaultproduct.png"}
+          src={imagenPrincipal?.url || '/images/products/defaultproduct.png'}
           alt="producto pracanex"
           width={400}
           height={400}
@@ -54,7 +53,7 @@ const Slide = ({ productDestacado }) => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Slide;
+export default Slide

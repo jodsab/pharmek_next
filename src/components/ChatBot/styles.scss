@@ -1,8 +1,8 @@
 // components/Chatbot/styles.scss
 
 // Asegúrate de que tus variables de color y media queries estén importadas
-@import "../../resources/styles/colors.scss"; // Ejemplo
-@import "../../resources/styles/mediaQueries.scss"; // Ejemplo, asegura tener $tablet definido
+@import '../../resources/styles/colors.scss'; // Ejemplo
+@import '../../resources/styles/mediaQueries.scss'; // Ejemplo, asegura tener $tablet definido
 
 .chatbot-container {
   position: fixed; // Contenedor fijo en la ventana

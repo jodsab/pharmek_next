@@ -1,1 +1,1 @@
-export { default } from './WithNavbarAndFooter.server';
+export { default } from './WithNavbarAndFooter.server'

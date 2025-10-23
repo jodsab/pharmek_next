@@ -1,74 +1,79 @@
-'use client';
-import React, { useEffect, useRef } from 'react';
-import { ChevronRight } from 'lucide-react';
+'use client'
+import { ChevronRight } from 'lucide-react'
+import React, { useEffect, useRef } from 'react'
 
 type Props = {
-  title?: string;
-  subtitle?: string;
-  images?: { src: string; alt?: string }[];
-  primaryColor?: string;
-  secondaryColor?: string;
-};
+  title?: string
+  subtitle?: string
+  images?: { src: string; alt?: string }[]
+  primaryColor?: string
+  secondaryColor?: string
+}
 
 export default function PortadaClient({
   title = 'Cuidamos la Salud de tus Amigos',
   subtitle = 'Soluciones veterinarias innovadoras para el bienestar y la vitalidad.',
   images = [
-    { src: 'https://placehold.co/400x300/F5F5F5/008556?text=Mascota%20Feliz%201', alt: 'Mascota sana' },
-    { src: 'https://placehold.co/400x300/F5F5F5/1226aa?text=Investigacion%20Vet', alt: 'Investigación veterinaria' }
+    {
+      src: 'https://placehold.co/400x300/F5F5F5/008556?text=Mascota%20Feliz%201',
+      alt: 'Mascota sana'
+    },
+    {
+      src: 'https://placehold.co/400x300/F5F5F5/1226aa?text=Investigacion%20Vet',
+      alt: 'Investigación veterinaria'
+    }
   ],
   primaryColor = '#008556',
   secondaryColor = '#1226aa'
 }: Props) {
-  const heroRef = useRef<HTMLElement | null>(null);
-  const titleRef = useRef<HTMLElement | null>(null);
-  const subtitleRef = useRef<HTMLElement | null>(null);
-  const ctaRef = useRef<HTMLButtonElement | null>(null);
-  const image1Ref = useRef<HTMLImageElement | null>(null);
-  const image2Ref = useRef<HTMLImageElement | null>(null);
-  const cursorRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null)
+  const titleRef = useRef<HTMLElement | null>(null)
+  const subtitleRef = useRef<HTMLElement | null>(null)
+  const ctaRef = useRef<HTMLButtonElement | null>(null)
+  const image1Ref = useRef<HTMLImageElement | null>(null)
+  const image2Ref = useRef<HTMLImageElement | null>(null)
+  const cursorRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const loadScript = (src: string) =>
       new Promise<void>((resolve, reject) => {
-        const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+        const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`)
         if (existing) {
-          existing.addEventListener('load', () => resolve());
-          if ((existing as any).loaded) return resolve();
-          return;
+          existing.addEventListener('load', () => resolve())
+          if ((existing as any).loaded) return resolve()
+          return
         }
-        const s = document.createElement('script');
-        s.src = src;
-        s.async = true;
+        const s = document.createElement('script')
+        s.src = src
         s.onload = () => {
-          (s as any).loaded = true;
-          resolve();
-        };
-        s.onerror = () => reject(new Error(`Failed to load ${src}`));
-        document.body.appendChild(s);
-      });
+          ; (s as any).loaded = true
+          resolve()
+        }
+        s.onerror = () => reject(new Error(`Failed to load ${src}`))
+        document.body.appendChild(s)
+      })
 
     const ensureGsap = async () => {
       try {
-        if (typeof window === 'undefined') return;
+        if (typeof window === 'undefined') return
         if (typeof (window as any).gsap === 'undefined') {
-          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js');
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js')
         }
         if (typeof (window as any).gsap?.TextPlugin === 'undefined') {
-          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js');
+          await loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js')
         }
         if ((window as any).gsap?.registerPlugin && (window as any).TextPlugin) {
-          (window as any).gsap.registerPlugin((window as any).TextPlugin);
+          ; (window as any).gsap.registerPlugin((window as any).TextPlugin)
         }
-        startAnimations();
+        startAnimations()
       } catch {
         /* silent */
       }
-    };
+    }
 
     const startAnimations = () => {
-      const gsap = (window as any).gsap;
-      if (!gsap) return;
+      const gsap = (window as any).gsap
+      if (!gsap) return
       const elemsExist =
         heroRef.current &&
         titleRef.current &&
@@ -76,10 +81,10 @@ export default function PortadaClient({
         ctaRef.current &&
         image1Ref.current &&
         image2Ref.current &&
-        cursorRef.current;
-      if (!elemsExist) return;
-      gsap.set(titleRef.current, { text: '' });
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        cursorRef.current
+      if (!elemsExist) return
+      gsap.set(titleRef.current, { text: '' })
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
       tl.to(titleRef.current, {
         duration: 2.5,
         text: title,
@@ -115,19 +120,19 @@ export default function PortadaClient({
           { x: 100, opacity: 0, rotate: 5 },
           { x: 0, opacity: 1, rotate: 0, duration: 1.5, ease: 'power2.out' },
           '<0'
-        );
+        )
       gsap.to(heroRef.current, {
         backgroundPosition: '100% 0%',
         duration: 30,
         ease: 'none',
         repeat: -1,
         yoyo: true
-      });
-    };
+      })
+    }
 
-    ensureGsap();
-    return () => { };
-  }, [title]);
+    ensureGsap()
+    return () => { }
+  }, [title])
 
   return (
     <section
@@ -150,7 +155,10 @@ export default function PortadaClient({
             |
           </span>
         </h1>
-        <p ref={subtitleRef as any} className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 drop-shadow-md">
+        <p
+          ref={subtitleRef as any}
+          className="text-lg sm:text-xl md:text-2xl mb-8 opacity-90 drop-shadow-md"
+        >
           {subtitle}
         </p>
         <button
@@ -171,7 +179,10 @@ export default function PortadaClient({
         width={256}
         height={192}
         className="absolute bottom-16 left-16 w-32 h-24 sm:w-48 sm:h-36 md:w-64 md:h-48 rounded-lg shadow-2xl object-cover transform -rotate-6 hidden md:block"
-        onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/400x300/F5F5F5/008556?text=Error%20Imagen')}
+        onError={e =>
+        ((e.target as HTMLImageElement).src =
+          'https://placehold.co/400x300/F5F5F5/008556?text=Error%20Imagen')
+        }
       />
       <img
         ref={image2Ref}
@@ -180,11 +191,14 @@ export default function PortadaClient({
         width={256}
         height={192}
         className="absolute top-16 right-16 w-32 h-24 sm:w-48 sm:h-36 md:w-64 md:h-48 rounded-lg shadow-2xl object-cover transform rotate-6 hidden md:block"
-        onError={(e) => ((e.target as HTMLImageElement).src = 'https://placehold.co/400x300/F5F5F5/1226aa?text=Error%20Imagen')}
+        onError={e =>
+        ((e.target as HTMLImageElement).src =
+          'https://placehold.co/400x300/F5F5F5/1226aa?text=Error%20Imagen')
+        }
       />
 
       <div className="absolute w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-white opacity-10 blur-3xl bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2" />
       <div className="absolute w-32 h-32 sm:w-48 sm:h-48 rounded-full bg-white opacity-10 blur-3xl top-0 right-0 transform translate-x-1/3 -translate-y-1/3" />
     </section>
-  );
+  )
 }

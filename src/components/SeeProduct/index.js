@@ -1,12 +1,13 @@
-import React from "react";
-import Image from "next/image";
-import img_product from "./assets/logopng.png";
-import Link from "next/link";
+import './styles.scss'
 
-import "./styles.scss";
+import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
+
+import img_product from './assets/logopng.png'
 
 const SeeProduct = ({ product }) => {
-  const categories = product?.categoriesOnProducts;
+  const categories = product?.categoriesOnProducts
 
   return (
     <Link href={`/productos/${product?.id}`} className="see_product_container">
@@ -17,28 +18,18 @@ const SeeProduct = ({ product }) => {
           ))}
         </ul>
         {product?.images.length > 0 ? (
-          <Image
-            width={200}
-            height={200}
-            src={product?.images[0]?.url}
-            alt="imagen del producto"
-          />
+          <Image width={200} height={200} src={product?.images[0]?.url} alt="imagen del producto" />
         ) : (
-          <Image
-            width={250}
-            height={250}
-            src={img_product}
-            alt="imagen del producto"
-          />
+          <Image width={250} height={250} src={img_product} alt="imagen del producto" />
         )}
       </div>
 
       <div className="info">
-        <p className="name">{product?.nombre || "Producto sin nombre"}</p>
+        <p className="name">{product?.nombre || 'Producto sin nombre'}</p>
         <p className="indicaciones">{product?.indicaciones}</p>
       </div>
     </Link>
-  );
-};
+  )
+}
 
-export default SeeProduct;
+export default SeeProduct

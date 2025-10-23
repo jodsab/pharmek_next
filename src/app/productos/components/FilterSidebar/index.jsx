@@ -1,25 +1,26 @@
-"use client";
-import React, { useState } from "react";
-import { useCategoriesStore } from "@/libs/store-categories";
-import { FaCheckCircle, FaCircle } from "react-icons/fa";
-import { LuFilter } from "react-icons/lu";
-import HocCard from "@/HOC/HocCard";
+'use client'
+import React, { useState } from 'react'
+import { FaCheckCircle, FaCircle } from 'react-icons/fa'
+import { LuFilter } from 'react-icons/lu'
+
+import HocCard from '@/HOC/HocCard'
+import { useCategoriesStore } from '@/libs/store-categories'
 
 const FilterSidebar = ({ onFilterChange }) => {
-  const categories = useCategoriesStore((state) => state.categories);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const categories = useCategoriesStore(state => state.categories)
+  const [selectedCategories, setSelectedCategories] = useState([])
   const handleCategoryChange = (categoryName, event) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const isSelected = selectedCategories.includes(categoryName);
+    const isSelected = selectedCategories.includes(categoryName)
     const updatedCategories = isSelected
-      ? selectedCategories.filter((cat) => cat !== categoryName)
-      : [...selectedCategories, categoryName];
-    setSelectedCategories(updatedCategories);
-    onFilterChange(updatedCategories);
-  };
+      ? selectedCategories.filter(cat => cat !== categoryName)
+      : [...selectedCategories, categoryName]
+    setSelectedCategories(updatedCategories)
+    onFilterChange(updatedCategories)
+  }
 
-  console.log(categories);
+  console.log(categories)
 
   return (
     <HocCard>
@@ -30,13 +31,11 @@ const FilterSidebar = ({ onFilterChange }) => {
 
       <ul className="space-y-4">
         {categories &&
-          categories?.map((category) => (
+          categories?.map(category => (
             <li
               key={category.id}
               className="flex items-center justify-between hover:bg-gray-200 p-2 rounded-lg  transition-all cursor-pointer w-full"
-              onClick={(event) =>
-                handleCategoryChange(category.categoryName, event)
-              }
+              onClick={event => handleCategoryChange(category.categoryName, event)}
             >
               <label
                 htmlFor={`category-${category.id}`}
@@ -45,8 +44,8 @@ const FilterSidebar = ({ onFilterChange }) => {
                 <span
                   className={`text-xl ${
                     selectedCategories?.includes(category.categoryName)
-                      ? "text-green-500"
-                      : "text-gray-200"
+                      ? 'text-green-500'
+                      : 'text-gray-200'
                   }`}
                 >
                   {selectedCategories?.includes(category.categoryName) ? (
@@ -56,9 +55,7 @@ const FilterSidebar = ({ onFilterChange }) => {
                   )}
                 </span>
                 <div className="flex items-center justify-between w-full">
-                  <span className="text-gray-800 font-medium">
-                    {category.categoryName}
-                  </span>
+                  <span className="text-gray-800 font-medium">{category.categoryName}</span>
                   <span>{category?.products?.length}</span>
                 </div>
               </label>
@@ -73,7 +70,7 @@ const FilterSidebar = ({ onFilterChange }) => {
           ))}
       </ul>
     </HocCard>
-  );
-};
+  )
+}
 
-export default FilterSidebar;
+export default FilterSidebar
