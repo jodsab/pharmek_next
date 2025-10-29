@@ -29,7 +29,6 @@ const Distribuidores = () => {
   const distribuidoresStore = useDistribuidoresSTore(state => state.distribuidores)
 
   const categoriesStore = useCategoriesStore(state => state.categories)
-  // console.log(categoriesStore); // You can keep this for debugging if needed
 
   const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY
 
@@ -64,8 +63,6 @@ const Distribuidores = () => {
       })),
     [categoriesStore]
   )
-
-  console.log(formattedOptions)
 
   const handlePlaceSelected = () => {
     if (autocomplete) {

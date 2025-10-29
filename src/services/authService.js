@@ -44,7 +44,6 @@ export async function login({ email, password }) {
 
     return { session: data.session, user: data.user, error: null }
   } catch (error) {
-    console.log(error)
     return {
       session: null,
       user: null,

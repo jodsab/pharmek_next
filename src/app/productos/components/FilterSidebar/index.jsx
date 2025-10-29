@@ -20,8 +20,6 @@ const FilterSidebar = ({ onFilterChange }) => {
     onFilterChange(updatedCategories)
   }
 
-  console.log(categories)
-
   return (
     <HocCard>
       <div className="flex items-center gap-3 mb-4">

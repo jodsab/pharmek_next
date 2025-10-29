@@ -18,7 +18,6 @@ const useGetDistribuidores = () => {
         setDistribuidoresStore(dataJson)
       }
     } catch (error) {
-      console.log(error)
     } finally {
       setLoading(false)
     }

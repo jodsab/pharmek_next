@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import supabase from '@/libs/supabase'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 export function AuthProvider({ children }) {
   const setUser = useAuthStore(state => state.setUser)

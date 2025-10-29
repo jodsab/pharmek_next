@@ -1,17 +1,11 @@
-import { createClient } from '@supabase/supabase-js'
-
 import type { AuthResponse, RegisterUserDto, User } from '@/core/domain/entities/User'
 import type { AuthRepository } from '@/core/domain/repositories/AuthRepository'
+import supabase from '@/libs/supabase'
 
 export class SupabaseAuthRepository implements AuthRepository {
-  private supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-
   async register(data: RegisterUserDto): Promise<AuthResponse> {
     try {
-      const { data: authData, error: authError } = await this.supabase.auth.signUp({
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email: data.email,
         password: data.password,
         options: {
@@ -44,7 +38,7 @@ export class SupabaseAuthRepository implements AuthRepository {
   }
 
   async login(email: string, password: string): Promise<AuthResponse> {
-    const { data, error } = await this.supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     })
@@ -64,11 +58,11 @@ export class SupabaseAuthRepository implements AuthRepository {
   }
 
   async logout(): Promise<void> {
-    await this.supabase.auth.signOut()
+    await supabase.auth.signOut()
   }
 
   async getCurrentUser(): Promise<User | null> {
-    const { data } = await this.supabase.auth.getUser()
+    const { data } = await supabase.auth.getUser()
     return data.user as any
   }
 

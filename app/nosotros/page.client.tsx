@@ -8,12 +8,9 @@ const PageClient = () => {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({
     quienes: true // Primera sección visible desde el inicio
   })
-  const [isMounted, setIsMounted] = useState(false)
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
   useEffect(() => {
-    setIsMounted(true)
-
     const observers: IntersectionObserver[] = []
 
     Object.keys(observerRefs.current).forEach(key => {

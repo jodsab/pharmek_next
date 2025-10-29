@@ -24,8 +24,6 @@ const DEFAULT_IMAGE_URL = '/images/defaultproduct.png' // <-- Verifica que esta 
 const Slider = ({ loadingProductsDestacados, productsDestacados }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null)
 
-  console.log('productsDestacados data:', productsDestacados)
-
   const hasFeaturedProducts =
     !loadingProductsDestacados && productsDestacados && productsDestacados.length > 0
 
@@ -68,10 +66,7 @@ const Slider = ({ loadingProductsDestacados, productsDestacados }) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
         // >>>>>> Añadir Listener onSlideChange al Swiper Principal <<<<<<
-        onSlideChange={swiper => {
-          console.log('Swiper Principal - Active Index:', swiper.activeIndex)
-          console.log('Swiper Principal - Real Index:', swiper.realIndex) // realIndex es útil con loop: true
-        }}
+        onSlideChange={swiper => {}}
       >
         {productsDestacados.map(productDestacado => {
           return (
@@ -96,10 +91,7 @@ const Slider = ({ loadingProductsDestacados, productsDestacados }) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
         // >>>>>> Añadir Listener onSlideChange al Swiper de Miniaturas <<<<<<
-        onSlideChange={swiper => {
-          console.log('Swiper Miniaturas - Active Index:', swiper.activeIndex)
-          console.log('Swiper Miniaturas - Real Index:', swiper.realIndex) // realIndex es útil con loop: true
-        }}
+        onSlideChange={swiper => {}}
       >
         {productsDestacados.map(productDestacado => {
           const imageUrl = getImageUrl(productDestacado)

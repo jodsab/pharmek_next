@@ -4,7 +4,7 @@ import { RegisterUser } from '@/core/application/auth/RegisterUser'
 import type { RegisterUserDto } from '@/core/domain/entities/User'
 import { MockAuthRepository } from '@/infrastructure/repositories/MockAuthRepository'
 import { SupabaseAuthRepository } from '@/infrastructure/repositories/SupabaseAuthRepository'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === 'true'
 

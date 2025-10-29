@@ -20,8 +20,6 @@ export const errorMessages = {
 export function normalizeError(error) {
   if (!error) return 'Error desconocido'
 
-  console.log(error)
-
   // Supabase AuthApiError puede venir con `code` y `message`
   const code = error.code || (error.error_code ?? null)
   const msg = error.message || (error.error_description ?? null)

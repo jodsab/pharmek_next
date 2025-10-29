@@ -9,21 +9,19 @@ import Aos from 'aos'
 import Script from 'next/script'
 import { useEffect } from 'react'
 
-import { useGetCategories } from '@/hooks/categories/useGetCategories.hook'
-import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
+import { useGetCategories } from '@/hooks/categories/useGetCategories'
 import { useGetProductsDestacados } from '@/hooks/categories/useGetProductsDestacados.hook'
 
 import CardCategorie from './components/CardCategorie'
+import HeroSection from './components/HeroSection/HeroSection'
 import PetList from './components/PetList'
-import Portada from './components/Portada'
 import TiktokEmbed from './components/TiktokEmbed' // Import the new component
 
 const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 
 export default function Home({ session }) {
-  const { loading: loadingCategories, categories } = useGetCategories()
-  const { loading: loadingProducts, products: productsHook } = useGetProducts()
   const { loading: loadingProductsDestacados, productsDestacados } = useGetProductsDestacados()
+  const { data: categories, isLoading: loadingCategories } = useGetCategories()
 
   useEffect(() => {
     Aos.init()
@@ -36,8 +34,8 @@ export default function Home({ session }) {
         src="https://www.tiktok.com/embed.js"
         strategy="afterInteractive" // Or "lazyOnload" depending on when you need embeds to render
       />
-      <Portada />
-      <div className="home_container">
+      <HeroSection />
+      <div className="home_container content">
         <section className="section_slider content" data-aos="zoom-out">
           {loadingProductsDestacados ? (
             <Slider loadingProductsDestacados={loadingProductsDestacados} />
@@ -46,7 +44,7 @@ export default function Home({ session }) {
           )}
         </section>
 
-        <section className="section_productos content">
+        <section className="section_productos">
           <SectionHeader
             title="PRODUCTOS"
             subtitle="Tenemos todo lo que necesitas aquí"
@@ -64,7 +62,7 @@ export default function Home({ session }) {
           </div>
         </section>
 
-        <section className="section_tiktok content">
+        <section className="section_tiktok">
           <SectionHeader
             title="TIKTOK"
             subtitle="Síguenos para ver más contenido"

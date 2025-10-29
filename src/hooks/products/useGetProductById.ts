@@ -1,21 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GetProductById } from '@/core/application/usecases/GetProductById'
-import { MockProductRepository } from '@/infrastructure/repositories/MockProductRepository'
-import { SupabaseProductRepository } from '@/infrastructure/repositories/SupabaseProductRepository'
+import type { Product } from '@/core/domain/entities/Product'
+import { RepositoryFactory } from '@/infrastructure/factories/RepositoryFactory'
 
-const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === 'true'
-
-export const useGetProductById = (id: string) => {
-  const productRepository = USE_MOCKS
-    ? new MockProductRepository()
-    : new SupabaseProductRepository()
-
-  const getProductById = new GetProductById(productRepository)
-
-  return useQuery({
-    queryKey: ['product', id],
-    queryFn: () => getProductById.execute(id),
-    enabled: !!id
+export const useGetProductById = (id: number | string) => {
+  const repo = RepositoryFactory.getProductRepository()
+  return useQuery<Product | null>({
+    queryKey: ['products', 'byId', id],
+    queryFn: () => repo.findById(id),
+    enabled: !!id,
+    staleTime: 10 * 60 * 1000
   })
 }

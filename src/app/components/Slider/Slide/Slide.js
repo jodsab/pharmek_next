@@ -15,8 +15,6 @@ const Slide = ({ productDestacado }) => {
     imagenPrincipal = ''
   } = productDestacado
 
-  console.log('productDestacado', productDestacado)
-
   const { nombre = 'Nombre no disponible' } = product
 
   return (

@@ -28,7 +28,6 @@ const HeroSection = () => {
         const scriptGsap = document.createElement('script')
         scriptGsap.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js'
         scriptGsap.onload = () => {
-          console.log('GSAP cargado.')
           loadTextPlugin()
         }
         document.body.appendChild(scriptGsap)
@@ -42,7 +41,6 @@ const HeroSection = () => {
         const scriptTextPlugin = document.createElement('script')
         scriptTextPlugin.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/TextPlugin.min.js'
         scriptTextPlugin.onload = () => {
-          console.log('TextPlugin cargado.')
           if (typeof window.gsap !== 'undefined' && window.gsap.registerPlugin) {
             window.gsap.registerPlugin(window.TextPlugin)
             startAnimations()
@@ -181,7 +179,7 @@ const HeroSection = () => {
         <button
           ref={ctaRef}
           className="bg-white text-purple-600 px-8 py-3 rounded-full text-lg font-semibold hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center mx-auto shadow-xl"
-          onClick={() => console.log('Botón "Ver Productos" clicado')}
+          onClick={() => }
         >
           Ver Productos
           <ChevronRight className="ml-2 w-5 h-5" />

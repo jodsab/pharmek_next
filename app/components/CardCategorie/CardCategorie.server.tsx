@@ -5,6 +5,7 @@ import CardCategorieClient from './CardCategorie.client'
 interface Category {
   categoryName: string
   categorySlug: string
+  categoryImage: string
 }
 
 interface CardCategorieProps {
@@ -17,6 +18,7 @@ const CardCategorie = ({ category, loadingCategories }: CardCategorieProps) => {
     <CardCategorieClient
       categoryName={category?.categoryName}
       categorySlug={category?.categorySlug}
+      categoryImage={category?.categoryImage}
       isLoading={loadingCategories}
     />
   )

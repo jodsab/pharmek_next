@@ -18,7 +18,6 @@ const useGetProducts = () => {
         setProductsStore(dataJson)
       }
     } catch (error) {
-      console.log(error)
     } finally {
       setLoading(false)
     }

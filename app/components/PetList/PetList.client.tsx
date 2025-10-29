@@ -3,7 +3,6 @@
 import 'aos/dist/aos.css'
 import './styles.scss'
 
-import PetCard from '@components/PetCard'
 import SectionHeader from '@components/SectionHeader'
 import Aos from 'aos'
 import React, { useEffect } from 'react'
@@ -40,13 +39,13 @@ const PetListClient = ({ pets = [], isLoading = false }: PetListClientProps) => 
         subtitle="Conoce a tu nuevo compañero de vida"
         src={hogar}
       />
-      <ul className="pet_list" data-aos="fade-up">
+      {/*       <ul className="pet_list" data-aos="fade-up">
         {displayPets.map((pet, index) => (
           <li key={pet?.id || `pet-skeleton-${index}`}>
             <PetCard pet={pet} isLoading={isLoading || !pet} />
           </li>
         ))}
-      </ul>
+      </ul> */}
     </section>
   )
 }

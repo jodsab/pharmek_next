@@ -35,6 +35,14 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/explicit-module-boundary-types': 'warn',
+    '@typescript-eslint/explicit-function-return-type': [
+      'error',
+      {
+        allowExpressions: true,
+        allowTypedFunctionExpressions: true,
+        allowHigherOrderFunctions: true
+      }
+    ],
     'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'warn',
     'unused-imports/no-unused-imports': 'warn',

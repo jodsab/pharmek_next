@@ -13,7 +13,7 @@ import { IoMdArrowDropdown } from 'react-icons/io'
 
 import { APP_ROUTES, MAIN_NAV_ROUTES } from '@/config/routes'
 import { useAuth } from '@/hooks/auth/useAuthSession.hook'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 import { NavLink } from './NavLink'
 

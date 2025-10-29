@@ -2,16 +2,15 @@
 
 import Anuncio from '@components/Anuncio'
 import SeeProduct from '@components/SeeProduct'
-import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import { AnimatePresence } from 'framer-motion'
+import React, { JSX } from 'react'
 
-import { itemVariants } from '@/core/utils/motionItemVariants'
 import { useProductosViewModel } from '@/hooks/products/useProductsViewModel'
+import Breadcrumb from '@/ui/components/Breadcrumb/Breadcrum'
 
-import Breadcrumb from './components/Breadcrumb'
 import FilterSidebar from './components/FilterSidebar'
 
-const ProductosClient = () => {
+const ProductosClient = (): JSX.Element => {
   const {
     products,
     featuredProducts,
@@ -33,7 +32,7 @@ const ProductosClient = () => {
   return (
     <div>
       <div className="content">
-        <Breadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Productos' }]} />
+        <Breadcrumb />
         <h2 className="text-4xl md:text-4xl font-bold text-blue-dark dark:text-white mb-8 text-center md:text-left">
           Nuestros Productos
         </h2>
@@ -49,34 +48,32 @@ const ProductosClient = () => {
                 No se encontraron productos que coincidan con los filtros seleccionados.
               </div>
             ) : (
-              <motion.div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
-                <AnimatePresence>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
+                {/* AnimatePresence ayuda a los exit cuando filtras */}
+                <AnimatePresence mode="popLayout">
                   {products.map(product => (
-                    <motion.div
-                      key={product.id}
-                      variants={itemVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      layout
-                      className="w-full sm:max-w-sm"
-                      transition={{
-                        layout: { duration: 0.4, ease: 'easeInOut' }
-                      }}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <SeeProduct product={product} />
-                    </motion.div>
+                    <SeeProduct key={product.id} product={product} />
                   ))}
                 </AnimatePresence>
-              </motion.div>
+              </div>
             )}
           </div>
         </div>
       </div>
 
       <div className="w-full dark:bg-gray-800 my-10">
-        <Anuncio />
+        <Anuncio
+          title="Todo para el bienestar de tu mascota"
+          subtitle="Asesoría experta, envíos rápidos y productos premium."
+          features={[
+            { text: 'Pagos seguros', color: 'green' },
+            { text: 'Devoluciones fáciles', color: 'blue' },
+            { text: 'Atención 24/7', color: 'purple' }
+          ]}
+          ctaComponent={<button className="btn-primary btn-lg">Comprar ahora</button>}
+          variant="light"
+          align="left"
+        />
       </div>
 
       <div className="container mx-auto px-4 py-8 md:py-12">

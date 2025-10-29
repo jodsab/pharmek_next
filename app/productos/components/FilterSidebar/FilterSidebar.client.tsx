@@ -8,20 +8,15 @@ import { LuFilter } from 'react-icons/lu'
 
 import HocCard from '@/HOC/HocCard'
 
-interface Product {
-  id: string
-  [key: string]: any
-}
-
-interface Category {
-  id: string
+type CategoryWithCount = {
+  id: number
   categoryName: string
-  products?: Product[]
+  count: number // ← viene del viewmodel (0 si no tiene productos)
 }
 
 interface FilterSidebarClientProps {
-  categories: Category[]
-  onFilterChange: (selectedCategories: string[]) => void
+  categories: CategoryWithCount[]
+  onFilterChange: (selectedCategoryIds: number[]) => void
   title?: string
   showProductCount?: boolean
 }
@@ -32,19 +27,17 @@ const FilterSidebarClient = ({
   title = 'Categorías',
   showProductCount = true
 }: FilterSidebarClientProps) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  // guardamos IDs, no nombres
+  const [selectedIds, setSelectedIds] = useState<number[]>([])
 
-  const handleCategoryToggle = (categoryName: string) => {
-    const isSelected = selectedCategories.includes(categoryName)
-    const updatedCategories = isSelected
-      ? selectedCategories.filter(cat => cat !== categoryName)
-      : [...selectedCategories, categoryName]
-
-    setSelectedCategories(updatedCategories)
-    onFilterChange(updatedCategories)
+  const toggle = (id: number) => {
+    const isSelected = selectedIds.includes(id)
+    const updated = isSelected ? selectedIds.filter(x => x !== id) : [...selectedIds, id]
+    setSelectedIds(updated)
+    onFilterChange(updated) // ← devuelve IDs al viewmodel
   }
 
-  const isSelected = (categoryName: string) => selectedCategories.includes(categoryName)
+  const isSelected = (id: number) => selectedIds.includes(id)
 
   if (!categories || categories.length === 0) {
     return (
@@ -70,32 +63,32 @@ const FilterSidebarClient = ({
 
         <ul className="category-list">
           {categories.map(category => {
-            const selected = isSelected(category.categoryName)
-            const productCount = category.products?.length || 0
-
+            const selected = isSelected(category.id)
             return (
-              <li
-                key={category.id}
-                className={`category-item ${selected ? 'selected' : ''}`}
-                onClick={() => handleCategoryToggle(category.categoryName)}
-              >
-                <label htmlFor={`category-${category.id}`} className="category-label">
+              <li key={category.id} className={`category-item ${selected ? 'selected' : ''}`}>
+                <label
+                  htmlFor={`category-${category.id}`}
+                  className="category-label"
+                  onClick={e => {
+                    e.preventDefault() // evita doble toggle por el checkbox
+                    toggle(category.id)
+                  }}
+                >
                   <span className="category-icon">
                     {selected ? <FaCheckCircle /> : <FaCircle />}
                   </span>
 
                   <div className="category-info">
                     <span className="category-name">{category.categoryName}</span>
-                    {showProductCount && <span className="product-count">({productCount})</span>}
+                    {showProductCount && <span className="product-count">({category.count})</span>}
                   </div>
                 </label>
 
                 <input
                   type="checkbox"
                   id={`category-${category.id}`}
-                  value={category.categoryName}
                   checked={selected}
-                  onChange={() => { }}
+                  onChange={() => toggle(category.id)}
                   className="category-checkbox"
                   aria-label={`Filtrar por ${category.categoryName}`}
                 />
@@ -104,11 +97,11 @@ const FilterSidebarClient = ({
           })}
         </ul>
 
-        {selectedCategories.length > 0 && (
+        {selectedIds.length > 0 && (
           <button
             className="clear-filters"
             onClick={() => {
-              setSelectedCategories([])
+              setSelectedIds([])
               onFilterChange([])
             }}
           >

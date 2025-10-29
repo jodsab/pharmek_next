@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GetFeaturedProducts } from '@/core/application/usecases/GetAllProducts'
+import type { Product } from '@/core/domain/entities/Product'
 import { RepositoryFactory } from '@/infrastructure/factories/RepositoryFactory'
 
-export const useGetFeaturedProducts = (limit: number = 4) => {
-  const productRepository = RepositoryFactory.getProductRepository()
-  const getFeaturedProducts = new GetFeaturedProducts(productRepository)
-
-  return useQuery({
+export const useGetFeaturedProducts = (limit = 4) => {
+  const repo = RepositoryFactory.getProductRepository()
+  return useQuery<Product[]>({
     queryKey: ['products', 'featured', limit],
-    queryFn: () => getFeaturedProducts.execute(limit),
-    staleTime: 5 * 60 * 1000
+    queryFn: () => repo.findFeatured(limit),
+    staleTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: false
   })
 }

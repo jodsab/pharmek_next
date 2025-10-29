@@ -68,7 +68,6 @@ export default function SubmissionForm() {
   }
 
   const handleSubmit = () => {
-    console.log('Form submitted:', formData)
     // Aquí enviarías los datos a tu backend
   }
 

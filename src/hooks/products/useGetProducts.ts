@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { GetAllProducts } from '@/core/application/usecases/GetAllProducts'
+import type { Product } from '@/core/domain/entities/Product'
 import { RepositoryFactory } from '@/infrastructure/factories/RepositoryFactory'
 
 export const useGetProducts = () => {
-  const productRepository = RepositoryFactory.getProductRepository()
-  const getAllProducts = new GetAllProducts(productRepository)
-
-  return useQuery({
+  const repo = RepositoryFactory.getProductRepository()
+  return useQuery<Product[]>({
     queryKey: ['products'],
-    queryFn: () => getAllProducts.execute(),
-    staleTime: 5 * 60 * 1000
+    queryFn: () => repo.findAll(),
+    staleTime: 10 * 60 * 1000, // 10 min “fresh”
+    refetchOnWindowFocus: false
   })
 }

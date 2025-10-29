@@ -12,7 +12,7 @@ import { IoClose, IoMenuOutline } from 'react-icons/io5'
 
 import { APP_ROUTES, MAIN_NAV_ROUTES, SOCIAL_LINKS } from '@/config/routes'
 import { useAuth } from '@/hooks/auth/useAuthSession.hook'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 import { NavLink } from './NavLink'
 

@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { LoginUser } from '@/core/application/auth/LoginUser'
 import type { LoginDto } from '@/core/domain/entities/User'
 import { RepositoryFactory } from '@/infrastructure/factories/RepositoryFactory'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 export const useLogin = () => {
   const setUser = useAuthStore(state => state.setUser)

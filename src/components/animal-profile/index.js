@@ -27,8 +27,6 @@ export default function AnimalProfile({ animal }) {
     setExpandedSection(expandedSection === section ? null : section)
   }
 
-  console.log(animal.images[currentImageIndex])
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}

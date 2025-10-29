@@ -2,132 +2,462 @@
 @import '@styles/mediaQueries.scss';
 
 .section_header_container {
+  position: relative;
+  z-index: 1;
   display: flex;
-  flex-direction: column; // <<< Apila los elementos verticalmente
-  align-items: center; // <<< Centra los elementos horizontalmente
-  width: 96%; // Mantén el ancho si lo necesitas
-  max-width: 1200px; // Opcional: Limita el ancho máximo en pantallas grandes
-  margin: 20px auto; // Centra el contenedor en la página y añade margen vertical
-  gap: 15px; // Espacio entre el grupo imagen+título y el subtítulo
+  flex-direction: column;
+  align-items: center;
+  width: 96%;
+  max-width: 1200px;
+  margin: 30px auto;
+  gap: 30px;
 
-  // >>>>>> Estilos para el nuevo contenedor de Imagen y Título <<<<<<
+  // Contenedor de Imagen y Título
   .image_and_title_container {
-    display: flex; // Muestra la imagen y el título uno al lado del otro
-    align-items: center; // Alinea verticalmente la imagen y el título al centro
-    gap: 15px; // Espacio entre la imagen y el título
-    // No necesita width: 100%; si quieres que su ancho se ajuste al contenido
-    // No necesita margin: auto; si el padre (.section_header_container) ya lo centra
+    display: flex;
+    align-items: center;
+    gap: 25px;
 
-    // Contenedor de la imagen - Mobile
+    // Contenedor de la imagen
     .img_container {
-      background-color: $light-secondary;
+      position: relative;
+      background: linear-gradient(
+        135deg,
+        lighten($light-secondary, 15%) 0%,
+        $light-secondary 50%,
+        darken($light-secondary, 5%) 100%
+      );
       border-radius: 50%;
-      padding: 5px;
-      height: 100px; // Tamaño del contenedor en mobile
-      width: 100px; // Tamaño del contenedor en mobile
+      padding: 12px;
+      height: 110px;
+      width: 110px;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-shrink: 0; // Evita que el contenedor de imagen se encoja
-      // Asegúrate de que el Image dentro tenga width/height = 100% si usas layout="fill" o match el contenedor
+      flex-shrink: 0;
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15),
+        0 5px 15px rgba(59, 130, 246, 0.2),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      overflow: visible;
+      cursor: pointer;
+      // Optimización GPU
+      will-change: transform;
+      transform: translateZ(0);
+      transition: box-shadow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+      &:hover {
+        box-shadow:
+          0 20px 60px rgba(0, 0, 0, 0.2),
+          0 10px 25px rgba(59, 130, 246, 0.4),
+          inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      }
+
+      // Efecto de brillo animado
+      .img_glow {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, transparent 60%);
+        animation: rotateGlow 6s linear infinite;
+        opacity: 0.4;
+        // Optimización GPU
+        will-change: transform;
+        transform: translateZ(0);
+      }
+
+      // Anillos decorativos
+      .img_ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid;
+        opacity: 0;
+        animation: ringPulse 4s ease-out infinite;
+        // Optimización GPU
+        will-change: transform, opacity;
+        transform: translateZ(0);
+      }
+
+      .ring_1 {
+        width: 100%;
+        height: 100%;
+        border-color: rgba(59, 130, 246, 0.5);
+        animation-delay: 0s;
+      }
+
+      .ring_2 {
+        width: 120%;
+        height: 120%;
+        border-color: rgba(147, 51, 234, 0.4);
+        animation-delay: 1.3s;
+      }
+
+      .ring_3 {
+        width: 140%;
+        height: 140%;
+        border-color: rgba(6, 182, 212, 0.3);
+        animation-delay: 2.6s;
+      }
+
       img.front {
-        // Si Image tiene width/height fijos, puedes necesitar object-fit: contain;
-        // Si el contenedor tiene tamaño fijo y usas layout="fill", usa object-fit en el Image
         object-fit: contain;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+        transition: filter 0.3s ease;
+        // Optimización
+        will-change: filter;
+        transform: translateZ(0);
+      }
+
+      &:hover img.front {
+        filter: drop-shadow(0 12px 24px rgba(59, 130, 246, 0.4));
       }
     }
 
-    // Título principal - Mobile
-    h2 {
-      font-size: 24px; // Tamaño de fuente del título en mobile (ajusta)
-      margin: 0; // Asegura que no tenga márgenes por defecto
-      text-align: center; // Centra el texto si ocupa varias líneas
-      // Puedes añadir un max-width si los títulos son muy largos en mobile
+    // Título principal
+    .title_wrapper {
+      position: relative;
+    }
+
+    .section_title {
+      font-size: 32px;
+      font-weight: 900;
+      margin: 0;
+      position: relative;
+      letter-spacing: -1px;
+      text-transform: uppercase;
+
+      .title_text {
+        position: relative;
+        z-index: 2;
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 30%, #06b6d4 60%, #8b5cf6 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 6s ease infinite;
+        display: inline-block;
+        // Optimización
+        will-change: background-position;
+        transform: translateZ(0);
+      }
+
+      .title_gradient {
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 50%, transparent 100%);
+        border-radius: 3px;
+        animation: slideIn 0.8s ease-out 0.6s both;
+        // Optimización
+        will-change: width, opacity;
+        transform: translateZ(0);
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 120%;
+        height: 120%;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+        z-index: 0;
+        animation: pulse 4s ease-in-out infinite;
+        // Optimización
+        will-change: transform, opacity;
+      }
     }
   }
-  // >>>>>> Fin Estilos nuevo contenedor <<<<<<
 
-  // Contenedor del subtítulo - Mobile
+  // Contenedor del subtítulo
   .green_space {
-    z-index: 2; // Mantén si es necesario para stacking context
+    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center; // <<< Centra el contenido dentro del subtítulo (texto + icono)
-    background-color: $light-primary; // Color de fondo
-    padding: 15px 20px; // <<< Ajusta el padding (ej: padding horizontal simétrico)
-    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2);
-    position: relative; // <<< Cambiado a relative o static (static es el default, relative si necesitas z-index o transform)
-    // ELIMINA: bottom, left, top (ya no usaremos posicionamiento absoluto para apilar)
-    // Puedes añadir un margen superior si el 'gap' del padre no es suficiente
-    gap: 5px; // Espacio entre el texto del subtítulo y el icono
+    justify-content: center;
+    padding: 18px 32px;
+    border-radius: 50px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow:
+      0 10px 40px rgba(0, 0, 0, 0.12),
+      inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    // Optimización GPU
+    will-change: transform;
+    transform: translateZ(0);
+    transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    p {
-      margin: 0;
-      font-size: 12px; // Tamaño de fuente del subtítulo en mobile (ajusta)
-      text-align: center; // Centra el texto
+    // Fondo con gradiente
+    .green_space_bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        $light-primary 0%,
+        lighten($light-primary, 5%) 50%,
+        $light-primary 100%
+      );
+      transition: transform 0.3s ease;
+      // Optimización
+      will-change: transform;
+      transform: translateZ(0);
     }
 
-    svg {
-      color: $primary;
-      font-weight: bold;
-      font-size: 22px; // Tamaño del icono (ajusta)
+    &:hover .green_space_bg {
+      transform: scale3d(1.02, 1.02, 1);
     }
+
+    // Efecto de resplandor
+    .glow_effect {
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(
+        135deg,
+        rgba(59, 130, 246, 0.4),
+        rgba(147, 51, 234, 0.4),
+        rgba(6, 182, 212, 0.4)
+      );
+      border-radius: 50px;
+      opacity: 0;
+      filter: blur(15px);
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      // Optimización
+      will-change: opacity;
+      transform: translateZ(0);
+    }
+
+    &:hover .glow_effect {
+      opacity: 0.5;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    // Efecto de brillo deslizante
+    .shine_effect {
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      transition: left 0.6s ease;
+      // Optimización
+      will-change: left;
+    }
+
+    &:hover .shine_effect {
+      left: 200%;
+    }
+
+    .subtitle_content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+
+      .sparkle_icon {
+        color: $primary;
+        font-size: 22px;
+        animation: sparkleRotate 4s ease-in-out infinite;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        // Optimización
+        will-change: transform;
+        transform: translateZ(0);
+      }
+
+      p {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: darken($primary, 12%);
+        letter-spacing: 0.5px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
+// Animaciones OPTIMIZADAS
+@keyframes rotateGlow {
+  from {
+    transform: rotate(0deg) translateZ(0);
+  }
+  to {
+    transform: rotate(360deg) translateZ(0);
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale3d(0.9, 0.9, 1);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale3d(1.4, 1.4, 1);
+    opacity: 0;
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale3d(1, 1, 1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale3d(1.05, 1.05, 1);
+  }
+}
+
+@keyframes sparkleRotate {
+  0%,
+  100% {
+    transform: scale3d(1, 1, 1) rotate(0deg);
+  }
+  25% {
+    transform: scale3d(1.15, 1.15, 1) rotate(8deg);
+  }
+  50% {
+    transform: scale3d(1, 1, 1) rotate(0deg);
+  }
+  75% {
+    transform: scale3d(1.15, 1.15, 1) rotate(-8deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
   }
 }
 
 // Media Query para Desktop
 @media screen and (min-width: $tablet) {
   .section_header_container {
-    // No necesitas cambiar display/flex-direction/align-items aquí, ya son correctos para centrar el grupo verticalmente
+    margin: 35px auto;
+    gap: 40px;
 
     .image_and_title_container {
-      // No necesitas cambiar display/align-items/gap aquí, ya son correctos para la disposición imagen+título
-      // Puedes ajustar el gap si quieres más espacio en desktop
-      gap: 20px;
+      gap: 40px;
 
-      // Contenedor de la imagen - Desktop
       .img_container {
-        height: 150px; // <<< Ajusta el tamaño del contenedor en desktop
-        width: 150px; // <<< Ajusta el tamaño del contenedor en desktop
-        // Asegúrate de que el Image dentro se adapte (layout="fill" o width/height matching)
+        height: 160px;
+        width: 160px;
+        padding: 15px;
+
         img.front {
-          // Si Image tiene width/height fijos, ajusta para desktop
-          width: 100px; // Ejemplo: Ajusta el tamaño interno de la imagen si no usa layout="fill"
-          height: 100px; // Ejemplo
+          width: 100%;
+          height: 100%;
         }
       }
 
-      // Título principal - Desktop
-      h2 {
-        font-size: 34px; // <<< Ajusta el tamaño de fuente del título en desktop
-        margin-left: 0; // <<< Elimina el margen izquierdo específico de desktop si ya no es necesario
+      .section_title {
+        font-size: 52px;
+        letter-spacing: -1.5px;
+
+        .title_gradient {
+          height: 8px;
+          bottom: -12px;
+        }
       }
     }
 
-    // Contenedor del subtítulo - Desktop
     .green_space {
-      // No necesitas cambiar display/align-items/justify-content aquí
-      padding: 20px 30px; // <<< Ajusta el padding en desktop
-      min-width: auto; // Restaura min-width si se estableció en mobile y no lo quieres aquí
-      max-width: max-content; // Opcional: Ajusta el ancho máximo para que se ajuste al contenido
+      padding: 22px 48px;
 
-      p {
-        font-size: 17px; // <<< Ajusta el tamaño de fuente del subtítulo en desktop
-      }
+      .subtitle_content {
+        gap: 12px;
 
-      svg {
-        font-size: 26px; // <<< Ajusta el tamaño del icono en desktop (ajusta)
+        .sparkle_icon {
+          font-size: 26px;
+        }
+
+        p {
+          font-size: 17px;
+          letter-spacing: 0.8px;
+        }
       }
     }
   }
 }
 
-// Opcional: Estilos para ocultar la barra de scroll si usas overflow: auto/scroll
-.scrollbar-hide {
-  scrollbar-width: none; /* Para Firefox */
-  -ms-overflow-style: none; /* Para Internet Explorer 10+ */
+// Optimización para móviles
+@media (max-width: 768px) {
+  .section_header_container {
+    .img_container {
+      // Reducir animaciones en móviles
+      .img_glow {
+        animation-duration: 8s;
+        opacity: 0.3;
+      }
+
+      .img_ring {
+        animation-duration: 5s;
+      }
+    }
+
+    .section_title .title_text {
+      animation-duration: 8s;
+    }
+
+    .green_space .sparkle_icon {
+      animation-duration: 5s;
+    }
+  }
 }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none; /* Para Chrome, Safari y Opera */
+// Deshabilitar animaciones para usuarios con preferencia de movimiento reducido
+@media (prefers-reduced-motion: reduce) {
+  .section_header_container {
+    .img_glow,
+    .img_ring,
+    .title_text,
+    .title_gradient::before,
+    .sparkle_icon,
+    .glow_effect {
+      animation: none !important;
+    }
+
+    .shine_effect {
+      display: none;
+    }
+  }
 }

@@ -1,31 +1,35 @@
-export interface Product {
-  id: string
-  created_at: string
-  nombre: string
-  composicion?: string
-  indicaciones?: string
-  dosis_y_via?: string
-  registro_senasa?: string
-  animal_mayor_menor?: string
-  presentaciones?: string
-  images?: ProductImage[]
-  categoriesOnProducts?: CategoryOnProduct[]
-  precio?: number
-  stock?: number
-}
-
 export interface ProductImage {
-  id: string
+  id: number
   url: string
-  alt?: string
-}
-
-export interface CategoryOnProduct {
-  category: Category
+  id_product: number
+  created_at: string
 }
 
 export interface Category {
-  id: string
+  id: number
   categoryName: string
-  products?: Product[]
+  created_at: string
+  categoryImage?: string | null
+}
+
+export interface ProductCategoryLink {
+  id: number
+  id_product: number
+  id_categorie: number
+  created_at: string
+  category: Category // ← gracias al alias category:categories(*)
+}
+
+export interface Product {
+  id: number
+  created_at: string
+  nombre: string
+  composicion: string | null
+  indicaciones: string | null
+  dosis_y_via: string | null
+  registro_senasa: string | null
+  animal_mayor_menor: string | null
+  presentaciones: string | null
+  productsImages?: ProductImage[]
+  productsCategories?: ProductCategoryLink[]
 }

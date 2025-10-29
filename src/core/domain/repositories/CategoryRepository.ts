@@ -1,7 +1,8 @@
-import type { Category } from '../entities/Product'
+import type { Category } from '../entities/Category'
 
 export interface CategoryRepository {
   findAll(): Promise<Category[]>
-  findById(id: string): Promise<Category | null>
-  findByName(name: string): Promise<Category | null>
+  findById(id: number): Promise<Category | null>
+  findByName(categoryName: string): Promise<Category | null>
+  search(query: string): Promise<Category[]>
 }

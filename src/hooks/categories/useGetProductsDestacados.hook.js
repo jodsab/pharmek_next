@@ -15,7 +15,6 @@ const useGetProductsDestacados = () => {
         setProductsDestacados(dataJson)
       }
     } catch (error) {
-      console.log(error)
     } finally {
       setLoading(false)
     }

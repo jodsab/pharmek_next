@@ -1,5 +1,5 @@
 import * as authService from '@/services/authService'
-import { useAuthStore } from '@/store/useAuthStore'
+import { useAuthStore } from '@/stores/authStore'
 
 export const useAuth = () => {
   const { user, setUser, clearUser } = useAuthStore()

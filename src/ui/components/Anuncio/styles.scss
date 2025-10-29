@@ -1,108 +1,318 @@
 @import '@styles/colors.scss';
 @import '@styles/mediaQueries.scss';
 
+/* Fondo con gradiente sutil */
 .anuncio_background {
-  background-color: $light-primary;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --text-color: #0f172a;
 
-  .anuncio_container {
-    margin: 30px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 30px;
-    position: relative;
+  background:
+    radial-gradient(1200px 600px at 0% 0%, rgba(255, 255, 255, 0.6), transparent 60%),
+    linear-gradient(180deg, $light-primary 0%, lighten($light-primary, 6%) 100%);
+  padding: 24px 0;
 
-    .left {
-      position: absolute;
-      left: 20px;
-      top: 50px;
+  &.anuncio-dark {
+    --glass-bg: rgba(17, 25, 40, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --text-color: #e5e7eb;
+    background:
+      radial-gradient(1200px 600px at 0% 0%, rgba(255, 255, 255, 0.06), transparent 60%),
+      linear-gradient(180deg, #0b1220 0%, #0e1628 100%);
+  }
+}
+
+/* Contenedor “glass” con sombra suave + grid responsive */
+.anuncio_container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+
+  display: grid;
+  gap: 22px;
+  padding: 22px;
+  grid-template-columns: 1fr;
+  align-items: center;
+
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+}
+
+/* Decoraciones */
+.molecula {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  opacity: 0.9;
+
+  &.left {
+    left: -10px;
+    top: -10px;
+  }
+  &.right {
+    right: -10px;
+    bottom: -10px;
+  }
+
+  img {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+/* Bloque de imagen */
+.visual_wrapper {
+  display: flex;
+  justify-content: center;
+}
+img.dog_group {
+  width: 100%;
+  height: auto;
+  max-width: 460px;
+  object-fit: contain;
+}
+
+/* Contenido de texto */
+.anuncio_content {
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &.center {
+    text-align: center;
+
+    .features_list {
+      align-items: center;
     }
-
-    .rigth {
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    .molecula {
-      height: 50px;
-      width: 50px;
-    }
-
-    img.dog_group {
-      height: 200px;
-      width: 100%;
-      object-fit: contain;
-    }
-
-    .parrafos {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      h3 {
-        color: $secondary;
-        font-size: 25px;
-        font-weight: bold;
-        margin-bottom: 0;
-      }
-
-      ul {
-        li {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          .balls {
-            height: 8px;
-            width: 8px;
-            border-radius: 50%;
-          }
-
-          #red {
-            background-color: #f52b70;
-          }
-          #blue {
-            background-color: #2b2bf5;
-          }
-          #green {
-            background-color: #2bf5cc;
-          }
-        }
-      }
-    }
-    p {
-      margin: 5px 0;
-    }
-
-    .solicitalo_area {
-      display: flex;
+    .cta_area {
       justify-content: center;
-      position: relative;
-      .bottom {
-        position: absolute;
-        left: 0;
-        top: -20px;
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-      }
     }
   }
 }
 
-@media screen and (min-width: $tablet) {
-  .anuncio_background {
-    .anuncio_container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+.anuncio_title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw + 0.8rem, 2rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: $secondary;
+}
 
-      img.dog_group {
-        height: 300px;
-        width: 100%;
-        object-fit: contain;
+.anuncio_subtitle {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.2vw + 0.6rem, 1.1rem);
+  color: rgba(15, 23, 42, 0.75);
+
+  .anuncio-dark & {
+    color: rgba(229, 231, 235, 0.85);
+  }
+}
+
+/* Features */
+.features_list {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature_item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feature_ball {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+
+  &.red {
+    background: #f52b70;
+  }
+  &.blue {
+    background: #2b6bf5;
+  }
+  &.green {
+    background: #2bf5cc;
+  }
+  &.yellow {
+    background: #f5c22b;
+  }
+  &.purple {
+    background: #8a5cf5;
+  }
+}
+
+.feature_text {
+  margin: 0;
+  line-height: 1.35;
+  font-size: 0.975rem;
+}
+
+/* CTA */
+.cta_area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+  position: relative;
+
+  .hueso_holder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hueso_decoration {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    opacity: 0.9;
+  }
+}
+
+/* Responsive */
+@media screen and (min-width: $tablet) {
+  .anuncio_container {
+    grid-template-columns: 1fr 1.1fr;
+    padding: 28px 32px;
+    gap: 28px;
+  }
+  img.dog_group {
+    max-width: 520px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .anuncio_container {
+    grid-template-columns: 1fr 1.1fr;
+  }
+}
+
+/* Fix de la clase mal escrita (por si quedó en algún lado) */
+.rigth {
+  right: -10px;
+  bottom: -10px;
+} /* legacy support */
+
+.anuncio_background {
+  /* =========================
+   CTA BUTTON STYLES
+   ========================= */
+  .cta_area {
+    /* Botones y links dentro del CTA (incluye .btn y .btn-primary por compat) */
+    :where(button, a, .btn, .btn-primary) {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: $secondary;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      line-height: 1;
+      text-decoration: none;
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow:
+          0 12px 24px rgba(0, 0, 0, 0.16),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        /* un pelín más oscuro en hover */
+        background: darken($secondary, 6%);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow:
+          0 6px 14px rgba(0, 0, 0, 0.14),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      &:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 2px #fff,
+          0 0 0 4px rgba(59, 130, 246, 0.75),
+          /* ring azul accesible */ 0 8px 20px rgba(0, 0, 0, 0.12);
+      }
+
+      &:disabled,
+      &[aria-disabled='true'] {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
       }
     }
+
+    /* Variante “outline” si alguna vez la necesitas */
+    :where(.btn-outline) {
+      background: transparent !important;
+      color: $secondary !important;
+      border-color: rgba(0, 0, 0, 0.1);
+      &:hover {
+        background: rgba(0, 0, 0, 0.05) !important;
+      }
+    }
+
+    /* Dark theme tweak (cuando uses .anuncio-dark en el wrapper) */
+    .anuncio-dark & {
+      :where(button, a, .btn, .btn-primary) {
+        background: lighten($secondary, 2%);
+        &:hover {
+          background: lighten($secondary, 8%);
+        }
+        &:focus-visible {
+          box-shadow:
+            0 0 0 2px rgba(17, 25, 40, 1),
+            0 0 0 4px rgba(96, 165, 250, 0.85),
+            0 8px 20px rgba(0, 0, 0, 0.24);
+        }
+      }
+      :where(.btn-outline) {
+        color: #e5e7eb !important;
+        border-color: rgba(255, 255, 255, 0.2);
+        &:hover {
+          background: rgba(255, 255, 255, 0.06) !important;
+        }
+      }
+    }
+  }
+
+  /* Tamaños opcionales (si los quieres usar) */
+  .cta_area :where(.btn-sm) {
+    padding: 9px 14px;
+    font-size: 0.9rem;
+  }
+  .cta_area :where(.btn-lg) {
+    padding: 14px 22px;
+    font-size: 1.05rem;
   }
 }

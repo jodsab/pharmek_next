@@ -1,4 +1,4 @@
-import type { Category } from '@/core/domain/entities/Product'
+import type { Category } from '@/core/domain/entities/Category' // Updated import
 import type { CategoryRepository } from '@/core/domain/repositories/CategoryRepository'
 import { mockCategories } from '@/infrastructure/mocks/products.mock'
 
@@ -10,14 +10,24 @@ export class MockCategoryRepository implements CategoryRepository {
     return [...this.categories]
   }
 
-  async findById(id: string): Promise<Category | null> {
+  async findById(id: number): Promise<Category | null> {
+    // Updated to number
     await this.simulateDelay()
     return this.categories.find(c => c.id === id) || null
   }
 
-  async findByName(name: string): Promise<Category | null> {
+  async findByName(categoryName: string): Promise<Category | null> {
+    // Updated param name
     await this.simulateDelay()
-    return this.categories.find(c => c.categoryName === name) || null
+    return this.categories.find(c => c.categoryName === categoryName) || null
+  }
+
+  async search(query: string): Promise<Category[]> {
+    // Added search method
+    await this.simulateDelay()
+    return this.categories.filter(category =>
+      category.categoryName.toLowerCase().includes(query.toLowerCase())
+    )
   }
 
   private simulateDelay(ms: number = 300): Promise<void> {

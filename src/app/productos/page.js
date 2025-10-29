@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import Anuncio from '@/components/Anuncio'
 import Breadcrumb from '@/components/Breadcrumb'
 import SeeProduct from '@/components/SeeProduct'
-import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
 import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
 import { useCategoriesStore } from '@/libs/store-categories'
 import { useProductsStore } from '@/libs/store-products'
@@ -59,11 +58,9 @@ const Productos = ({ searchParams }) => {
 
   if (loading) {
     return (
-      <WithNavbarAndFooter>
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">Cargando productos...</p>
-        </div>
-      </WithNavbarAndFooter>
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-xl text-gray-700 dark:text-gray-300">Cargando productos...</p>
+      </div>
     )
   }
 
@@ -89,7 +86,7 @@ const Productos = ({ searchParams }) => {
   }
 
   return (
-    <WithNavbarAndFooter>
+    <>
       <div className="content">
         <Breadcrumb
           items={[
@@ -138,7 +135,18 @@ const Productos = ({ searchParams }) => {
         </div>
       </div>
       <div className="w-full dark:bg-gray-800 my-10">
-        <Anuncio />
+        <Anuncio
+          title="Todo para el bienestar de tu mascota"
+          subtitle="Asesoría experta, envíos rápidos y productos premium."
+          features={[
+            { text: 'Pagos seguros', color: 'green' },
+            { text: 'Devoluciones fáciles', color: 'blue' },
+            { text: 'Atención 24/7', color: 'purple' }
+          ]}
+          ctaComponent={<button className="btn-primary">Comprar ahora</button>}
+          variant="light"
+          align="right"
+        />
       </div>
       <div className="container mx-auto px-4 py-8 md:py-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center md:text-left">
@@ -158,7 +166,7 @@ const Productos = ({ searchParams }) => {
           </div>
         </div>
       </div>
-    </WithNavbarAndFooter>
+    </>
   )
 }
 
