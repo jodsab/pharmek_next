@@ -2,16 +2,14 @@
   "name": "pharmek_next",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "export": "next export",
     "start": "NODE_ENV=production node server.js",
-    "prisma:migrate:dev": "npx prisma migrate dev",
-    "prisma:generate": "npx prisma generate",
-    "prisma:studio": "npx prisma studio",
-    "prisma:db:seed": "npx prisma db seed",
-    "postinstall": "prisma generate",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -20,12 +18,8 @@
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx src app",
     "format": "prettier --write ."
   },
-  "prisma": {
-    "seed": "node prisma/seed.js"
-  },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@prisma/client": "^5.22.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
@@ -49,7 +43,6 @@
     "lucide-react": "^0.516.0",
     "next": "14.0.4",
     "next-auth": "^4.24.10",
-    "nodemailer": "^6.9.9",
     "path": "^0.12.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -91,7 +84,6 @@
     "plop": "^4.0.4",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
-    "prisma": "^5.22.0",
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.4.5",
     "typescript": "^5.9.3"

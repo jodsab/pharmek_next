@@ -81,13 +81,7 @@ const Distribuidores = () => {
   const filteredDistribuidores = useMemo(() => {
     if (selectedProducts.length === 0) return distribuidoresStore
     return distribuidoresStore.filter(
-      dist =>
-        // Ensure that 'dist.products' also contains objects with 'id' or 'productId'
-        // that matches the 'selectedProducts' values.
-        // Based on your previous Prisma setup for distributors,
-        // you'll need to make sure distributor products also have a direct 'id' or 'productId'
-        // if they are coming from a similar join table inclusion.
-        dist.products.some(product => selectedProducts.includes(product.productId)) // Assuming distributor products also have 'productId'
+      dist => dist.products.some(product => selectedProducts.includes(product.productId)) // Assuming distributor products also have 'productId'
     )
   }, [selectedProducts, distribuidoresStore])
 

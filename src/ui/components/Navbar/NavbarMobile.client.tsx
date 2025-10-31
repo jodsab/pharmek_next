@@ -5,7 +5,7 @@ import './mobile.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaFacebook, FaInstagram, FaTiktok, FaUser, FaUserTimes } from 'react-icons/fa'
 import { IoLogoWhatsapp } from 'react-icons/io'
 import { IoClose, IoMenuOutline } from 'react-icons/io5'
@@ -18,12 +18,22 @@ import { NavLink } from './NavLink'
 
 const ICONS_SIZE = 14
 const MENU_SIZE = 26
+const NAV_HEIGHT = 70 // mantener sincronizado con el SCSS
 
 const NavbarMobileClient = () => {
   const [open, setOpen] = useState(false)
   const user = useAuthStore(state => state.user)
   const { logout } = useAuth()
   const router = useRouter()
+
+  // Bloquea el scroll del body cuando el menú está abierto
+  useEffect(() => {
+    if (open) document.body.style.overflow = 'hidden'
+    else document.body.style.overflow = ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   const toggle = () => setOpen(v => !v)
   const close = () => setOpen(false)
@@ -40,7 +50,7 @@ const NavbarMobileClient = () => {
   }
 
   return (
-    <div className="navbar_mobile_container">
+    <div className="navbar_mobile_container" style={{ ['--nav-h' as any]: `${NAV_HEIGHT}px` }}>
       <nav className="nav">
         <Link href={APP_ROUTES.HOME} className="logo_link" onClick={close}>
           <Image
@@ -76,6 +86,9 @@ const NavbarMobileClient = () => {
           </button>
         </div>
       </nav>
+
+      {/* Espaciador para que el contenido no quede bajo el navbar fijo */}
+      <div aria-hidden className="nav_spacer" />
 
       <div className="toggle_menu">
         <div className={`mobile_bar ${open ? 'show' : ''}`}>
