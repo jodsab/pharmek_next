@@ -1,42 +1,39 @@
-"use client";
-import React, { useState } from "react";
-import { useCategoriesStore } from "@/libs/store-categories";
-import { FaCheckCircle, FaCircle } from "react-icons/fa";
+'use client'
+import React, { useState } from 'react'
+import { FaCheckCircle, FaCircle } from 'react-icons/fa'
+import { LuFilter } from 'react-icons/lu'
+
+import HocCard from '@/HOC/HocCard'
+import { useCategoriesStore } from '@/libs/store-categories'
 
 const FilterSidebar = ({ onFilterChange }) => {
-  const categories = useCategoriesStore((state) => state.categories);
-
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
-  // Modificamos la función para recibir el evento
+  const categories = useCategoriesStore(state => state.categories)
+  const [selectedCategories, setSelectedCategories] = useState([])
   const handleCategoryChange = (categoryName, event) => {
-    // Prevenimos la acción por defecto del evento (como la activación del input por la label)
-    event.preventDefault();
-    // Opcional: event.stopPropagation(); // Para evitar que el evento burbujee más allá del li
+    event.preventDefault()
 
-    const isSelected = selectedCategories.includes(categoryName);
+    const isSelected = selectedCategories.includes(categoryName)
     const updatedCategories = isSelected
-      ? selectedCategories.filter((cat) => cat !== categoryName)
-      : [...selectedCategories, categoryName];
-    setSelectedCategories(updatedCategories);
-    onFilterChange(updatedCategories);
-  };
+      ? selectedCategories.filter(cat => cat !== categoryName)
+      : [...selectedCategories, categoryName]
+    setSelectedCategories(updatedCategories)
+    onFilterChange(updatedCategories)
+  }
 
   return (
-    <div className="filter-sidebar p-6 bg-white rounded-lg shadow-lg border border-gray-200">
-      <h3 className="text-xl font-bold mb-6 text-gray-800">
-        Filtrar por Categoría
-      </h3>
+    <HocCard>
+      <div className="flex items-center gap-3 mb-4">
+        <LuFilter size={20} />
+        <h3 className="text-xl font-bold text-gray-800">Categorías</h3>
+      </div>
+
       <ul className="space-y-4">
         {categories &&
-          categories?.map((category) => (
+          categories?.map(category => (
             <li
               key={category.id}
-              className="flex items-center justify-between bg-gray-50 hover:bg-gray-100 p-3 rounded-lg shadow-sm transition-all cursor-pointer w-full"
-              // Modificamos el onClick para pasar el evento
-              onClick={(event) =>
-                handleCategoryChange(category.categoryName, event)
-              }
+              className="flex items-center justify-between hover:bg-gray-200 p-2 rounded-lg  transition-all cursor-pointer w-full"
+              onClick={event => handleCategoryChange(category.categoryName, event)}
             >
               <label
                 htmlFor={`category-${category.id}`}
@@ -45,8 +42,8 @@ const FilterSidebar = ({ onFilterChange }) => {
                 <span
                   className={`text-xl ${
                     selectedCategories?.includes(category.categoryName)
-                      ? "text-green-500"
-                      : "text-gray-400"
+                      ? 'text-green-500'
+                      : 'text-gray-200'
                   }`}
                 >
                   {selectedCategories?.includes(category.categoryName) ? (
@@ -55,23 +52,23 @@ const FilterSidebar = ({ onFilterChange }) => {
                     <FaCircle />
                   )}
                 </span>
-                <span className="text-gray-800 font-medium">
-                  {category.categoryName}
-                </span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="text-gray-800 font-medium">{category.categoryName}</span>
+                  <span>{category?.products?.length}</span>
+                </div>
               </label>
               <input
                 type="checkbox"
                 id={`category-${category.id}`}
                 value={category.categoryName}
                 checked={selectedCategories.includes(category.categoryName)}
-                // onChange se mantiene eliminado
                 className="hidden"
               />
             </li>
           ))}
       </ul>
-    </div>
-  );
-};
+    </HocCard>
+  )
+}
 
-export default FilterSidebar;
+export default FilterSidebar

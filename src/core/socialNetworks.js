@@ -1,16 +1,16 @@
 const SOCIAL_NETWORKS = {
   whatsapp: {
-    url: "https://api.whatsapp.com/send?phone=51974587086",
+    url: 'https://api.whatsapp.com/send?phone=51974587086'
   },
   instagram: {
-    url: "https://www.instagram.com/pharmek_oficial_/",
+    url: 'https://www.instagram.com/pharmek_oficial_/'
   },
   facebook: {
-    url: "https://www.facebook.com/profile.php?id=100057615062756",
+    url: 'https://www.facebook.com/profile.php?id=100057615062756'
   },
   tiktok: {
-    url: "https://www.tiktok.com/@pharmek_oficial",
-  },
-};
+    url: 'https://www.tiktok.com/@pharmek_oficial'
+  }
+}
 
-export default SOCIAL_NETWORKS;
+export default SOCIAL_NETWORKS

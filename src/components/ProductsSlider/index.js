@@ -1,49 +1,46 @@
-"use client";
-import React, { useState } from "react";
-import AtomModal from "@/atoms/AtomModal";
-import AtomSlider from "@/atoms/AtomSlider";
-import Image from "next/image";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
+'use client'
 // Import Swiper styles
-import "swiper/scss";
-import "swiper/scss/pagination";
-import "swiper/scss/navigation";
+import 'swiper/scss'
+import 'swiper/scss/pagination'
+import 'swiper/scss/navigation'
+import './styles.scss'
 
-import "./styles.scss";
-
+import Image from 'next/image'
+import React, { useState } from 'react'
 // import required modules
-import { Pagination, Navigation } from "swiper/modules";
-import "./styles.scss";
+import { Navigation, Pagination } from 'swiper/modules'
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import AtomModal from '@/atoms/AtomModal'
 
 const ProductsSlider = ({ ...props }) => {
-  const [modalData, setModalData] = useState();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { data } = props;
+  const { data } = props
 
-  const { customSlides } = props;
+  const { customSlides } = props
 
-  const handleSlideChange = (swiper) => {
+  const handleSlideChange = swiper => {
     // Puedes hacer lo que quieras con el índice de la diapositiva activa
-  };
+  }
 
-  const clickOnSlide = (slide) => {
-    setModalData(slide);
-    setIsModalOpen(true);
-  };
+  const clickOnSlide = slide => {
+    setModalData(slide)
+    setIsModalOpen(true)
+  }
 
   //Modal
   const showModal = () => {
-    setIsModalOpen(true);
-  };
+    setIsModalOpen(true)
+  }
   const handleOk = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
   const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+    setIsModalOpen(false)
+  }
 
   const ArrData = data?.map((slide, index) => {
     return (
@@ -53,10 +50,10 @@ const ProductsSlider = ({ ...props }) => {
             <Image
               src={
                 slide.src
-                  ? typeof slide.src === "string"
+                  ? typeof slide.src === 'string'
                     ? `/${slide.src}`
                     : `/${slide.src[0]}`
-                  : "/img/logo.png"
+                  : '/img/logo.png'
               }
               alt="image"
               width={0}
@@ -72,28 +69,24 @@ const ProductsSlider = ({ ...props }) => {
           </div>
         </div>
       </SwiperSlide>
-    );
-  });
+    )
+  })
 
   return (
     <div className="products_slider_container">
       <div className="pagination">
-        <button
-          className={`next review-swiper-button-next${customSlides}`}
-        >{`>`}</button>
-        <button
-          className={`prev review-swiper-button-prev${customSlides}`}
-        >{`<`}</button>
+        <button className={`next review-swiper-button-next${customSlides}`}>{'>'}</button>
+        <button className={`prev review-swiper-button-prev${customSlides}`}>{'<'}</button>
       </div>
       <Swiper
         spaceBetween={0}
         loop
         pagination={{
-          clickable: true,
+          clickable: true
         }}
         navigation={{
           nextEl: `.review-swiper-button-next${customSlides}`,
-          prevEl: `.review-swiper-button-prev${customSlides}`,
+          prevEl: `.review-swiper-button-prev${customSlides}`
         }}
         modules={[Pagination, Navigation]}
         className="mySwiper"
@@ -102,16 +95,16 @@ const ProductsSlider = ({ ...props }) => {
         breakpoints={{
           640: {
             slidesPerView: 1,
-            spaceBetween: 40,
+            spaceBetween: 40
           },
           768: {
             slidesPerView: 2,
-            spaceBetween: 40,
+            spaceBetween: 40
           },
           1024: {
             slidesPerView: 3,
-            spaceBetween: 40,
-          },
+            spaceBetween: 40
+          }
         }}
       >
         <div>{ArrData}</div>
@@ -124,7 +117,7 @@ const ProductsSlider = ({ ...props }) => {
         handleCancel={handleCancel}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ProductsSlider;
+export default ProductsSlider

@@ -1,0 +1,98 @@
+@import '@styles/colors.scss';
+
+// --- VARIABLES DE COLOR (Solo para WhatsApp) ---
+
+.withnavbarandfooter_container {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+
+  // --- ESTILOS PARA LA ESTRUCTURA PRINCIPAL (AÑADIDOS) ---
+
+  .withnavbarandfooter_content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .navbar_wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    // Efecto glassmorphism mejorado
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // Sombra más sutil
+    transition:
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+
+    // Reglas de visibilidad para los menús
+    .desktop_menu {
+      display: none; // Oculto en mobile por defecto
+    }
+
+    .mobile_menu {
+      display: block; // Visible en mobile por defecto
+    }
+
+    // Arreglo para el hover del logo
+    // Asume que tu logo está dentro de un <a> con clase .logo o similar
+    a:hover {
+      background-color: transparent !important; // Elimina el fondo feo
+      opacity: 0.85; // Efecto sutil
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  .main_content {
+    flex: 1;
+    margin-top: 70px; // Espacio para el navbar móvil
+    min-height: calc(100vh - 70px);
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .withnavbarandfooter_container {
+    .btn_float {
+      width: 68px;
+      height: 68px;
+      right: 2.5rem;
+    }
+    .btn_wsp {
+      bottom: 2.5rem;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .withnavbarandfooter_container {
+    .navbar_wrapper {
+      .mobile_menu {
+        display: none;
+      }
+
+      .desktop_menu {
+        display: block;
+      }
+    }
+
+    .main_content {
+      margin-top: 80px;
+      min-height: calc(100vh - 80px);
+    }
+  }
+}
+
+// Pantallas grandes
+@media screen and (min-width: 1440px) {
+  .withnavbarandfooter_container {
+  }
+}

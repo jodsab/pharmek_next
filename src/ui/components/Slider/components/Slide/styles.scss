@@ -1,0 +1,109 @@
+@import '@styles/colors.scss';
+@import '@styles/mediaQueries.scss';
+
+.slide_container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  .imagen_container {
+    .imagen {
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+    }
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .product_name {
+      background-color: $secondary;
+      color: white;
+      border-radius: 25px;
+      padding: 12px 35px;
+    }
+    .product_content {
+      .product_message {
+        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+        margin-bottom: 20px;
+        .green {
+          color: $primary;
+        }
+      }
+      .product_description {
+        width: 100%;
+        margin: auto;
+        font-size: 16px;
+      }
+    }
+    .button_cto_ask {
+      position: relative;
+      gap: 10px;
+      color: white;
+      background-color: $primary; /* Reemplaza $primary con tu color primario */
+      border: 0;
+      padding: 10px 20px;
+      border-radius: 25px;
+      margin-top: 20px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: color 1s;
+      p {
+        margin: 0;
+      }
+    }
+
+    .button_cto_ask::before {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: $secondary; /* Reemplaza $secondary con tu color secundario */
+      transition: top 0.4s;
+      border-radius: 25px;
+    }
+
+    .button_cto_ask:hover::before {
+      top: 0;
+    }
+    .button_cto_ask span {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1;
+      transition: color 0.4s;
+    }
+
+    .button_cto_ask:hover span {
+      color: white;
+    }
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .slide_container {
+    flex-direction: row-reverse;
+    margin: 30px auto;
+    .imagen_container {
+      .imagen {
+        width: 100%;
+        height: 370px;
+        object-fit: cover;
+      }
+    }
+    .title {
+      width: 40%;
+    }
+  }
+}

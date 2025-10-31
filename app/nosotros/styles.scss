@@ -1,0 +1,388 @@
+@import '@styles/colors.scss';
+@import '@styles/mediaQueries.scss';
+
+.nosotros_modern_container {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: #ffffff;
+  margin: auto;
+}
+
+// Sections
+.nosotros_section {
+  padding: 100px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.nosotros_visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: $tablet) {
+    padding: 60px 30px;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 50px 20px;
+  }
+}
+
+// Alternar fondos
+.nosotros_section:nth-child(even) {
+  background: linear-gradient(135deg, rgba($primary, 0.02), rgba($primary, 0.05));
+  border-radius: 0;
+  margin: 0 0;
+  max-width: 100%;
+  padding: 100px 60px;
+
+  @media (max-width: $tablet) {
+    padding: 60px 30px;
+  }
+
+  @media (max-width: $mobile) {
+    padding: 50px 20px;
+  }
+}
+
+// Content Wrapper (para layouts de 2 columnas)
+.nosotros_content_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  &.nosotros_reversed {
+    @media (min-width: $tablet) {
+      direction: rtl;
+      > * {
+        direction: ltr;
+      }
+    }
+  }
+}
+
+// Text Block
+.nosotros_text_block {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  .nosotros_section_tag {
+    display: inline-block;
+    background: $primary;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 25px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba($primary, 0.3);
+    animation: nosotros_badge_pulse 2s ease-in-out infinite;
+  }
+
+  .nosotros_section_title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: $primary;
+    margin-bottom: 30px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, $primary, transparent);
+      border-radius: 2px;
+    }
+
+    @media (max-width: $tablet) {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: $mobile) {
+      font-size: 2rem;
+    }
+  }
+
+  .nosotros_text_content {
+    position: relative;
+  }
+
+  .nosotros_description {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: justify;
+    animation: nosotros_fade_in 0.8s ease-out forwards;
+
+    @media (max-width: $mobile) {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+  }
+}
+
+// Image Block con animaciones
+.nosotros_image_block {
+  position: relative;
+}
+
+.nosotros_image_card {
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+
+  &:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.25);
+  }
+
+  .nosotros_image {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover .nosotros_image {
+    transform: scale(1.1);
+  }
+}
+
+// Efecto shine al hacer hover
+.nosotros_image_shine {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+}
+
+.nosotros_image_card:hover .nosotros_image_shine {
+  top: 100%;
+  left: 100%;
+}
+
+// Badge en esquina de imagen
+.nosotros_corner_badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: nosotros_bounce 2s ease-in-out infinite;
+  z-index: 2;
+
+  @media (max-width: $mobile) {
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+// Features List con animación stagger
+.nosotros_features_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.nosotros_feature_item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 20px 25px;
+  background: white;
+  border-radius: 15px;
+  border-left: 4px solid $primary;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateX(-30px);
+
+  p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #333;
+    font-weight: 500;
+
+    @media (max-width: $mobile) {
+      font-size: 0.95rem;
+    }
+  }
+
+  &:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-left-width: 8px;
+  }
+}
+
+.nosotros_visible .nosotros_feature_item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+// Animación escalonada para features
+.nosotros_feature_item.nosotros_stagger_1 {
+  transition-delay: 0.1s;
+}
+.nosotros_feature_item.nosotros_stagger_2 {
+  transition-delay: 0.2s;
+}
+.nosotros_feature_item.nosotros_stagger_3 {
+  transition-delay: 0.3s;
+}
+.nosotros_feature_item.nosotros_stagger_4 {
+  transition-delay: 0.4s;
+}
+.nosotros_feature_item.nosotros_stagger_5 {
+  transition-delay: 0.5s;
+}
+
+.nosotros_feature_icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  animation: nosotros_rotate 3s ease-in-out infinite;
+}
+
+// Animación de flotación para imágenes
+.nosotros_float_animation {
+  animation: nosotros_float 6s ease-in-out infinite;
+}
+
+.nosotros_float_animation.nosotros_delay_1 {
+  animation-delay: 0.5s;
+}
+
+.nosotros_float_animation.nosotros_delay_2 {
+  animation-delay: 1s;
+}
+
+.nosotros_float_animation.nosotros_delay_3 {
+  animation-delay: 1.5s;
+}
+
+// Keyframes para animaciones
+@keyframes nosotros_float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes nosotros_bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes nosotros_badge_pulse {
+  0%,
+  100% {
+    box-shadow: 0 4px 15px rgba($primary, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 25px rgba($primary, 0.5);
+  }
+}
+
+@keyframes nosotros_fade_in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes nosotros_rotate {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+// Responsive ajustes
+@media (max-width: $tablet) {
+  .nosotros_content_wrapper.nosotros_reversed {
+    direction: ltr;
+  }
+
+  .nosotros_text_block {
+    text-align: center;
+
+    .nosotros_section_title::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .nosotros_description {
+    text-align: left !important;
+  }
+}
+
+@media (max-width: $mobile) {
+  .nosotros_image_card {
+    border-radius: 20px;
+  }
+
+  .nosotros_feature_item {
+    padding: 15px 20px;
+    gap: 15px;
+  }
+}

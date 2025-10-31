@@ -1,10 +1,13 @@
-"use client";
-import { validationSchema } from "./validation";
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import AtomInput from "@/atoms/AtomInput";
-import "./styles.scss";
+'use client'
+import './styles.scss'
+
+import { Form, Formik } from 'formik'
+import React from 'react'
+
+import AtomInput from '@/atoms/AtomInput'
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+
+import { validationSchema } from './validation'
 
 const ContactenosPage = () => {
   return (
@@ -12,14 +15,14 @@ const ContactenosPage = () => {
       <div className="contactanos_container content">
         <Formik
           initialValues={{
-            name: "",
-            email: "",
-            celular: "",
-            asunto: "",
-            mensaje: "",
+            name: '',
+            email: '',
+            celular: '',
+            asunto: '',
+            mensaje: ''
           }}
           validationSchema={validationSchema}
-          onSubmit={async (values) => {}}
+          onSubmit={async values => {}}
         >
           {({ errors, touched }) => (
             <Form>
@@ -75,7 +78,7 @@ const ContactenosPage = () => {
         </div>
       </div>
     </WithNavbarAndFooter>
-  );
-};
+  )
+}
 
-export default ContactenosPage;
+export default ContactenosPage

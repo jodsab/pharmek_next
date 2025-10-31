@@ -1,102 +1,70 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import SeeProduct from "@/components/SeeProduct";
-import Anuncio from "@/components/Anuncio";
-// Asegúrate de que useGetProducts ahora trae los productos *incluyendo* las categorías a través de la tabla de unión
-import { useGetProducts } from "@/hooks/categories/useGetProducts.hook";
-import FilterSidebar from "./components/FilterSidebar";
-import { useProductsStore } from "@/libs/store-products";
-import { useCategoriesStore } from "@/libs/store-categories";
+'use client'
+import { AnimatePresence, motion } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
 
-import { motion, AnimatePresence } from "framer-motion";
-import Breadcrumb from "@/components/Breadcrumb";
+import Anuncio from '@/components/Anuncio'
+import Breadcrumb from '@/components/Breadcrumb'
+import SeeProduct from '@/components/SeeProduct'
+import { useGetProducts } from '@/hooks/categories/useGetProducts.hook'
+import { useCategoriesStore } from '@/libs/store-categories'
+import { useProductsStore } from '@/libs/store-products'
+
+import FilterSidebar from './components/FilterSidebar'
 
 const Productos = ({ searchParams }) => {
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedProducts, setSelectedProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  // useGetProducts debería obtener los productos *incluyendo* las categorías a través de la tabla de unión
-  useGetProducts(); // Este hook debería actualizar useProductsStore
+  useGetProducts()
 
-  const products = useProductsStore((state) => state.products);
-  const productLoading = useProductsStore((state) => state.loading);
-  const categories = useCategoriesStore((state) => state.categories);
+  const products = useProductsStore(state => state.products)
+  const productLoading = useProductsStore(state => state.loading)
+  const categories = useCategoriesStore(state => state.categories)
 
-  // >>>>>>>>>> LOGS DE DEPURACIÓN <<<<<<<<<<
   useEffect(() => {
     if (!productLoading) {
       if (products && products.length > 0) {
-        setSelectedProducts(products); // Inicializa con todos los productos si hay
+        setSelectedProducts(products)
       } else {
-        setSelectedProducts([]); // Vacío si no hay productos
+        setSelectedProducts([])
       }
-      setLoading(false);
+      setLoading(false)
     }
-  }, [products, productLoading, categories]); // Añadido 'categories' a las dependencias por si acaso
+  }, [products, productLoading, categories])
 
-  const handleFilterChange = (selectedCategories) => {
-    // console.log("Filtro cambiado. Categorías seleccionadas:", selectedCategories); // Log opcional
-    // console.log("Productos disponibles para filtrar:", products); // Log opcional
-
+  const handleFilterChange = selectedCategories => {
     if (!products || products.length === 0) {
-      // console.log("No hay productos para filtrar. Estableciendo selectedProducts a []"); // Log opcional
-      setSelectedProducts([]);
-      return;
+      setSelectedProducts([])
+      return
     }
 
     if (selectedCategories.length === 0) {
-      // console.log("No hay categorías seleccionadas. Mostrando todos los productos."); // Log opcional
-      setSelectedProducts(products); // Mostrar todos los productos si no hay filtros seleccionados
+      setSelectedProducts(products)
     } else {
-      // console.log("Aplicando filtro..."); // Log opcional
-      const filtered = products.filter((product) => {
-        // console.log("  Evaluando producto:", product.nombre); // Log opcional
-
-        // --- Lógica de Filtrado CORREGIDA para tabla de unión explícita ---
-        // 1. Verifica si el producto tiene el campo de relación de la tabla de unión
-        //    y si es un array
+      const filtered = products.filter(product => {
         if (!Array.isArray(product.categoriesOnProducts)) {
-          // console.log("    Producto no tiene categoriesOnProducts como array. Ignorando."); // Log opcional
-          return false; // Si no tiene la relación o no es array, no puede coincidir
         }
-
-        // 2. Verifica si *alguno* de los vínculos en la tabla de unión para este producto
-        //    coincide con alguna de las categorías seleccionadas
-        const isMatch = product.categoriesOnProducts.some((link) => {
-          // console.log("    Chequeando vínculo:", link); // Log opcional
-          // 3. Asegúrate de que el objeto de categoría real está incluido en el vínculo
+        const isMatch = product.categoriesOnProducts.some(link => {
           if (!link.category) {
-            // console.log("    Vínculo no tiene el objeto category anidado. Ignorando."); // Log opcional
-            return false; // Si la categoría real no está incluida, este vínculo no sirve para filtrar por nombre
+            return false
           }
-          // 4. Compara el nombre de la categoría real anidada con las categorías seleccionadas
-          // console.log("    Comparando categoría anidada:", link.category.categoryName, "con seleccionadas:", selectedCategories); // Log opcional
-          return selectedCategories.includes(link.category.categoryName);
-        });
-        // --- Fin Lógica de Filtrado CORREGIDA ---
-
-        // console.log("  Producto", product.nombre, "es un match?", isMatch); // Log opcional
-        return isMatch;
-      });
-      // console.log("Productos filtrados:", filtered); // Log opcional
-      setSelectedProducts(filtered);
+          return selectedCategories.includes(link.category.categoryName)
+        })
+        return isMatch
+      })
+      setSelectedProducts(filtered)
     }
-  };
+  }
 
   if (loading) {
     return (
-      <WithNavbarAndFooter>
-        <div className="container mx-auto px-4 py-12 text-center">
-          <p className="text-xl text-gray-700 dark:text-gray-300">
-            Cargando productos...
-          </p>
-        </div>
-      </WithNavbarAndFooter>
-    );
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p className="text-xl text-gray-700 dark:text-gray-300">Cargando productos...</p>
+      </div>
+    )
   }
 
-  const showNoProductsMessage = !loading && selectedProducts.length === 0;
+  const showNoProductsMessage = !loading && selectedProducts.length === 0
 
   const itemVariants = {
     hidden: { opacity: 0, y: 60, scale: 0.85 },
@@ -106,50 +74,44 @@ const Productos = ({ searchParams }) => {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut",
-      },
+        ease: 'easeOut'
+      }
     },
     exit: {
       opacity: 0,
       y: -30,
       scale: 0.85,
-      transition: { duration: 0.4, ease: "easeIn" },
-    },
-  };
+      transition: { duration: 0.4, ease: 'easeIn' }
+    }
+  }
 
   return (
-    <WithNavbarAndFooter>
+    <>
       <div className="content">
         <Breadcrumb
           items={[
-            { label: "Home", href: "/" },
-            { label: "Productos" }, // Último item, sin href
+            { label: 'Home', href: '/' },
+            { label: 'Productos' } // Último item, sin href
           ]}
         />
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-8 text-center md:text-left">
+        <h2 className="text-4xl md:text-4xl font-bold text-blue-dark dark:text-white mb-8 text-center md:text-left">
           Nuestros Productos
-        </h1>
+        </h2>
 
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12">
-          <div className="w-full md:w-64 lg:w-80 flex-shrink-0">
-            {/* FilterSidebar probablemente necesita la lista plana de categorías */}
-            {/* Asegúrate de que useCategoriesStore trae solo los objetos de categoría { id, categoryName } */}
-            <FilterSidebar
-              onFilterChange={handleFilterChange}
-              categories={categories}
-            />
+        <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+          <div className="w-full md:w-64 lg:w-75 flex-shrink-0">
+            <FilterSidebar onFilterChange={handleFilterChange} categories={categories} />
           </div>
 
           <div className="flex-1 flex justify-center md:block">
             {showNoProductsMessage ? (
               <div className="text-center text-xl text-gray-600 dark:text-gray-400 py-8">
-                No se encontraron productos que coincidan con los filtros
-                seleccionados.
+                No se encontraron productos que coincidan con los filtros seleccionados.
               </div>
             ) : (
               <motion.div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
                 <AnimatePresence>
-                  {selectedProducts.map((product) => (
+                  {selectedProducts.map(product => (
                     <motion.div
                       key={product.id}
                       variants={itemVariants}
@@ -159,7 +121,7 @@ const Productos = ({ searchParams }) => {
                       layout
                       className="w-full sm:max-w-sm"
                       transition={{
-                        layout: { duration: 0.4, ease: "easeInOut" },
+                        layout: { duration: 0.4, ease: 'easeInOut' }
                       }}
                       whileHover={{ scale: 1.05 }}
                     >
@@ -172,34 +134,40 @@ const Productos = ({ searchParams }) => {
           </div>
         </div>
       </div>
-
-      {/* === ANUNCIO === */}
       <div className="w-full dark:bg-gray-800 my-10">
-        <Anuncio />
+        <Anuncio
+          title="Todo para el bienestar de tu mascota"
+          subtitle="Asesoría experta, envíos rápidos y productos premium."
+          features={[
+            { text: 'Pagos seguros', color: 'green' },
+            { text: 'Devoluciones fáciles', color: 'blue' },
+            { text: 'Atención 24/7', color: 'purple' }
+          ]}
+          ctaComponent={<button className="btn-primary">Comprar ahora</button>}
+          variant="light"
+          align="right"
+        />
       </div>
-
-      {/* === SEGUNDO CONTAINER: Productos Nuevos === */}
       <div className="container mx-auto px-4 py-8 md:py-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6 text-center md:text-left">
           Productos Nuevos
         </h2>
         <div className="flex justify-center md:block">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
-            {Array(4) // Dummy data
-              .fill(null)
-              .map((dummyItem, index) => (
-                <div
-                  key={`new-product-${index}`}
-                  className="w-full sm:max-w-sm hover:scale-105 transition-transform duration-200 ease-in-out"
-                >
-                  <SeeProduct product={dummyItem} />
-                </div>
-              ))}
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+              {Array(4)
+                .fill(null)
+                .map((dummyItem, index) => (
+                  <div key={`new-product-${index}`} className="flex justify-center">
+                    <SeeProduct product={dummyItem} />
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
-    </WithNavbarAndFooter>
-  );
-};
+    </>
+  )
+}
 
-export default Productos;
+export default Productos

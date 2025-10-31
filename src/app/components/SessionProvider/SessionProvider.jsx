@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const SessionProvider = () => {
-  return <div>SessionProvider</div>;
-};
+  return <div>SessionProvider</div>
+}
 
-export default SessionProvider;
+export default SessionProvider

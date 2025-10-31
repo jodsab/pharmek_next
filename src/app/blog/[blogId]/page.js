@@ -1,9 +1,9 @@
-"use client";
-import { useEffect } from "react";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import PostBLog from "./components/postBlog";
+'use client'
+import './styles.scss'
 
-import "./styles.scss";
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+
+import PostBLog from './components/postBlog'
 
 export default function BlogId() {
   return (
@@ -21,5 +21,5 @@ export default function BlogId() {
         </div>
       </WithNavbarAndFooter>
     </main>
-  );
+  )
 }

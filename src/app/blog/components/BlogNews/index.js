@@ -1,7 +1,7 @@
-import React from "react";
-import { CiCalendar } from "react-icons/ci";
+import './styles.scss'
 
-import "./styles.scss";
+import React from 'react'
+import { CiCalendar } from 'react-icons/ci'
 
 const BlogNews = () => {
   return (
@@ -24,10 +24,9 @@ const BlogNews = () => {
         </div>
         <div className="blog_mid">
           <p>
-            Lorem ipsum dolor sit amet consectetur. Non viverra malesuada
-            facilisi quis tristique fringilla accumsan. Non id erat vitae
-            tincidunt odio. Tristique auctor nibh eget non commodo velit id
-            posuere pellentesque. Laoreet ornare molestie viverra vitae.{" "}
+            Lorem ipsum dolor sit amet consectetur. Non viverra malesuada facilisi quis tristique
+            fringilla accumsan. Non id erat vitae tincidunt odio. Tristique auctor nibh eget non
+            commodo velit id posuere pellentesque. Laoreet ornare molestie viverra vitae.{' '}
           </p>
         </div>
         <div className="blog_bot">
@@ -37,7 +36,7 @@ const BlogNews = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogNews;
+export default BlogNews

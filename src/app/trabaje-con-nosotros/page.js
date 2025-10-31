@@ -1,9 +1,12 @@
-"use client";
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import SignupSchema from "./validation";
-import WithNavbarAndFooter from "@/HOC/WithNavbarAndFooter";
-import "./styles.scss";
+'use client'
+import './styles.scss'
+
+import { Field, Form, Formik } from 'formik'
+import React from 'react'
+
+import WithNavbarAndFooter from '@/HOC/WithNavbarAndFooter'
+
+import SignupSchema from './validation'
 
 const TrabajeConNosotrosPage = () => {
   return (
@@ -25,18 +28,14 @@ const TrabajeConNosotrosPage = () => {
                 <div className="container--contactenos-formulario">
                   <Formik
                     initialValues={{
-                      Nombre: "",
+                      Nombre: ''
                     }}
                     validationSchema={SignupSchema}
-                    onSubmit={async (values) => {}}
+                    onSubmit={async values => {}}
                   >
                     {({ errors, touched }) => (
                       <Form>
-                        <Field
-                          placeholder="Nombre"
-                          className="formulario-input"
-                          name="Nombre"
-                        />
+                        <Field placeholder="Nombre" className="formulario-input" name="Nombre" />
                         {errors.Nombre && touched.Nombre ? (
                           <div className="input-error">{errors.Nombre}</div>
                         ) : null}
@@ -48,11 +47,7 @@ const TrabajeConNosotrosPage = () => {
                         {errors.Apellido && touched.Apellido ? (
                           <div className="input-error">{errors.Apellido}</div>
                         ) : null}
-                        <Field
-                          placeholder="Edad"
-                          className="formulario-input"
-                          name="Edad"
-                        />
+                        <Field placeholder="Edad" className="formulario-input" name="Edad" />
                         {errors.Edad && touched.Edad ? (
                           <div className="input-error">{errors.Edad}</div>
                         ) : null}
@@ -64,11 +59,7 @@ const TrabajeConNosotrosPage = () => {
                         {errors.Email && touched.Email ? (
                           <div className="input-error">{errors.Email}</div>
                         ) : null}
-                        <Field
-                          placeholder="Teléfono"
-                          className="formulario-input"
-                          name="Phone"
-                        />
+                        <Field placeholder="Teléfono" className="formulario-input" name="Phone" />
                         {errors.Phone && touched.Phone ? (
                           <div className="input-error">{errors.Phone}</div>
                         ) : null}
@@ -80,11 +71,7 @@ const TrabajeConNosotrosPage = () => {
                         {errors.Ocupation && touched.Ocupation ? (
                           <div className="input-error">{errors.Ocupation}</div>
                         ) : null}
-                        <Field
-                          placeholder="Asunto"
-                          className="formulario-input"
-                          name="Asunto"
-                        />
+                        <Field placeholder="Asunto" className="formulario-input" name="Asunto" />
                         {errors.Asunto && touched.Asunto ? (
                           <div className="input-error">{errors.Asunto}</div>
                         ) : null}
@@ -97,10 +84,7 @@ const TrabajeConNosotrosPage = () => {
                           <div className="input-error">{errors.Mensaje}</div>
                         ) : null}
                         <div className="btn_container">
-                          <button
-                            className="formulario-input-enviar"
-                            type="submit"
-                          >
+                          <button className="formulario-input-enviar" type="submit">
                             ENVIAR
                           </button>
                         </div>
@@ -121,8 +105,7 @@ const TrabajeConNosotrosPage = () => {
                 </div>
                 <div className="container-contactenos-direccion">
                   <p>
-                    <strong>Dirección:</strong> Av Almirante Miguel Grau 1380,
-                    Of 706 Barranco
+                    <strong>Dirección:</strong> Av Almirante Miguel Grau 1380, Of 706 Barranco
                   </p>
                 </div>
               </div>
@@ -131,7 +114,7 @@ const TrabajeConNosotrosPage = () => {
         </section>
       </div>
     </WithNavbarAndFooter>
-  );
-};
+  )
+}
 
-export default TrabajeConNosotrosPage;
+export default TrabajeConNosotrosPage

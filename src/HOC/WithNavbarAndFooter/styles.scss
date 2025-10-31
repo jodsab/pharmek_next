@@ -1,5 +1,5 @@
-@import "../../resources/styles/colors.scss";
-@import "../../resources/styles/mediaQueries.scss";
+@import '../../resources/styles/colors.scss';
+@import '../../resources/styles/mediaQueries.scss';
 
 .withnavbarandfooter_container {
   .btn-wsp {
@@ -71,4 +71,8 @@
       }
     }
   }
+}
+
+.ant-dropdown {
+  z-index: 999999999999 !important;
 }

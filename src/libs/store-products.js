@@ -1,7 +1,6 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand'
 
-export const useProductsStore = create((set) => ({
+export const useProductsStore = create(set => ({
   products: [],
-  setProducts: (products) => set({ products }),
-}));
+  setProducts: products => set({ products })
+}))

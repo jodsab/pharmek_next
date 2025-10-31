@@ -1,0 +1,154 @@
+// Variables de color
+$wsp-color-start: #25d366;
+$wsp-color-end-1: #1da851;
+$wsp-color-end-2: #128c7e;
+$wsp-shadow-color: rgba(37, 211, 102, 0.4);
+$wsp-shadow-color-hover: rgba(37, 211, 102, 0.6);
+
+.btn_float {
+  position: fixed;
+  right: 2rem;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 50%;
+  z-index: 1000;
+  cursor: pointer;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+
+  // Optimización GPU
+  will-change: transform;
+  transform: translateZ(0);
+
+  // Solo transiciones en propiedades baratas
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  // Animación de flotación REDUCIDA (de 3s a 4s)
+  animation: float-slow 4s ease-in-out infinite;
+
+  // Pseudo-elemento SIMPLIFICADO (solo uno)
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    filter: blur(8px); // Reducido de blur implícito mayor
+  }
+
+  // ELIMINADO ::after (no es necesario)
+
+  // Hover simplificado
+  &:hover {
+    transform: scale(1.1) translateZ(0);
+
+    &::before {
+      opacity: 0.5; // Reducido de animación compleja
+    }
+  }
+
+  // Click feedback
+  &:active {
+    transform: scale(1.05) translateZ(0);
+    transition: transform 0.1s ease;
+  }
+
+  // Icono
+  > * {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.2s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover > * {
+    transform: scale(1.08) rotate(5deg);
+  }
+}
+
+// Estilos específicos para WhatsApp
+.btn_wsp {
+  bottom: 2rem;
+  background: linear-gradient(
+    135deg,
+    $wsp-color-start 0%,
+    $wsp-color-end-1 50%,
+    $wsp-color-end-2 100%
+  );
+  box-shadow:
+    0 8px 24px $wsp-shadow-color,
+    0 4px 8px $wsp-shadow-color;
+
+  &::before {
+    background: linear-gradient(135deg, $wsp-color-start, $wsp-color-end-2);
+  }
+
+  &:hover {
+    box-shadow:
+      0 12px 32px $wsp-shadow-color-hover,
+      0 8px 16px $wsp-shadow-color;
+  }
+}
+
+// Media Queries
+@media screen and (min-width: 768px) {
+  .btn_float {
+    width: 72px;
+    height: 72px;
+    right: 3rem;
+  }
+
+  .btn_wsp {
+    bottom: 3rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .btn_float {
+    width: 76px;
+    height: 76px;
+    left: 2rem; // Cambié left: 2rem a right: 2rem (creo que era un error)
+  }
+
+  .btn_wsp {
+    bottom: 2rem;
+  }
+}
+
+// Animación OPTIMIZADA (más lenta y simple)
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-6px) translateZ(0);
+  }
+}
+
+// ELIMINADAS estas animaciones pesadas:
+// - pulse-glow-wsp (cambiaba box-shadow constantemente)
+// - rotate (rotación infinita innecesaria)
+// - wiggle (demasiado movimiento)
+
+// Optimización para usuarios con preferencia de movimiento reducido
+@media (prefers-reduced-motion: reduce) {
+  .btn_float {
+    animation: none !important;
+
+    &:hover {
+      transform: scale(1.05) translateZ(0);
+    }
+
+    &:hover > * {
+      transform: scale(1.05);
+    }
+  }
+}

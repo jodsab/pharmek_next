@@ -1,9 +1,10 @@
-"use client";
-import React from "react";
-import Image from "next/image";
-import AtomSlider from "@/atoms/AtomSlider";
-import { IMG_MOBILE, IMG_DESKTOP } from "@/core/frontImages";
-import "./styles.scss";
+'use client'
+import './styles.scss'
+
+import React from 'react'
+
+import AtomSlider from '@/atoms/AtomSlider'
+import { IMG_DESKTOP, IMG_MOBILE } from '@/core/frontImages'
 
 const FrontSlider = () => {
   return (
@@ -17,7 +18,7 @@ const FrontSlider = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default FrontSlider;
+export default FrontSlider

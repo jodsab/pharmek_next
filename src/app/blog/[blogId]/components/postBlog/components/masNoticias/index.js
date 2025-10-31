@@ -1,10 +1,11 @@
-import React from "react";
-import Image from "next/image";
-import { CiCalendar } from "react-icons/ci";
-import { FaArrowRight } from "react-icons/fa";
-import masNoticias from "./mas-noticias.jpeg";
+import './styles.scss'
 
-import "./styles.scss";
+import Image from 'next/image'
+import React from 'react'
+import { CiCalendar } from 'react-icons/ci'
+import { FaArrowRight } from 'react-icons/fa'
+
+import masNoticias from './mas-noticias.jpeg'
 
 const MasNoticias = () => {
   return (
@@ -14,7 +15,7 @@ const MasNoticias = () => {
       <p className="masNoticias">MÁS NOTICIAS</p>
       <div className="lista_noticias">
         {Array(3)
-          .fill("")
+          .fill('')
           .map((noticia, index) => {
             return (
               <div className="noticia" key={index}>
@@ -35,11 +36,11 @@ const MasNoticias = () => {
                   </div>
                 </div>
               </div>
-            );
+            )
           })}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MasNoticias;
+export default MasNoticias
