@@ -1,7 +1,6 @@
 'use client'
 import './styles.scss'
 
-import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import React, { JSX, useCallback, useEffect, useRef, useState } from 'react'
 import { BsChatDotsFill } from 'react-icons/bs'
@@ -19,6 +18,7 @@ const MISTRAL_API_URL = '/api/mistral'
 
 export default function Chatbot(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
   const [messages, setMessages] = useState<Message[]>([
     { sender: 'bot', text: '¡Hola! Soy Pharmek Michibot. ¿En qué puedo ayudarte? 🐱💊' }
   ])
@@ -29,6 +29,22 @@ export default function Chatbot(): JSX.Element {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
+
+  // Manejar animación de apertura/cierre
+  const handleToggle = useCallback(() => {
+    if (isOpen) {
+      // Cerrar
+      setIsAnimating(true)
+      setTimeout(() => {
+        setIsOpen(false)
+        setIsAnimating(false)
+      }, 300) // Duración de la animación CSS
+    } else {
+      // Abrir
+      setIsOpen(true)
+      setTimeout(() => setIsAnimating(true), 10)
+    }
+  }, [isOpen])
 
   const fetchMistralResponse = useCallback(async (query: string) => {
     setIsSending(true)
@@ -74,90 +90,71 @@ export default function Chatbot(): JSX.Element {
 
   return (
     <div className="chatbot-container">
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="chatbot-overlay"
-          />
-        )}
-      </AnimatePresence>
+      {/* Overlay - Solo en mobile */}
+      {isOpen && (
+        <div className={`chatbot-overlay ${isAnimating ? 'visible' : ''}`} onClick={handleToggle} />
+      )}
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="chatbot-window"
-            role="dialog"
-            aria-label="Chatbot"
-          >
+      {/* Ventana del Chat */}
+      {isOpen && (
+        <div
+          className={`chatbot-window ${isAnimating ? 'visible' : ''}`}
+          role="dialog"
+          aria-label="Chatbot"
+        >
+          <button onClick={handleToggle} className="chatbot-close-button" aria-label="Cerrar chat">
+            <IoMdClose size={20} />
+          </button>
+
+          <div className="chatbot-title">Pharmek Michibot 🐱</div>
+
+          <div className="chatbot-messages-area" role="log" aria-live="polite">
+            {messages.map((msg, i) => (
+              <div key={i} className={`message-row ${msg.sender === 'bot' ? 'bot' : 'user'}`}>
+                {msg.sender === 'bot' && (
+                  <Image src={gatito} alt="Bot" width={32} height={32} className="message-avatar" />
+                )}
+                <div className="message-bubble">{msg.text}</div>
+                {msg.sender === 'user' && (
+                  <Image
+                    src={perfil}
+                    alt="Usuario"
+                    width={32}
+                    height={32}
+                    className="message-avatar"
+                  />
+                )}
+              </div>
+            ))}
+            <div ref={messagesEndRef} />
+          </div>
+
+          <div className="chatbot-input-area">
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="chatbot-input"
+              placeholder="Escribe un mensaje..."
+              disabled={isSending}
+              aria-label="Mensaje"
+            />
             <button
-              onClick={() => setIsOpen(false)}
-              className="chatbot-close-button"
-              aria-label="Cerrar chat"
+              onClick={handleSendMessage}
+              className="chatbot-send-button"
+              disabled={isSending}
+              aria-label="Enviar mensaje"
             >
-              <IoMdClose size={20} />
+              <IoMdSend size={20} />
             </button>
+          </div>
+        </div>
+      )}
 
-            <div className="chatbot-title">Pharmek Michibot 🐱</div>
-
-            <div className="chatbot-messages-area" role="log" aria-live="polite">
-              {messages.map((msg, i) => (
-                <div key={i} className={`message-row ${msg.sender === 'bot' ? 'bot' : 'user'}`}>
-                  {msg.sender === 'bot' && (
-                    <Image
-                      src={gatito}
-                      alt="Bot"
-                      width={32}
-                      height={32}
-                      className="message-avatar"
-                    />
-                  )}
-                  <div className="message-bubble">{msg.text}</div>
-                  {msg.sender === 'user' && (
-                    <Image
-                      src={perfil}
-                      alt="Usuario"
-                      width={32}
-                      height={32}
-                      className="message-avatar"
-                    />
-                  )}
-                </div>
-              ))}
-              <div ref={messagesEndRef} />
-            </div>
-
-            <div className="chatbot-input-area">
-              <input
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="chatbot-input"
-                placeholder="Escribe un mensaje..."
-                disabled={isSending}
-                aria-label="Mensaje"
-              />
-              <button
-                onClick={handleSendMessage}
-                className="chatbot-send-button"
-                disabled={isSending}
-                aria-label="Enviar mensaje"
-              >
-                <IoMdSend size={20} />
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+      {/* Botón Toggle */}
       <button
-        onClick={() => setIsOpen(v => !v)}
+        onClick={handleToggle}
         className="chatbot-toggle-button"
         aria-label={isOpen ? 'Cerrar chat' : 'Abrir chat'}
       >

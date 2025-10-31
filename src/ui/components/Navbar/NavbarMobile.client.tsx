@@ -47,7 +47,7 @@ const NavbarMobileClient = () => {
             className="logo"
             height={50}
             width={120}
-            src="/assets/images/business/logo.jpg"
+            src="/assets/images/business/logo.png"
             alt="Pharmek logo"
             priority
           />

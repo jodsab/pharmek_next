@@ -2,195 +2,127 @@
 
 .animated_background_wrapper {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.03) 0%,
-    rgba(147, 51, 234, 0.03) 50%,
-    rgba(6, 182, 212, 0.03) 100%
-  );
-  // Optimización: usar GPU para animaciones
+  background:
+    radial-gradient(1200px 800px at 10% 0%, rgba(59, 130, 246, 0.06), transparent 60%),
+    radial-gradient(1000px 700px at 90% 100%, rgba(147, 51, 234, 0.05), transparent 60%),
+    radial-gradient(900px 600px at 50% 50%, rgba(6, 182, 212, 0.05), transparent 60%),
+    linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.02),
+      rgba(147, 51, 234, 0.02),
+      rgba(6, 182, 212, 0.02)
+    );
+}
+
+.bg_shapes {
+  position: absolute;
+  inset: 0;
+  opacity: 0.75;
+  background-image:
+    radial-gradient(220px 220px at 0% 10%, rgba(59, 130, 246, 0.22), transparent 60%),
+    radial-gradient(180px 180px at 100% 90%, rgba(147, 51, 234, 0.18), transparent 60%),
+    radial-gradient(160px 160px at 85% 35%, rgba(6, 182, 212, 0.22), transparent 60%),
+    radial-gradient(150px 150px at 10% 70%, rgba(16, 185, 129, 0.18), transparent 60%);
+  background-repeat: no-repeat;
+  background-size: auto;
+  animation: bgDrift 28s ease-in-out infinite alternate;
   will-change: transform;
   transform: translateZ(0);
-  backface-visibility: hidden;
-
-  // Formas de fondo animadas
-  .background_shapes {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0.6;
-    // Optimización GPU
-    will-change: transform;
-    transform: translateZ(0);
-
-    .shape {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      // Optimización: solo usar transform y opacity
-      animation: float 20s ease-in-out infinite;
-      will-change: transform;
-      transform: translateZ(0);
-    }
-
-    .shape_1 {
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.25), transparent);
-      top: -100px;
-      left: -50px;
-      animation-delay: 0s;
-    }
-
-    .shape_2 {
-      width: 250px;
-      height: 250px;
-      background: radial-gradient(circle, rgba(147, 51, 234, 0.2), transparent);
-      bottom: -80px;
-      right: -30px;
-      animation-delay: 5s;
-    }
-
-    .shape_3 {
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(6, 182, 212, 0.25), transparent);
-      top: 50%;
-      right: 10%;
-      animation-delay: 10s;
-    }
-
-    .shape_4 {
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(16, 185, 129, 0.2), transparent);
-      bottom: 30%;
-      left: 5%;
-      animation-delay: 15s;
-    }
-  }
-
-  // Partículas flotantes - REDUCIDAS de 8 a 5
-  .floating_particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    will-change: transform;
-    transform: translateZ(0);
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: $light-primary;
-      border-radius: 50%;
-      opacity: 0.5;
-      // Optimización: animación más lenta
-      animation: particleFloat 12s ease-in-out infinite;
-      will-change: transform, opacity;
-      transform: translateZ(0);
-    }
-
-    // Solo 5 partículas en lugar de 8
-    .particle_1 {
-      left: 15%;
-      top: 20%;
-      animation-delay: 0s;
-      animation-duration: 12s;
-    }
-
-    .particle_2 {
-      left: 75%;
-      top: 40%;
-      animation-delay: 2.4s;
-      animation-duration: 14s;
-    }
-
-    .particle_3 {
-      left: 35%;
-      top: 70%;
-      animation-delay: 4.8s;
-      animation-duration: 13s;
-    }
-
-    .particle_4 {
-      left: 85%;
-      top: 15%;
-      animation-delay: 7.2s;
-      animation-duration: 15s;
-    }
-
-    .particle_5 {
-      left: 50%;
-      top: 85%;
-      animation-delay: 9.6s;
-      animation-duration: 11s;
-    }
-  }
 }
 
-// Animaciones OPTIMIZADAS - solo transform y opacity
-@keyframes float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
+.bg_particles {
+  position: absolute;
+  inset: 0;
+}
+
+.bg_particles::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba($light-primary, 0.7);
+  opacity: 0.65;
+  filter: drop-shadow(0 0 2px rgba($light-primary, 0.35));
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  animation: particlesFloat 24s linear infinite;
+  box-shadow:
+    8vw 12vh 0 0 currentColor,
+    22vw 38vh 0 0 currentColor,
+    35vw 72vh 0 0 currentColor,
+    68vw 45vh 0 0 currentColor,
+    82vw 18vh 0 0 currentColor,
+    12vw 82vh 0 0 currentColor,
+    52vw 8vh 0 0 currentColor,
+    28vw 55vh 0 0 currentColor,
+    44vw 26vh 0 0 currentColor,
+    90vw 66vh 0 0 currentColor;
+}
+
+@keyframes bgDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(30px, -30px, 0);
+    transform: translate3d(2%, -2%, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(-1%, 1%, 0) scale(1);
   }
 }
 
-@keyframes particleFloat {
-  0%,
-  100% {
+@keyframes particlesFloat {
+  0% {
     transform: translate3d(0, 0, 0);
-    opacity: 0;
+    opacity: 0.4;
   }
-  10%,
-  90% {
+  25% {
+    transform: translate3d(1vw, -2vh, 0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(2vw, -4vh, 0);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate3d(1vw, -6vh, 0);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(0, -8vh, 0);
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 768px) {
+  .bg_shapes {
+    opacity: 0.55;
+  }
+  .bg_particles::before {
+    filter: none;
     opacity: 0.5;
   }
-  50% {
-    transform: translate3d(40px, -80px, 0);
-    opacity: 0.6;
-  }
 }
 
-// Optimización para móviles - deshabilitar animaciones pesadas
-@media (max-width: 768px) {
-  .animated_background_wrapper {
-    // Reducir blur en móviles
-    .background_shapes .shape {
-      filter: blur(40px);
-    }
-
-    // Ocultar partículas en móviles
-    .floating_particles {
-      display: none;
-    }
-  }
-}
-
-// Optimización: reducir animaciones si el usuario prefiere menos movimiento
 @media (prefers-reduced-motion: reduce) {
-  .animated_background_wrapper {
-    .background_shapes .shape {
-      animation: none;
-    }
+  .bg_shapes {
+    animation: none;
+  }
+  .bg_particles::before {
+    animation: none;
+    opacity: 0.4;
+  }
+}
 
-    .floating_particles {
-      display: none;
-    }
+@supports not (backdrop-filter: blur(1px)) {
+  .bg_particles::before {
+    filter: none;
   }
 }

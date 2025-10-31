@@ -4,13 +4,11 @@ import 'aos/dist/aos.css'
 import './styles.scss'
 
 import SectionHeader from '@components/SectionHeader'
-import Slider from '@components/Slider'
 import Aos from 'aos'
 import Script from 'next/script'
 import { useEffect } from 'react'
 
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
-import { useGetProductsDestacados } from '@/hooks/categories/useGetProductsDestacados.hook'
 
 import CardCategorie from './components/CardCategorie'
 import HeroSection from './components/HeroSection/HeroSection'
@@ -20,7 +18,6 @@ import TiktokEmbed from './components/TiktokEmbed' // Import the new component
 const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 
 export default function Home({ session }) {
-  const { loading: loadingProductsDestacados, productsDestacados } = useGetProductsDestacados()
   const { data: categories, isLoading: loadingCategories } = useGetCategories()
 
   useEffect(() => {
@@ -36,13 +33,13 @@ export default function Home({ session }) {
       />
       <HeroSection />
       <div className="home_container content">
-        <section className="section_slider content" data-aos="zoom-out">
+        {/*         <section className="section_slider content" data-aos="zoom-out">
           {loadingProductsDestacados ? (
             <Slider loadingProductsDestacados={loadingProductsDestacados} />
           ) : (
             productsDestacados && <Slider productsDestacados={productsDestacados} />
           )}
-        </section>
+        </section> */}
 
         <section className="section_productos">
           <SectionHeader

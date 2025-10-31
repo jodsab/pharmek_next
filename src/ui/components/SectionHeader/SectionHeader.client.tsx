@@ -2,9 +2,8 @@
 
 import './styles.scss'
 
-import { motion } from 'framer-motion'
 import Image, { StaticImageData } from 'next/image'
-import React from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { IoSparklesSharp } from 'react-icons/io5'
 
 interface SectionHeaderClientProps {
@@ -14,99 +13,69 @@ interface SectionHeaderClientProps {
   imageSize?: number
 }
 
-const SectionHeaderClient = ({
+function useInView<T extends HTMLElement>(opts: IntersectionObserverInit = { threshold: 0.2 }) {
+  const ref = useRef<T | null>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    if (!ref.current || visible) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          obs.disconnect()
+        }
+      },
+      { rootMargin: '0px 0px -15% 0px', ...opts }
+    )
+    obs.observe(ref.current)
+    return () => obs.disconnect()
+  }, [opts, visible])
+  return { ref, visible }
+}
+
+const SectionHeaderClient: React.FC<SectionHeaderClientProps> = ({
   title,
   subtitle,
   src,
   imageSize = 100
-}: SectionHeaderClientProps) => {
+}) => {
+  const { ref, visible } = useInView<HTMLDivElement>()
+
   return (
-    <div className="section_header_container">
-      {/* Imagen y Título */}
-      <motion.div
-        className="image_and_title_container"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
-      >
-        {/* Contenedor de imagen con efecto de brillo */}
-        <motion.div
-          className="img_container"
-          initial={{ scale: 0.5, rotate: -20 }}
-          whileInView={{ scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.9,
-            ease: [0.34, 1.56, 0.64, 1],
-            delay: 0.2
-          }}
-          whileHover={{
-            scale: 1.08,
-            rotate: [0, -5, 5, 0],
-            transition: { duration: 0.5 }
-          }}
-        >
-          <div className="img_glow" />
-          <div className="img_ring ring_1"></div>
-          <div className="img_ring ring_2"></div>
-          <div className="img_ring ring_3"></div>
+    <div
+      ref={ref}
+      className={`section_header_container section_header_lite ${visible ? 'is-visible' : ''}`}
+    >
+      <div className="image_and_title_container">
+        <div className="img_container" aria-hidden>
           <Image
             className="front"
             src={src}
             width={imageSize}
             height={imageSize}
             alt={`${title} icon`}
-            priority
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 64px, 100px"
           />
-        </motion.div>
+        </div>
 
-        {/* Título con efecto de aparición */}
-        <motion.div
-          className="title_wrapper"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.8,
-            delay: 0.4,
-            ease: 'easeOut'
-          }}
-        >
+        <div className="title_wrapper">
           <h2 className="section_title">
             <span className="title_text">{title}</span>
-            <span className="title_gradient"></span>
+            <span className="title_gradient" />
           </h2>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
-      {/* Subtítulo con diseño moderno */}
-      <motion.div
-        className="green_space"
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0.6,
-          delay: 0.6,
-          ease: 'easeOut'
-        }}
-        whileHover={{
-          scale: 1.03,
-          y: -3,
-          transition: { duration: 0.3 }
-        }}
-      >
-        <div className="green_space_bg"></div>
+      <div className="green_space" role="note">
         <div className="subtitle_content">
           <IoSparklesSharp className="sparkle_icon" />
           <p>{subtitle}</p>
         </div>
-        <div className="shine_effect" />
-        <div className="glow_effect"></div>
-      </motion.div>
+      </div>
     </div>
   )
 }
 
-export default SectionHeaderClient
+export default memo(SectionHeaderClient)
