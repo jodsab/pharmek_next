@@ -2,20 +2,19 @@
 
 import './styles.scss'
 
-import { domAnimation, LazyMotion, m, useReducedMotion } from 'framer-motion'
+import { domAnimation, easeInOut, easeOut, LazyMotion, m, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { memo, useMemo } from 'react'
 import { FaArrowRight, FaHeart, FaLeaf, FaShieldAlt, FaStar } from 'react-icons/fa'
 
 /**
- * Optimizaciones clave:
- * - Framer Motion via LazyMotion (domAnimation) + variants con stagger.
- * - Disminuye wrappers motion.* (1 contenedor + elementos necesarios).
- * - whileInView + viewport={{ once: true }} para evitar animaciones repetidas.
- * - useReducedMotion para respetar preferencias del usuario.
- * - memo + useMemo para evitar recreaciones y re-renderes.
- * - Mantiene exactamente las mismas classNames para no perder estilos.
+ * Mejoras:
+ * - Corrige tipos de transición (ease → función `easeOut`).
+ * - Mantiene animaciones accesibles con `useReducedMotion`.
+ * - Mantiene el mismo layout y classNames.
+ * - Reusa `LazyMotion(domAnimation)` para rendimiento.
+ * - Usa memo + useMemo para evitar recreaciones de objetos.
  */
 
 const FEATURES = [
@@ -27,7 +26,7 @@ const FEATURES = [
 const HeroSectionComponent: React.FC = () => {
   const shouldReduce = useReducedMotion()
 
-  // Variants con animaciones baratas (opacity/transform) y tiempos cortos
+  // Variants principales con easing válido (easeOut importado)
   const container = useMemo(
     () => ({
       hidden: { opacity: 0, y: shouldReduce ? 0 : 12 },
@@ -36,7 +35,7 @@ const HeroSectionComponent: React.FC = () => {
         y: 0,
         transition: {
           duration: 0.45,
-          ease: 'easeOut',
+          ease: easeOut, // ✅ función, no string
           when: 'beforeChildren',
           staggerChildren: shouldReduce ? 0 : 0.08
         }
@@ -48,7 +47,14 @@ const HeroSectionComponent: React.FC = () => {
   const item = useMemo(
     () => ({
       hidden: { opacity: 0, y: shouldReduce ? 0 : 16 },
-      show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } }
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.35,
+          ease: easeOut // ✅ corregido
+        }
+      }
     }),
     [shouldReduce]
   )
@@ -59,7 +65,11 @@ const HeroSectionComponent: React.FC = () => {
       show: {
         opacity: 1,
         scale: 1,
-        transition: { duration: 0.5, ease: 'easeOut', delay: 0.15 }
+        transition: {
+          duration: 0.5,
+          ease: easeInOut, // ✅ también función importada
+          delay: 0.15
+        }
       }
     }),
     [shouldReduce]
@@ -67,7 +77,7 @@ const HeroSectionComponent: React.FC = () => {
 
   return (
     <section className="hero_section">
-      {/* Elementos flotantes puramente con CSS (no JS) */}
+      {/* Elementos decorativos flotantes */}
       <div className="floating_elements">
         <div className="float_pill pill_1" />
         <div className="float_pill pill_2" />
@@ -77,7 +87,6 @@ const HeroSectionComponent: React.FC = () => {
       </div>
 
       <div className="hero_container">
-        {/* Contenido principal (un solo contenedor con stagger) */}
         <LazyMotion features={domAnimation} strict>
           <m.div
             className="hero_content"
@@ -121,7 +130,6 @@ const HeroSectionComponent: React.FC = () => {
             </m.div>
           </m.div>
 
-          {/* Imagen del héroe */}
           <m.div
             className="hero_image_container"
             variants={imageWrap}
@@ -141,7 +149,6 @@ const HeroSectionComponent: React.FC = () => {
               />
             </div>
 
-            {/* Cards flotantes con entrada simple (evitamos múltiples motions) */}
             <m.div className="info_card card_1" variants={item}>
               <div className="card_number">500+</div>
               <div className="card_label">Productos</div>
@@ -158,6 +165,5 @@ const HeroSectionComponent: React.FC = () => {
   )
 }
 
-// memo para evitar re-renderes si no cambian las props
-const HeroSection = memo(HeroSectionComponent)
-export default HeroSection
+// Memo evita renders innecesarios
+export default memo(HeroSectionComponent)
