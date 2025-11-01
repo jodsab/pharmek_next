@@ -1,8 +1,5 @@
 'use client'
 
-import 'aos/dist/aos.css'
-import './styles.scss'
-
 import SectionHeader from '@components/SectionHeader'
 import Aos from 'aos'
 import Script from 'next/script'

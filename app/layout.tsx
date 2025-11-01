@@ -1,5 +1,7 @@
 import './globals.scss'
 import './globals.css'
+import 'aos/dist/aos.css'
+import './styles.scss'
 
 import WithNavbarAndFooter from '@components/WithNavbarAndFooter'
 import localFont from 'next/font/local'
