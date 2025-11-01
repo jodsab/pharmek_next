@@ -31,5 +31,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [...ROUTES.AUTH_ROUTES, ...ROUTES.PROTECTED_ROUTES]
+  matcher: ['/ingreso', '/registro', '/perfil/:path*', '/pedidos/:path*']
 }
