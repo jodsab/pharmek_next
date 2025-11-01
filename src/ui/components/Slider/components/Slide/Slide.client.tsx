@@ -44,7 +44,7 @@ const SlideClient = ({
   highlightText = 'Y MANTÉN SANO A TU MASCOTA!',
   showCTA = true,
   onCTAClick
-}: SlideClientProps) => {
+}: SlideClientProps): React.JSX.Element => {
   const {
     product,
     titulo = 'MENSAJE DE ANUNCIO',
@@ -55,7 +55,7 @@ const SlideClient = ({
   const productName = product?.nombre || 'Nombre no disponible'
   const imageUrl = imagenPrincipal?.url || defaultImage
 
-  const handleCTAClick = () => {
+  const handleCTAClick = (): void => {
     onCTAClick?.()
   }
 

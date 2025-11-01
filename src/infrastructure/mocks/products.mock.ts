@@ -1,15 +1,16 @@
-import type { Category, Product } from '@/core/domain/entities/Product'
+import type { Category } from '@/core/domain/entities/Category'
+import type { Product } from '@/core/domain/entities/Product'
 
 export const mockCategories: Category[] = [
-  { id: '1', categoryName: 'Perros' },
-  { id: '2', categoryName: 'Gatos' },
-  { id: '3', categoryName: 'Aves' },
-  { id: '4', categoryName: 'Ganadería' }
+  { id: 1, categoryName: 'Perros' },
+  { id: 2, categoryName: 'Gatos' },
+  { id: 3, categoryName: 'Aves' },
+  { id: 4, categoryName: 'Ganadería' }
 ]
 
 export const mockProducts: Product[] = [
   {
-    id: '1',
+    id: 1,
     created_at: '2025-08-09T06:31:43.679995Z',
     nombre: 'Vermífugo Plus',
     composicion: 'Ivermectina 1%, Praziquantel 5%',
@@ -20,9 +21,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Frasco 50ml, Frasco 100ml',
     precio: 45.9,
     stock: 25,
-    images: [
+    productsImages: [
       {
-        id: '1',
+        id: 1,
         url: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500',
         alt: 'Vermífugo Plus'
       }
@@ -30,7 +31,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[0] }, { category: mockCategories[1] }]
   },
   {
-    id: '2',
+    id: 2,
     created_at: '2025-08-09T06:32:02.424277Z',
     nombre: 'Antipulgas Total',
     composicion: 'Fipronil 10%, Metopreno 5%',
@@ -41,9 +42,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Pipeta 1ml, Pipeta 2ml',
     precio: 28.5,
     stock: 40,
-    images: [
+    productsImages: [
       {
-        id: '2',
+        id: 2,
         url: 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=500',
         alt: 'Antipulgas'
       }
@@ -51,7 +52,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[0] }]
   },
   {
-    id: '3',
+    id: 3,
     created_at: '2025-08-10T08:15:30.123456Z',
     nombre: 'Vitaminas Avícolas Premium',
     composicion: 'Vitaminas A, D3, E, B12, Aminoácidos esenciales',
@@ -62,9 +63,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Frasco 250ml, Frasco 500ml, Frasco 1L',
     precio: 35.0,
     stock: 30,
-    images: [
+    productsImages: [
       {
-        id: '3',
+        id: 3,
         url: 'https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=500',
         alt: 'Vitaminas Avícolas'
       }
@@ -72,7 +73,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[2] }]
   },
   {
-    id: '4',
+    id: 4,
     created_at: '2025-08-11T10:20:15.789012Z',
     nombre: 'Antibiótico Ganadero',
     composicion: 'Oxitetraciclina 20%, Excipientes c.s.p.',
@@ -83,9 +84,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Frasco 100ml, Frasco 250ml',
     precio: 89.9,
     stock: 15,
-    images: [
+    productsImages: [
       {
-        id: '4',
+        id: 4,
         url: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500',
         alt: 'Antibiótico Ganadero'
       }
@@ -93,7 +94,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[3] }]
   },
   {
-    id: '5',
+    id: 5,
     created_at: '2025-08-12T14:30:45.345678Z',
     nombre: 'Shampoo Medicado',
     composicion: 'Clorhexidina 2%, Aloe vera, Vitamina E',
@@ -104,9 +105,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Frasco 250ml, Frasco 500ml',
     precio: 22.0,
     stock: 50,
-    images: [
+    productsImages: [
       {
-        id: '5',
+        id: 5,
         url: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?w=500',
         alt: 'Shampoo Medicado'
       }
@@ -114,7 +115,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[0] }, { category: mockCategories[1] }]
   },
   {
-    id: '6',
+    id: 6,
     created_at: '2025-08-13T09:45:20.567890Z',
     nombre: 'Alimento Balanceado Premium',
     composicion: 'Proteína 28%, Grasa 15%, Fibra 4%, Vitaminas y minerales',
@@ -125,9 +126,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Bolsa 3kg, Bolsa 15kg, Bolsa 20kg',
     precio: 125.0,
     stock: 20,
-    images: [
+    productsImages: [
       {
-        id: '6',
+        id: 6,
         url: 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?w=500',
         alt: 'Alimento Premium'
       }
@@ -135,7 +136,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[0] }]
   },
   {
-    id: '7',
+    id: 7,
     created_at: '2025-08-14T11:20:30.234567Z',
     nombre: 'Collar Antipulgas',
     composicion: 'Deltametrina 4%, Permetrina 2%',
@@ -146,9 +147,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Collar ajustable (hasta 8 meses de protección)',
     precio: 38.9,
     stock: 35,
-    images: [
+    productsImages: [
       {
-        id: '7',
+        id: 7,
         url: 'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=500',
         alt: 'Collar Antipulgas'
       }
@@ -156,7 +157,7 @@ export const mockProducts: Product[] = [
     categoriesOnProducts: [{ category: mockCategories[0] }, { category: mockCategories[1] }]
   },
   {
-    id: '8',
+    id: 8,
     created_at: '2025-08-15T15:10:40.890123Z',
     nombre: 'Suplemento Articular',
     composicion: 'Glucosamina 500mg, Condroitina 400mg, MSM 200mg',
@@ -167,9 +168,9 @@ export const mockProducts: Product[] = [
     presentaciones: 'Frasco 60 tabletas, Frasco 120 tabletas',
     precio: 65.0,
     stock: 18,
-    images: [
+    productsImages: [
       {
-        id: '8',
+        id: 8,
         url: 'https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?w=500',
         alt: 'Suplemento Articular'
       }

@@ -11,7 +11,12 @@ interface NavLinkProps {
   className?: string
 }
 
-export const NavLink = ({ href, children, onClick, className = '' }: NavLinkProps) => {
+export const NavLink = ({
+  href = '/',
+  children,
+  onClick = () => { },
+  className = ''
+}: NavLinkProps): React.JSX.Element => {
   const pathname = usePathname()
   const isActive = pathname === href
 

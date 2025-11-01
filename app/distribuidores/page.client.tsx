@@ -2,6 +2,8 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 
+import type { Category } from '@/core/domain/entities/Category'
+import { Product } from '@/core/domain/entities/Product'
 import { useCategoriesStore } from '@/libs/store-categories'
 import { useDistribuidoresSTore } from '@/libs/store-distribuidores'
 
@@ -20,13 +22,19 @@ type Distribuidor = {
   products: ProductRef[]
 }
 
+type Item = {
+  label: string
+  value: number
+  key: number
+}
+
 const LIMA_CENTER: LatLng = { lat: -12.0464, lng: -77.0428 }
 
 interface PageClientProps {
   googleApiKey: string
 }
 
-export default function PageClient({ googleApiKey }: PageClientProps): JSX.Element {
+export default function PageClient({ googleApiKey }: PageClientProps): React.JSX.Element {
   // Zustand
   const distribuidoresStore = useDistribuidoresSTore(s => s.distribuidores) as Distribuidor[]
   const categoriesStore = useCategoriesStore(s => s.categories)
@@ -58,13 +66,13 @@ export default function PageClient({ googleApiKey }: PageClientProps): JSX.Eleme
   // Opciones del Select (agrupadas por categoría)
   const productOptions = useMemo(
     () =>
-      categoriesStore.map((cat: any) => ({
+      categoriesStore?.map((cat: Category) => ({
         label: cat.categoryName,
         key: cat.id,
-        options: (cat.products || []).map((p: any) => ({
+        options: (cat.products || []).map((p: Product) => ({
           label: p.nombre,
-          value: p.productId,
-          key: p.productId
+          value: p.id,
+          key: p.id
         }))
       })),
     [categoriesStore]

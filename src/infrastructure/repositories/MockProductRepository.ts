@@ -3,43 +3,50 @@ import type { ProductRepository } from '@/core/domain/repositories/ProductReposi
 
 import { mockProducts } from '../mocks/products.mock'
 
+// Solo para este mock:
+type ProductWithCategories = Product & {
+  categoriesOnProducts?: Array<{ category: { id: string } }>
+}
+
 export class MockProductRepository implements ProductRepository {
-  private products: Product[] = mockProducts
+  private products: ProductWithCategories[] = mockProducts as ProductWithCategories[]
 
   async findAll(): Promise<Product[]> {
     await this.simulateDelay(800)
     return [...this.products]
   }
 
-  async findById(id: string): Promise<Product | null> {
+  async findById(id: number): Promise<Product | null> {
     await this.simulateDelay(500)
-    return this.products.find(p => p.id === id) || null
+    return this.products.find(p => p.id === id) ?? null
   }
 
   async findByCategory(categoryId: string): Promise<Product[]> {
     await this.simulateDelay(600)
-    return this.products.filter(p =>
-      p.categoriesOnProducts?.some(c => c.category.id === categoryId)
+    return this.products.filter(
+      p =>
+        Array.isArray(p.categoriesOnProducts) &&
+        p.categoriesOnProducts!.some(c => c.category.id === categoryId)
     )
   }
 
-  async findFeatured(limit: number = 4): Promise<Product[]> {
+  async findFeatured(limit = 4): Promise<Product[]> {
     await this.simulateDelay(700)
     return this.products.slice(0, limit)
   }
 
   async search(query: string): Promise<Product[]> {
     await this.simulateDelay(500)
-    const lowerQuery = query.toLowerCase()
+    const q = query.toLowerCase()
     return this.products.filter(
       p =>
-        p.nombre.toLowerCase().includes(lowerQuery) ||
-        p.indicaciones?.toLowerCase().includes(lowerQuery) ||
-        p.composicion?.toLowerCase().includes(lowerQuery)
+        (p.nombre ?? '').toLowerCase().includes(q) ||
+        (p.indicaciones ?? '').toLowerCase().includes(q) ||
+        (p.composicion ?? '').toLowerCase().includes(q)
     )
   }
 
   private simulateDelay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms))
+    return new Promise(r => setTimeout(r, ms))
   }
 }

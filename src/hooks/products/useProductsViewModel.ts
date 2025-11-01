@@ -39,7 +39,7 @@ export const useProductosViewModel = () => {
   }, [allCategories, countsByCategoryId])
 
   // Filtro por categoría (usar IDs)
-  const handleFilterChange = (selectedCategoryIds: number[]) => {
+  const handleFilterChange = (selectedCategoryIds: number[]): void => {
     if (selectedCategoryIds.length === 0) {
       setSelectedProducts(products)
       return

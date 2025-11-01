@@ -26,18 +26,18 @@ const FilterSidebarClient = ({
   onFilterChange,
   title = 'Categorías',
   showProductCount = true
-}: FilterSidebarClientProps) => {
+}: FilterSidebarClientProps): React.JSX.Element => {
   // guardamos IDs, no nombres
   const [selectedIds, setSelectedIds] = useState<number[]>([])
 
-  const toggle = (id: number) => {
+  const toggle = (id: number): void => {
     const isSelected = selectedIds.includes(id)
     const updated = isSelected ? selectedIds.filter(x => x !== id) : [...selectedIds, id]
     setSelectedIds(updated)
     onFilterChange(updated) // ← devuelve IDs al viewmodel
   }
 
-  const isSelected = (id: number) => selectedIds.includes(id)
+  const isSelected = (id: number): boolean => selectedIds.includes(id)
 
   if (!categories || categories.length === 0) {
     return (

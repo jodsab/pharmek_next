@@ -53,7 +53,13 @@ const SeeProductClient = ({
   showIndicaciones = true,
   placeholderText = 'Producto sin nombre',
   basePath = '/productos'
-}: SeeProductClientProps) => {
+}: SeeProductClientProps): React.JSX.Element => {
+  const router = useRouter()
+  const categories = product?.categoriesOnProducts?.slice(0, maxCategories) || []
+  const productImage = product?.images?.[0]?.url || defaultImage
+  const productName = product?.nombre || placeholderText
+  const href = `${basePath}/${product?.id}`
+
   // SKELETON: sin hover ni motion
   if (!product) {
     return (
@@ -68,12 +74,6 @@ const SeeProductClient = ({
       </div>
     )
   }
-
-  const router = useRouter()
-  const categories = product.categoriesOnProducts?.slice(0, maxCategories) || []
-  const productImage = product.images?.[0]?.url || defaultImage
-  const productName = product.nombre || placeholderText
-  const href = `${basePath}/${product.id}`
 
   return (
     <motion.div

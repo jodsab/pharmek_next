@@ -35,10 +35,10 @@ const Slide = ({
   defaultImage = '/images/products/defaultproduct.png',
   ctaText = 'Solicítalo ahora',
   ctaIcon,
-  ctaLink,
+  ctaLink = '',
   highlightText = 'Y MANTÉN SANO A TU MASCOTA!',
   showCTA = true
-}: SlideProps) => {
+}: SlideProps): React.JSX.Element => {
   return (
     <SlideClient
       data={data}

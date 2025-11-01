@@ -1,9 +1,12 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.requireConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "always",
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": ["javascript", "typescript", "javascriptreact", "typescriptreact"]
+  "eslint.validate": ["javascript", "typescript", "javascriptreact", "typescriptreact"],
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "eslint.alwaysShowStatus": true
 }

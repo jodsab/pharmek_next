@@ -1,17 +1,12 @@
+import { Category } from './Category'
+
 export interface ProductImage {
   id: number
-  url: string
-  id_product: number
-  created_at: string
+  url?: string
+  alt?: string
+  id_product?: number
+  created_at?: string
 }
-
-export interface Category {
-  id: number
-  categoryName: string
-  created_at: string
-  categoryImage?: string | null
-}
-
 export interface ProductCategoryLink {
   id: number
   id_product: number
@@ -32,4 +27,7 @@ export interface Product {
   presentaciones: string | null
   productsImages?: ProductImage[]
   productsCategories?: ProductCategoryLink[]
+  precio?: number
+  stock?: number
+  categoriesOnProducts?: ProductCategoryLink[]
 }

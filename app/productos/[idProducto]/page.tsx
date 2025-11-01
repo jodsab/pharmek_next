@@ -2,7 +2,11 @@ import React from 'react'
 
 import ProductoClient from './page.client'
 
-const ProductoPage = ({ params }) => {
+type PageProps = {
+  params: { idProducto: string }
+}
+
+const ProductoPage = ({ params }: PageProps): React.JSX.Element => {
   return <ProductoClient params={params} />
 }
 

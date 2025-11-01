@@ -7,7 +7,7 @@ const ROUTES = {
   PROTECTED_ROUTES: ['/perfil', '/pedidos'] // Rutas solo para autenticados
 } as const
 
-export async function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest): Promise<NextResponse> {
   const res = NextResponse.next()
   const supabase = createMiddlewareClient({ req: request, res })
   const {

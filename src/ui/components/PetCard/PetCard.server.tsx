@@ -16,7 +16,10 @@ interface PetCardProps {
   isLoading?: boolean
 }
 
-const PetCard = ({ pet, isLoading = false }: PetCardProps) => {
+const PetCard = ({
+  pet = { id: '1', name: 'Fido', breed: 'Labrador', age: 3 },
+  isLoading = false
+}: PetCardProps): React.JSX.Element => {
   return <PetCardClient pet={pet} isLoading={isLoading} />
 }
 

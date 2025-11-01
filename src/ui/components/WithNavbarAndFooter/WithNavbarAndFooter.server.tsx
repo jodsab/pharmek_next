@@ -6,6 +6,6 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function WithNavbarAndFooterServer({ children }: Props): JSX.Element {
+export default function WithNavbarAndFooterServer({ children }: Props): React.JSX.Element {
   return <WithNavbarAndFooterClient>{children}</WithNavbarAndFooterClient>
 }

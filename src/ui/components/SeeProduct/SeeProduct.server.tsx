@@ -35,12 +35,12 @@ interface SeeProductProps {
 
 const SeeProduct = ({
   product,
-  defaultImage,
+  defaultImage = '',
   maxCategories = 3,
   showIndicaciones = true,
   placeholderText = 'Producto sin nombre',
   basePath = '/productos'
-}: SeeProductProps) => {
+}: SeeProductProps): React.JSX.Element => {
   return (
     <SeeProductClient
       product={product}

@@ -4,7 +4,7 @@ import './styles.scss'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
 
-const PageClient = () => {
+const PageClient = (): React.JSX.Element => {
   const [isVisible, setIsVisible] = useState<{ [key: string]: boolean }>({
     quienes: true // Primera sección visible desde el inicio
   })
@@ -17,7 +17,9 @@ const PageClient = () => {
       const element = observerRefs.current[key]
       if (element) {
         const observer = new IntersectionObserver(
-          ([entry]) => {
+          (entries: IntersectionObserverEntry[]) => {
+            const entry = entries[0]
+            if (!entry) return
             if (entry.isIntersecting) {
               setIsVisible(prev => ({ ...prev, [key]: true }))
             }
@@ -42,8 +44,7 @@ const PageClient = () => {
     <div className="nosotros_modern_container content">
       {/* Quienes Somos */}
       <section
-        className={`nosotros_section nosotros_quienes_somos ${isVisible['quienes'] ? 'nosotros_visible' : ''
-          }`}
+        className={`nosotros_section nosotros_quienes_somos ${isVisible['quienes'] ? 'nosotros_visible' : ''}`}
         ref={setRef('quienes')}
       >
         <div className="nosotros_content_wrapper">
@@ -81,8 +82,7 @@ const PageClient = () => {
 
       {/* Misión */}
       <section
-        className={`nosotros_section nosotros_mision ${isVisible['mision'] ? 'nosotros_visible' : ''
-          }`}
+        className={`nosotros_section nosotros_mision ${isVisible['mision'] ? 'nosotros_visible' : ''}`}
         ref={setRef('mision')}
       >
         <div className="nosotros_content_wrapper nosotros_reversed">
@@ -116,8 +116,7 @@ const PageClient = () => {
 
       {/* Visión */}
       <section
-        className={`nosotros_section nosotros_vision ${isVisible['vision'] ? 'nosotros_visible' : ''
-          }`}
+        className={`nosotros_section nosotros_vision ${isVisible['vision'] ? 'nosotros_visible' : ''}`}
         ref={setRef('vision')}
       >
         <div className="nosotros_content_wrapper">
@@ -150,8 +149,7 @@ const PageClient = () => {
 
       {/* Por qué confiar */}
       <section
-        className={`nosotros_section nosotros_confianza ${isVisible['confianza'] ? 'nosotros_visible' : ''
-          }`}
+        className={`nosotros_section nosotros_confianza ${isVisible['confianza'] ? 'nosotros_visible' : ''}`}
         ref={setRef('confianza')}
       >
         <div className="nosotros_content_wrapper nosotros_reversed">

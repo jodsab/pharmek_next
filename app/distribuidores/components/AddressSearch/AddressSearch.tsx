@@ -10,11 +10,11 @@ interface Props {
   onPlace: (coords: LatLng) => void
 }
 
-export default function AddressSearch({ googleApiKey, onPlace }: Props): JSX.Element {
+export default function AddressSearch({ googleApiKey, onPlace }: Props): React.JSX.Element {
   const [input, setInput] = useState('')
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
-  const handleLoad = (ac: google.maps.places.Autocomplete) => {
+  const handleLoad = (ac: google.maps.places.Autocomplete): void => {
     autocompleteRef.current = ac
   }
 

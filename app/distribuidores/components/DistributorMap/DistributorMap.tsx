@@ -29,7 +29,7 @@ export default function DistributorMap({
   center,
   userLocation,
   distribuidores
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   // truco para evitar re-creaciones de objetos en render
   const mapCenter = useMemo(() => center, [center])
   const [map, setMap] = useState<google.maps.Map | null>(null)

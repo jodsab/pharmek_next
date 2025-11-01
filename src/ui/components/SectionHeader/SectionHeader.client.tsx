@@ -13,23 +13,33 @@ interface SectionHeaderClientProps {
   imageSize?: number
 }
 
-function useInView<T extends HTMLElement>(opts: IntersectionObserverInit = { threshold: 0.2 }) {
+function useInView<T extends HTMLElement>(
+  opts: IntersectionObserverInit = { threshold: 0.2 }
+): { ref: React.MutableRefObject<T | null>; visible: boolean } {
   const ref = useRef<T | null>(null)
   const [visible, setVisible] = useState(false)
+
   useEffect(() => {
-    if (!ref.current || visible) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+    const node = ref.current
+    if (!node || visible) return
+
+    const observer = new IntersectionObserver(
+      entries => {
+        const first = entries[0] // puede no existir, lo checamos
+        if (first && first.isIntersecting) {
           setVisible(true)
-          obs.disconnect()
+          observer.disconnect()
         }
       },
       { rootMargin: '0px 0px -15% 0px', ...opts }
     )
-    obs.observe(ref.current)
-    return () => obs.disconnect()
-  }, [opts, visible])
+
+    observer.observe(node)
+    return () => observer.disconnect()
+    // Si te molesta la advertencia por objeto `opts`, sustituye deps por campos atómicos:
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible, opts])
+
   return { ref, visible }
 }
 
