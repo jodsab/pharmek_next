@@ -9,16 +9,19 @@ interface Category {
 }
 
 interface CardCategorieProps {
-  category?: Category
+  category?: Category | null
   loadingCategories?: boolean
 }
 
-const CardCategorie = ({ category, loadingCategories }: CardCategorieProps) => {
+const CardCategorie = ({
+  category,
+  loadingCategories = false
+}: CardCategorieProps): React.JSX.Element => {
   return (
     <CardCategorieClient
-      categoryName={category?.categoryName}
-      categorySlug={category?.categorySlug}
-      categoryImage={category?.categoryImage}
+      categoryName={category?.categoryName ?? undefined}
+      categorySlug={category?.categorySlug ?? undefined}
+      categoryImage={category?.categoryImage ?? undefined}
       isLoading={loadingCategories}
     />
   )
