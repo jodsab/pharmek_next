@@ -1,18 +1,12 @@
-import React from 'react'
+// app/components/PetList/PetList.server.tsx
+import PetListClient, { type Pet } from './PetList.client'
 
-import PetListClient from './PetList.client'
+// Si luego vas a pedir del backend:
+// const pets = await fetchPets(limit)
 
-interface PetListProps {
-  limit?: number
-}
-
-const PetList = ({ limit = 3 }: PetListProps) => {
-  // Si necesitas fetch real, hazlo así:
-  // const pets = await fetchPets(limit)
-
-  const pets = []
+export default function PetList() {
+  // TIPADO explícito para evitar "implicitly has type 'any[]'"
+  const pets: Pet[] = []
 
   return <PetListClient pets={pets} isLoading={false} />
 }
-
-export default PetList
