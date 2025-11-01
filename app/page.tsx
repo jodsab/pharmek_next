@@ -14,7 +14,7 @@ import TiktokEmbed from './components/TiktokEmbed' // Import the new component
 
 const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 
-export default function Home({ session }) {
+export default function Home() {
   const { data: categories, isLoading: loadingCategories } = useGetCategories()
 
   useEffect(() => {
