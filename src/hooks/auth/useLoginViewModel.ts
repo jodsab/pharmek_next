@@ -1,45 +1,52 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm, type UseFormReturn } from 'react-hook-form'
 
 import { APP_ROUTES } from '@/config/routes'
 import { type LoginFormData, loginSchema } from '@/libs/validations/loginSchema'
 
 import { useLogin } from './useLogin'
 
-export const useLoginViewModel = () => {
+/** Forma del ViewModel que devuelve el hook */
+type LoginViewModel = {
+  form: UseFormReturn<LoginFormData>
+  showPassword: boolean
+  togglePasswordVisibility: () => void
+  /** función lista para pasar a <form onSubmit={...}> */
+  onSubmit: (e?: React.BaseSyntheticEvent) => void
+  isPending: boolean
+  error: string | null
+}
+
+export const useLoginViewModel = (): LoginViewModel => {
   const router = useRouter()
-  const { mutate: loginUser, isPending, error } = useLogin()
-  const [showPassword, setShowPassword] = useState(false)
+  const { mutate: loginUser, isPending } = useLogin()
+  const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [errMessage, setErrMessage] = useState<string | null>(null)
 
   const form = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: ''
-    }
+    defaultValues: { email: '', password: '' }
   })
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setShowPassword(prev => !prev)
   }
 
-  const onSubmit = (data: LoginFormData) => {
+  const submitHandler: SubmitHandler<LoginFormData> = data => {
     loginUser(data, {
       onSuccess: response => {
         if (response.ok) {
-          // Lógica de navegación aquí (capa de presentación)
           router.push(APP_ROUTES.HOME)
-
-          // Opcional: toast notification
-          // toast.success('¡Bienvenido!')
+        } else {
+          setErrMessage(response.message ?? 'No se pudo iniciar sesión')
         }
       },
       onError: err => {
-        // Manejo de errores específicos de la UI
-        console.error('Error en login:', err)
-        // toast.error('Error al iniciar sesión')
+        setErrMessage(err instanceof Error ? err.message : 'Error desconocido')
       }
     })
   }
@@ -48,8 +55,8 @@ export const useLoginViewModel = () => {
     form,
     showPassword,
     togglePasswordVisibility,
-    onSubmit: form.handleSubmit(onSubmit),
+    onSubmit: form.handleSubmit(submitHandler),
     isPending,
-    error
+    error: errMessage
   }
 }

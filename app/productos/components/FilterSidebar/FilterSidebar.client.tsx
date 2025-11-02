@@ -13,13 +13,15 @@ interface FilterSidebarClientProps {
   onFilterChange: (selectedCategoryIds: number[]) => void
   title?: string
   showProductCount?: boolean
+  selectedCategoriesFromHome?: number[]
 }
 
 const FilterSidebarClient = ({
   categories,
   onFilterChange,
   title = 'Categorías',
-  showProductCount = true
+  showProductCount = true,
+  selectedCategoriesFromHome
 }: FilterSidebarClientProps): React.JSX.Element => {
   // guardamos IDs, no nombres
   const [selectedIds, setSelectedIds] = useState<number[]>([])

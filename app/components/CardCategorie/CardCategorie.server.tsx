@@ -9,7 +9,6 @@ interface CardCategorieProps {
 }
 
 const CardCategorie = ({ category, isLoading }: CardCategorieProps): React.JSX.Element => {
-  console.log('dsadsa', category)
   const name = category?.categoryName ?? ''
   const slug = category?.categoryName ?? ''
   const image = category?.categoryImage ?? '/assets/images/placeholder.png'
