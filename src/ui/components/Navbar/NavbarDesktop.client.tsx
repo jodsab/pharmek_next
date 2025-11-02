@@ -19,16 +19,16 @@ import { NavLink } from './NavLink'
 
 const ICONS_SIZE = 14
 
-const NavbarDesktopClient = () => {
+const NavbarDesktopClient = (): React.JSX.Element => {
   const user = useAuthStore(state => state.user)
   const { logout } = useAuth()
   const router = useRouter()
 
-  const handleProfile = () => {
+  const handleProfile = (): void => {
     router.push(APP_ROUTES.PERFIL)
   }
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     logout()
     router.push(APP_ROUTES.HOME)
   }

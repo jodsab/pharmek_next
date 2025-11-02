@@ -1,11 +1,10 @@
 // services/authService.js
 import supabase from '@/libs/supabase'
-import { normalizeError } from '@/utils/errorMessages'
 
-// -------------------------
-// REGISTER (solo Auth, trigger hace el resto)
-// -------------------------
-export async function register({ email, password }) {
+import type { LoginDto, RegisterUserDto } from '@/core/domain/entities/User'
+
+
+export async function register({ email, password }: RegisterUserDto) {
   try {
     // 1️⃣ Crear usuario en Auth (solo email y password en plan Free)
     const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -24,7 +23,7 @@ export async function register({ email, password }) {
     return {
       user: null,
       error: true,
-      message: normalizeError(error),
+      message: 'ERROR AL REGISTRARTE',
       detail: error
     }
   }
@@ -33,7 +32,7 @@ export async function register({ email, password }) {
 // -------------------------
 // LOGIN
 // -------------------------
-export async function login({ email, password }) {
+export async function login({ email, password }: LoginDto) {
   try {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -48,7 +47,7 @@ export async function login({ email, password }) {
       session: null,
       user: null,
       error: true,
-      message: normalizeError(error),
+      message: 'ERROR AL INICIAR SESIÓN',
       detail: error
     }
   }
@@ -67,7 +66,7 @@ export async function logout() {
     return {
       success: false,
       error: true,
-      message: normalizeError(error),
+      message: 'ERROR AL CERRAR SESIÓN',
       detail: error
     }
   }

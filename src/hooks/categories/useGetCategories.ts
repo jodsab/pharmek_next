@@ -1,11 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
+import { QueryObserverResult, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 
 import type { Category } from '@/core/domain/entities/Category'
 import { RepositoryFactory } from '@/infrastructure/factories/RepositoryFactory'
 import { useCategoriesStore } from '@/stores/categoryStore'
 
-export const useGetCategories = () => {
+export const useGetCategories = (): QueryObserverResult<Category[]> => {
   const categoryRepository = RepositoryFactory.getCategoryRepository()
   const setCategories = useCategoriesStore(state => state.setCategories)
 

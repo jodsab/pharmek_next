@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const PageClient = dynamic(() => import('./page.client'), { ssr: false })
 
-export default function Page(): JSX.Element {
+export default function Page(): React.JSX.Element {
   const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY || ''
   return <PageClient googleApiKey={googleApiKey} />
 }

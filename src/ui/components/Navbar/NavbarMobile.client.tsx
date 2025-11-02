@@ -20,7 +20,7 @@ const ICONS_SIZE = 14
 const MENU_SIZE = 26
 const NAV_HEIGHT = 70 // mantener sincronizado con el SCSS
 
-const NavbarMobileClient = () => {
+const NavbarMobileClient = (): React.JSX.Element => {
   const [open, setOpen] = useState(false)
   const user = useAuthStore(state => state.user)
   const { logout } = useAuth()
@@ -35,22 +35,22 @@ const NavbarMobileClient = () => {
     }
   }, [open])
 
-  const toggle = () => setOpen(v => !v)
-  const close = () => setOpen(false)
+  const toggle = (): void => setOpen(v => !v)
+  const close = (): void => setOpen(false)
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     logout()
     close()
     router.push(APP_ROUTES.HOME)
   }
 
-  const handleProfile = () => {
+  const handleProfile = (): void => {
     close()
     router.push(APP_ROUTES.PERFIL)
   }
 
   return (
-    <div className="navbar_mobile_container" style={{ ['--nav-h' as any]: `${NAV_HEIGHT}px` }}>
+    <div className="navbar_mobile_container" style={{ ['--nav-h' as string]: `${NAV_HEIGHT}px` }}>
       <nav className="nav">
         <Link href={APP_ROUTES.HOME} className="logo_link" onClick={close}>
           <Image

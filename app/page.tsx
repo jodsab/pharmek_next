@@ -1,12 +1,9 @@
 'use client'
 
-import 'aos/dist/aos.css'
-import './styles.scss'
-
 import SectionHeader from '@components/SectionHeader'
 import Aos from 'aos'
 import Script from 'next/script'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
 
@@ -17,9 +14,8 @@ import TiktokEmbed from './components/TiktokEmbed' // Import the new component
 
 const tiktokVideoIds = ['7382760567544548613', '7380443882275753222', '7377833903316389125']
 
-export default function Home({ session }) {
+export default function Home(): React.JSX.Element {
   const { data: categories, isLoading: loadingCategories } = useGetCategories()
-
   useEffect(() => {
     Aos.init()
   }, [])
@@ -49,11 +45,15 @@ export default function Home({ session }) {
           />
           <div className="productos_section mt-3" data-aos="fade-up">
             {loadingCategories ? (
-              <CardCategorie loadingCategories={loadingCategories} />
+              <CardCategorie isLoading={loadingCategories} />
             ) : (
               categories &&
               categories?.map((category, index) => {
-                return <CardCategorie key={index} category={category} />
+                return (
+                  <div key={index}>
+                    <CardCategorie category={category} />
+                  </div>
+                )
               })
             )}
           </div>

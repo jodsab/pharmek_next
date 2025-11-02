@@ -10,7 +10,12 @@ interface SectionHeaderProps {
   imageSize?: number
 }
 
-const SectionHeader = ({ title, subtitle, src, imageSize = 100 }: SectionHeaderProps) => {
+const SectionHeader = ({
+  title,
+  subtitle,
+  src,
+  imageSize = 100
+}: SectionHeaderProps): React.JSX.Element => {
   return <SectionHeaderClient title={title} subtitle={subtitle} src={src} imageSize={imageSize} />
 }
 

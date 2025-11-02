@@ -1,38 +1,16 @@
 'use client'
-
-import './styles.scss'
-
 import { motion, Variants } from 'framer-motion'
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
+import type { Product } from '@/core/domain/entities/Product'
+
 import img_product from './assets/product.png'
 
-interface ProductImage {
-  url: string
-  alt?: string
-}
-
-interface Category {
-  categoryName: string
-}
-
-interface CategoryOnProduct {
-  category: Category
-}
-
-interface Product {
-  id: string
-  nombre?: string
-  indicaciones?: string
-  images?: ProductImage[]
-  categoriesOnProducts?: CategoryOnProduct[]
-}
-
 interface SeeProductClientProps {
-  product: Product | null
+  product: Product
   defaultImage?: string | StaticImageData
   maxCategories?: number
   showIndicaciones?: boolean
@@ -53,27 +31,12 @@ const SeeProductClient = ({
   showIndicaciones = true,
   placeholderText = 'Producto sin nombre',
   basePath = '/productos'
-}: SeeProductClientProps) => {
-  // SKELETON: sin hover ni motion
-  if (!product) {
-    return (
-      <div className="see_product_container skeleton">
-        <div className="img_see_container">
-          <div className="skeleton-image" />
-        </div>
-        <div className="info">
-          <div className="skeleton-line name" />
-          <div className="skeleton-line indicaciones" />
-        </div>
-      </div>
-    )
-  }
-
+}: SeeProductClientProps): React.JSX.Element => {
   const router = useRouter()
-  const categories = product.categoriesOnProducts?.slice(0, maxCategories) || []
-  const productImage = product.images?.[0]?.url || defaultImage
-  const productName = product.nombre || placeholderText
-  const href = `${basePath}/${product.id}`
+  const categories = product?.categoriesOnProducts?.slice(0, maxCategories) || []
+  const productImage = product?.images?.[0]?.url || defaultImage
+  const productName = product?.nombre || placeholderText
+  const href = `${basePath}/${product?.id}`
 
   return (
     <motion.div
@@ -100,7 +63,9 @@ const SeeProductClient = ({
         {categories.length > 0 && (
           <ul className="tags">
             {categories.map((categoryLink, index) => (
-              <li key={`${product.id}-category-${index}`}>{categoryLink.category.categoryName}</li>
+              <li key={`${product.id}-category-${index}`}>
+                {categoryLink?.category?.categoryName}
+              </li>
             ))}
           </ul>
         )}

@@ -6,14 +6,8 @@ import React, { useState } from 'react'
 import { FaCheckCircle, FaCircle } from 'react-icons/fa'
 import { LuFilter } from 'react-icons/lu'
 
+import type { CategoryWithCount } from '@/core/domain/entities/Category'
 import HocCard from '@/HOC/HocCard'
-
-type CategoryWithCount = {
-  id: number
-  categoryName: string
-  count: number // ← viene del viewmodel (0 si no tiene productos)
-}
-
 interface FilterSidebarClientProps {
   categories: CategoryWithCount[]
   onFilterChange: (selectedCategoryIds: number[]) => void
@@ -26,18 +20,18 @@ const FilterSidebarClient = ({
   onFilterChange,
   title = 'Categorías',
   showProductCount = true
-}: FilterSidebarClientProps) => {
+}: FilterSidebarClientProps): React.JSX.Element => {
   // guardamos IDs, no nombres
   const [selectedIds, setSelectedIds] = useState<number[]>([])
 
-  const toggle = (id: number) => {
+  const toggle = (id: number): void => {
     const isSelected = selectedIds.includes(id)
     const updated = isSelected ? selectedIds.filter(x => x !== id) : [...selectedIds, id]
     setSelectedIds(updated)
     onFilterChange(updated) // ← devuelve IDs al viewmodel
   }
 
-  const isSelected = (id: number) => selectedIds.includes(id)
+  const isSelected = (id: number): boolean => selectedIds.includes(id)
 
   if (!categories || categories.length === 0) {
     return (

@@ -13,7 +13,7 @@ interface Props {
   }>
 }
 
-export default function ProductMultiSelect({ value, onChange, options }: Props): JSX.Element {
+export default function ProductMultiSelect({ value, onChange, options }: Props): React.JSX.Element {
   return (
     <div className="flex items-center border rounded-md p-2 bg-white shadow">
       <span className="text-green mr-2">💉</span>

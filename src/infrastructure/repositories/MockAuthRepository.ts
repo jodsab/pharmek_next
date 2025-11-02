@@ -42,8 +42,8 @@ export class MockAuthRepository implements AuthRepository {
       }
     }
 
-    const newUser = {
-      id: Math.random().toString(36).substr(2, 9),
+    const newUser: User = {
+      id: parseInt(Math.random().toString(36).substr(2, 9)),
       email: data.email,
       full_name: data.full_name,
       user_name: data.user_name,

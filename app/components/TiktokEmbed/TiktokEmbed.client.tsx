@@ -7,7 +7,7 @@ import React from 'react'
 interface TiktokEmbedClientProps {
   videoId: string
   username: string
-  caption?: string
+  caption?: string | undefined // ✅ ahora puede ser undefined
   showFallback?: boolean
   maxWidth?: number
   minWidth?: number
@@ -20,7 +20,7 @@ const TiktokEmbedClient = ({
   showFallback = true,
   maxWidth = 605,
   minWidth = 325
-}: TiktokEmbedClientProps) => {
+}: TiktokEmbedClientProps): React.JSX.Element => {
   const tiktokUrl = `https://www.tiktok.com/@${username}/video/${videoId}`
   const profileUrl = `https://www.tiktok.com/@${username}?refer=embed`
 

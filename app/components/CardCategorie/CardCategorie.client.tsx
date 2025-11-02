@@ -9,9 +9,9 @@ import { FaPills } from 'react-icons/fa'
 import { IoArrowForward } from 'react-icons/io5'
 
 interface CardCategorieClientProps {
-  categoryName?: string
-  categorySlug?: string
-  categoryImage?: string
+  categoryName?: string | undefined
+  categorySlug?: string | undefined
+  categoryImage?: string | undefined
   categoryIcon?: React.ReactNode
   isLoading?: boolean
 }
@@ -22,7 +22,7 @@ const CardCategorieClient = ({
   categoryImage = '/assets/images/categories/default.jpg', // Imagen por defecto
   categoryIcon,
   isLoading = false
-}: CardCategorieClientProps) => {
+}: CardCategorieClientProps): React.JSX.Element => {
   if (isLoading) {
     return (
       <div className="categorias_card skeleton_card">

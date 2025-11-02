@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import type { Product } from '@/core/domain/entities/Product'
 import type { ProductRepository } from '@/core/domain/repositories/ProductRepository'
 
@@ -9,7 +10,6 @@ export class GetAllProducts {
   }
 }
 
-// src/core/application/products/GetFeaturedProducts.ts
 export class GetFeaturedProducts {
   constructor(private productRepository: ProductRepository) { }
 

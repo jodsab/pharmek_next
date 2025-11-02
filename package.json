@@ -16,7 +16,9 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx src app --max-warnings=1000",
     "lint:fix": "eslint --fix --ext .ts,.tsx,.js,.jsx src app",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "preflight": "npm run lint && npm run typecheck"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

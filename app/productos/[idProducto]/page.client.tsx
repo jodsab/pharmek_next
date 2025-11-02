@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useMemo, useState } from 'react'
 
+import type { Product } from '@/core/domain/entities/Product'
 import { useGetProducts } from '@/hooks/products/useGetProducts'
 import Breadcrumb from '@/ui/components/Breadcrumb/Breadcrum'
 
@@ -10,29 +11,30 @@ type Props = {
   params: { idProducto: string }
 }
 
-const PageClient = ({ params }: Props) => {
-  const { data: products, isLoading } = useGetProducts()
-  const [product, setProduct] = useState(null)
+const PageClient = ({ params }: Props): React.JSX.Element => {
+  const { data: products = [], isLoading } = useGetProducts()
 
-  /* const related = (product ? products.filter(p => p.id !== product.id) : []).slice(0, 8) */
+  const [product, setProduct] = useState<Product | null>()
 
-  const customLabels = useMemo(() => {
+  const customLabels: Record<string, string> = useMemo(() => {
     const path = `/productos/${params.idProducto}`
     return product ? { [path]: product.nombre } : {}
   }, [product, params.idProducto])
 
   useEffect(() => {
-    if (products) {
-      const product = products.find(p => String(p.id) === String(params.idProducto))
-      setProduct(product)
-    }
-  }, [products])
+    if (!products || products.length === 0) return
+    const found = products.find(p => String(p.id) === String(params.idProducto)) ?? null
+    setProduct(found)
+  }, [products, params.idProducto])
 
   return (
     <div className="content">
       <Breadcrumb customLabels={customLabels} />
+
       <div>
-        {!product ? (
+        {isLoading ? (
+          <div className="text-center text-gray-500 text-lg">Cargando…</div>
+        ) : !product ? (
           <div className="text-center text-red-500 text-lg">Producto no encontrado.</div>
         ) : (
           <ProductoSolo data={product} />
@@ -46,19 +48,6 @@ const PageClient = ({ params }: Props) => {
             <p>Ver todos</p>
           </button>
         </div>
-
-        {/*         <div className="flex overflow-x-auto space-x-6 md:space-x-8 pb-4 scrollbar-hide">
-          {(related.length ? related : Array(8).fill(product)).map((rp, i) => (
-            <div key={i} className="flex-shrink-0 w-60 sm:w-72 md:w-80">
-              <SeeProduct product={rp} />
-            </div>
-          ))}
-          {!related.length && (
-            <div className="text-center text-gray-500 w-full">
-              No hay productos relacionados disponibles.
-            </div>
-          )}
-        </div> */}
       </div>
     </div>
   )

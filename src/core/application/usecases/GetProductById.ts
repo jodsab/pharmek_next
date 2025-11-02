@@ -4,7 +4,7 @@ import type { ProductRepository } from '@/core/domain/repositories/ProductReposi
 export class GetProductById {
   constructor(private productRepository: ProductRepository) { }
 
-  async execute(id: string): Promise<Product | null> {
+  async execute(id: number): Promise<Product | null> {
     return await this.productRepository.findById(id)
   }
 }

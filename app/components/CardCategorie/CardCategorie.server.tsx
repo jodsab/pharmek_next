@@ -1,25 +1,25 @@
 import React from 'react'
 
+import type { Category } from '@/core/domain/entities/Category'
+
 import CardCategorieClient from './CardCategorie.client'
-
-interface Category {
-  categoryName: string
-  categorySlug: string
-  categoryImage: string
-}
-
 interface CardCategorieProps {
   category?: Category
-  loadingCategories?: boolean
+  isLoading?: boolean
 }
 
-const CardCategorie = ({ category, loadingCategories }: CardCategorieProps) => {
+const CardCategorie = ({ category, isLoading }: CardCategorieProps): React.JSX.Element => {
+  console.log('dsadsa', category)
+  const name = category?.categoryName ?? ''
+  const slug = category?.categoryName ?? ''
+  const image = category?.categoryImage ?? '/assets/images/placeholder.png'
+
   return (
     <CardCategorieClient
-      categoryName={category?.categoryName}
-      categorySlug={category?.categorySlug}
-      categoryImage={category?.categoryImage}
-      isLoading={loadingCategories}
+      categoryName={name}
+      categorySlug={slug}
+      categoryImage={image}
+      isLoading={!!isLoading}
     />
   )
 }

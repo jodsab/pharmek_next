@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import './styles.scss'
@@ -15,12 +16,11 @@ import {
   FaSyringe
 } from 'react-icons/fa6'
 
+import type { Product, ProductImage } from '@/core/domain/entities/Product'
+
 const DEFAULT_IMAGE_URL = '/images/defaultproduct.png'
 
-type Img = { id?: number | string; url: string }
-type Props = { data: any }
-
-const ProductoSolo = ({ data }: Props) => {
+const ProductoSolo = ({ data }: { data: Product }): React.JSX.Element => {
   const {
     id,
     nombre,
@@ -30,7 +30,7 @@ const ProductoSolo = ({ data }: Props) => {
     presentaciones,
     registro_senasa,
     images = []
-  } = data || {}
+  } = data
 
   const [mainImageUrl, setMainImageUrl] = useState<string>(images?.[0]?.url || DEFAULT_IMAGE_URL)
   const hasRealImages = Array.isArray(images) && images.length > 0
@@ -102,25 +102,29 @@ const ProductoSolo = ({ data }: Props) => {
             />
           </div>
 
-          {hasRealImages && images.length > 1 && (
+          {hasRealImages && images?.length > 1 && (
             <div className="thumbnails_container">
-              {images.map((image: Img, index: number) => (
-                <button
-                  key={image.id ?? index}
-                  type="button"
-                  className={`thumbnail ${image.url === mainImageUrl ? 'active' : ''}`}
-                  onClick={() => setMainImageUrl(image.url)}
-                  aria-label={`Miniatura ${index + 1}`}
-                >
-                  <Image
-                    src={image.url}
-                    alt={`Miniatura ${index + 1}`}
-                    width={80}
-                    height={80}
-                    className="thumbnail_image"
-                  />
-                </button>
-              ))}
+              {images.map((image: ProductImage, index: number) => {
+                if (!image.url) return null
+
+                return (
+                  <button
+                    key={image.id ?? index}
+                    type="button"
+                    className={`thumbnail ${image.url === mainImageUrl ? 'active' : ''}`}
+                    onClick={() => setMainImageUrl(image.url!)} // <-- ahora siempre string
+                    aria-label={`Miniatura ${index + 1}`}
+                  >
+                    <Image
+                      src={image.url}
+                      alt={`Miniatura ${index + 1}`}
+                      width={80}
+                      height={80}
+                      className="thumbnail_image"
+                    />
+                  </button>
+                )
+              })}
             </div>
           )}
         </div>
