@@ -1,29 +1,11 @@
+import './styles.scss'
+
 import { StaticImageData } from 'next/image'
 import React from 'react'
 
+import type { Product } from '@/core/domain/entities/Product'
+
 import SeeProductClient from './SeeProduct.client'
-
-interface ProductImage {
-  url: string
-  alt?: string
-}
-
-interface Category {
-  categoryName: string
-}
-
-interface CategoryOnProduct {
-  category: Category
-}
-
-interface Product {
-  id: string
-  nombre?: string
-  indicaciones?: string
-  images?: ProductImage[]
-  categoriesOnProducts?: CategoryOnProduct[]
-}
-
 interface SeeProductProps {
   product: Product | null
   defaultImage?: string | StaticImageData
@@ -41,6 +23,19 @@ const SeeProduct = ({
   placeholderText = 'Producto sin nombre',
   basePath = '/productos'
 }: SeeProductProps): React.JSX.Element => {
+  if (!product) {
+    return (
+      <div className="see_product_container skeleton">
+        <div className="img_see_container">
+          <div className="skeleton-image" />
+        </div>
+        <div className="info">
+          <div className="skeleton-line name" />
+          <div className="skeleton-line indicaciones" />
+        </div>
+      </div>
+    )
+  }
   return (
     <SeeProductClient
       product={product}

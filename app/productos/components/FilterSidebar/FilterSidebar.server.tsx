@@ -1,17 +1,11 @@
 import React from 'react'
 
-import type { Product } from '@/core/domain/entities/Product'
+import type { CategoryWithCount } from '@/core/domain/entities/Category'
 
 import FilterSidebarClient from './FilterSidebar.client'
 
-interface Category {
-  id: string
-  categoryName: string
-  products?: Product[]
-}
-
 interface FilterSidebarProps {
-  categories: Category[]
+  categories: CategoryWithCount[]
   onFilterChange: (selectedCategories: number[]) => void
   title?: string
   showProductCount?: boolean

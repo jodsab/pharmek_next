@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import type { AuthGuardProps } from './types'
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export async function AuthGuard({
   children,
   requireAuth = false,

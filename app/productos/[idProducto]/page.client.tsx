@@ -12,12 +12,9 @@ type Props = {
 }
 
 const PageClient = ({ params }: Props): React.JSX.Element => {
-  // tipar el hook: si tu hook ya expone tipos, quita el as Product[]
   const { data: products = [], isLoading } = useGetProducts()
 
-  console.log('products', products)
-
-  const [product, setProduct] = useState<Product | null>(null)
+  const [product, setProduct] = useState<Product | null>()
 
   const customLabels: Record<string, string> = useMemo(() => {
     const path = `/productos/${params.idProducto}`
@@ -51,8 +48,6 @@ const PageClient = ({ params }: Props): React.JSX.Element => {
             <p>Ver todos</p>
           </button>
         </div>
-
-        {/* Carrusel de relacionados (cuando lo actives) */}
       </div>
     </div>
   )

@@ -13,7 +13,7 @@ import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa'
 import { FiPhoneCall } from 'react-icons/fi'
 import { IoMdMail } from 'react-icons/io'
 
-import SOCIAL_NETWORKS from '@/core/socialNetworks'
+import { SOCIAL_NETWORKS } from '@/core/socialNetworks'
 
 const SIZE_CONTACT = 20
 const currentYear = new Date().getFullYear()

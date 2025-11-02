@@ -3,7 +3,7 @@ import type { Product } from '../entities/Product'
 export interface ProductRepository {
   findAll(): Promise<Product[]>
   findById(id: number): Promise<Product | null>
-  findByCategory(categoryId: string): Promise<Product[]>
+  findByCategory(categoryId: number): Promise<Product[]>
   findFeatured(limit?: number): Promise<Product[]>
   search?(query: string): Promise<Product[]>
   create?(product: Omit<Product, 'id'>): Promise<Product>

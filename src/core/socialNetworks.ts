@@ -1,3 +1,5 @@
+export type SocialLink = { url: string; label?: string }
+
 const SOCIAL_NETWORKS = {
   whatsapp: {
     url: 'https://api.whatsapp.com/send?phone=51974587086'
@@ -13,4 +15,4 @@ const SOCIAL_NETWORKS = {
   }
 }
 
-export default SOCIAL_NETWORKS
+export { SOCIAL_NETWORKS }

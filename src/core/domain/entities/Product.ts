@@ -15,6 +15,10 @@ export interface ProductCategoryLink {
   category: Category // ← gracias al alias category:categories(*)
 }
 
+export interface CategoryOnProduct {
+  category?: Category | undefined
+}
+
 export interface Product {
   id: number
   created_at: string
@@ -25,9 +29,10 @@ export interface Product {
   registro_senasa: string | null
   animal_mayor_menor: string | null
   presentaciones: string | null
+  images?: ProductImage[]
   productsImages?: ProductImage[]
   productsCategories?: ProductCategoryLink[]
   precio?: number
   stock?: number
-  categoriesOnProducts?: ProductCategoryLink[]
+  categoriesOnProducts?: CategoryOnProduct[]
 }

@@ -3,8 +3,8 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 const ROUTES = {
-  AUTH_ROUTES: ['/ingreso', '/registro'], // Rutas solo para NO autenticados
-  PROTECTED_ROUTES: ['/perfil', '/pedidos'] // Rutas solo para autenticados
+  AUTH_ROUTES: ['/ingreso', '/registro'] as string[], // Rutas solo para NO autenticados
+  PROTECTED_ROUTES: ['/perfil', '/pedidos'] as string[] // Rutas solo para autenticados
 } as const
 
 export async function middleware(request: NextRequest): Promise<NextResponse> {

@@ -4,22 +4,14 @@ import { GoogleMap, LoadScript, Marker, OverlayView } from '@react-google-maps/a
 import Link from 'next/link'
 import React, { useMemo, useState } from 'react'
 
-type LatLng = { lat: number; lng: number }
-type ProductRef = { productId: number }
-type Distribuidor = {
-  id: string | number
-  latitude: number
-  longitude: number
-  googleMapUrl?: string
-  distributor?: { name?: string }
-  products: ProductRef[]
-}
+import type { DistributorsLocationRow } from '@/core/domain/entities/Distributor'
 
+type LatLng = { lat: number; lng: number }
 interface Props {
   googleApiKey: string
   center: LatLng
   userLocation: LatLng | null
-  distribuidores: Distribuidor[]
+  distribuidores: DistributorsLocationRow[]
 }
 
 const containerStyle = { width: '100%', height: '600px' }

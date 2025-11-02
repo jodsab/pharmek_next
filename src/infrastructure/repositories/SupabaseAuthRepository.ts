@@ -1,5 +1,6 @@
 import type { AuthResponse, RegisterUserDto, User } from '@/core/domain/entities/User'
 import type { AuthRepository } from '@/core/domain/repositories/AuthRepository'
+
 import supabase from '@/libs/supabase'
 
 export class SupabaseAuthRepository implements AuthRepository {

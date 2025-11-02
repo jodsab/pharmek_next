@@ -1,6 +1,7 @@
 // src/infrastructure/repositories/SupabaseProductRepository.ts
 import type { Product } from '@/core/domain/entities/Product'
 import type { ProductRepository } from '@/core/domain/repositories/ProductRepository'
+
 import supabase from '@/libs/supabase'
 
 export class SupabaseProductRepository implements ProductRepository {

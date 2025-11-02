@@ -1,3 +1,4 @@
+import type { Category } from '@/core/domain/entities/Category'
 import type { Product } from '@/core/domain/entities/Product'
 import type { ProductRepository } from '@/core/domain/repositories/ProductRepository'
 
@@ -5,7 +6,7 @@ import { mockProducts } from '../mocks/products.mock'
 
 // Solo para este mock:
 type ProductWithCategories = Product & {
-  categoriesOnProducts?: Array<{ category: { id: string } }>
+  categoriesOnProducts?: Array<Category>
 }
 
 export class MockProductRepository implements ProductRepository {
@@ -21,12 +22,12 @@ export class MockProductRepository implements ProductRepository {
     return this.products.find(p => p.id === id) ?? null
   }
 
-  async findByCategory(categoryId: string): Promise<Product[]> {
+  async findByCategory(categoryId: number): Promise<Product[]> {
     await this.simulateDelay(600)
     return this.products.filter(
       p =>
         Array.isArray(p.categoriesOnProducts) &&
-        p.categoriesOnProducts!.some(c => c.category.id === categoryId)
+        p.categoriesOnProducts!.some(c => c?.category?.id === categoryId)
     )
   }
 
