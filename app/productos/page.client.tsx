@@ -4,7 +4,8 @@
 import Anuncio from '@components/Anuncio'
 import SeeProduct from '@components/SeeProduct'
 import { AnimatePresence } from 'framer-motion'
-import React, { JSX } from 'react'
+import { useSearchParams } from 'next/navigation'
+import React, { JSX, useEffect } from 'react'
 
 import { useProductosViewModel } from '@/hooks/products/useProductsViewModel'
 import Breadcrumb from '@/ui/components/Breadcrumb/Breadcrum'
@@ -21,6 +22,16 @@ const ProductosClient = (): JSX.Element => {
     handleFilterChange,
     showNoProducts
   } = useProductosViewModel()
+
+  const searchParams = useSearchParams()
+  const category = searchParams.get('category')
+  const name = searchParams.get('name')
+
+
+
+  useEffect(() => {
+    console.log(category)
+  }, [category, name])
 
   if (isLoading) {
     return (

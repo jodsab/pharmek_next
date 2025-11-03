@@ -1,8 +1,7 @@
-import type { DistributorRow } from '../entities/Distributor'
+import type { DistributorLocation } from '../entities/DistributorLocation'
 
 export interface DistributorRepository {
-  findAll(): Promise<DistributorRow[]>
-  findById(id: number): Promise<DistributorRow>
-  findByName(categoryName: string): Promise<DistributorRow>
-  search(query: string): Promise<DistributorRow[]>
+  findAll(): Promise<DistributorLocation[]>
+  findById(id: number): Promise<DistributorLocation | null>
+  findByDistrict(districtId: number): Promise<DistributorLocation[]>
 }

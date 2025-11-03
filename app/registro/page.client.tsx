@@ -10,7 +10,7 @@ import React from 'react'
 import { APP_ROUTES } from '@/config/routes'
 import { useRegisterViewModel } from '@/hooks/auth/useRegisterViewModel'
 
-const RegistroClient = () => {
+const RegistroClient = (): React.JSX.Element => {
   const {
     form: {
       register,
@@ -39,9 +39,7 @@ const RegistroClient = () => {
         <h1 className="title">Regístrate en Pharmek</h1>
 
         <form onSubmit={onSubmit} className="registro_form">
-          {error && (
-            <div className="error_message">{(error as any)?.message || 'Error al registrar'}</div>
-          )}
+          {error && <div className="error_message">{error}</div>}
 
           <div className="form_group">
             <label>Nombre completo:</label>

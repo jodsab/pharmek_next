@@ -22,6 +22,9 @@ export const useProductosViewModel = (): ProductosVM => {
   const { data: featuredProducts = [], isLoading: loadingFeatured } = useGetFeaturedProducts(4)
   const { data: allCategories = [], isLoading: loadingCategories } = useGetCategories()
 
+  console.log(products)
+  console.log(allCategories)
+
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
 
   useEffect(() => {

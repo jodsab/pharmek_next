@@ -10,7 +10,7 @@ import React from 'react'
 import { APP_ROUTES } from '@/config/routes'
 import { useLoginViewModel } from '@/hooks/auth/useLoginViewModel'
 
-const IngresoClient = () => {
+const IngresoClient = (): React.JSX.Element => {
   const {
     form: {
       register,
@@ -37,11 +37,7 @@ const IngresoClient = () => {
         <h1 className="title">Inicia sesión</h1>
 
         <form onSubmit={onSubmit} className="login_form">
-          {error && (
-            <div className="error_message">
-              {(error as any)?.message || 'Error al iniciar sesión'}
-            </div>
-          )}
+          {error && <div className="error_message">{error}</div>}
 
           <div className="form_group">
             <label>Email:</label>

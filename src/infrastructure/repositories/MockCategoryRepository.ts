@@ -1,6 +1,7 @@
 import type { Category } from '@/core/domain/entities/Category' // Updated import
 import type { CategoryRepository } from '@/core/domain/repositories/CategoryRepository'
-import { mockCategories } from '@/infrastructure/mocks/products.mock'
+
+import { mockCategories } from '../mocks/products.mock'
 
 export class MockCategoryRepository implements CategoryRepository {
   private categories: Category[] = mockCategories

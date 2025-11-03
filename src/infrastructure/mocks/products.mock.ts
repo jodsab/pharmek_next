@@ -1,12 +1,8 @@
-import type { Category } from '@/core/domain/entities/Category'
 import type { Product } from '@/core/domain/entities/Product'
 
-export const mockCategories: Category[] = [
-  { id: 1, categoryName: 'Perros' },
-  { id: 2, categoryName: 'Gatos' },
-  { id: 3, categoryName: 'Aves' },
-  { id: 4, categoryName: 'Ganadería' }
-]
+import { CATEGORIES_MOCK } from './categories.mock'
+
+export const mockCategories = CATEGORIES_MOCK
 
 export const mockProducts: Product[] = [
   {

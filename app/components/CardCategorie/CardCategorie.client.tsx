@@ -34,7 +34,10 @@ const CardCategorieClient = ({
     )
   }
   return (
-    <Link href={categorySlug ? `/productos/${categorySlug}` : '/productos'}>
+    <Link
+      href={{ pathname: '/productos', query: { category: categorySlug, name: categoryName } }}
+      className="categorias_card_link"
+    >
       <div className="categorias_card">
         {/* Imagen de fondo */}
         <div className="card_image">
