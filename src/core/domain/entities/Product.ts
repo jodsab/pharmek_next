@@ -23,12 +23,12 @@ export interface Product {
   id: number
   created_at: string
   nombre: string
-  composicion: string | null
-  indicaciones: string | null
-  dosis_y_via: string | null
-  registro_senasa: string | null
-  animal_mayor_menor: string | null
-  presentaciones: string | null
+  composicion?: string | null
+  indicaciones?: string | null
+  dosis_y_via?: string | null
+  registro_senasa?: string | null
+  animal_mayor_menor?: string | null
+  presentaciones?: string | null
   images?: ProductImage[]
   productsImages?: ProductImage[]
   productsCategories?: ProductCategoryLink[]

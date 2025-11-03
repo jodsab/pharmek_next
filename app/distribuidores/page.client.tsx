@@ -3,10 +3,10 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 import type { Category } from '@/core/domain/entities/Category'
-import type { DistributorsLocationRow } from '@/core/domain/entities/Distributor'
+import type { DistributorLocation } from '@/core/domain/entities/DistributorLocation'
 import { Product } from '@/core/domain/entities/Product'
 import { useCategoriesStore } from '@/stores/categoryStore'
-import { useDistributorsStore } from '@/stores/distribuidoresStore'
+import { useDistributorsStore } from '@/stores/distributorsStore'
 
 import AddressSearch from './components/AddressSearch/AddressSearch'
 import DistributorMap from './components/DistributorMap/DistributorMap'
@@ -22,8 +22,10 @@ interface PageClientProps {
 
 export default function PageClient({ googleApiKey }: PageClientProps): React.JSX.Element {
   // Zustand
-  const distribuidoresStore = useDistributorsStore(s => s.distributors) as DistributorsLocationRow[]
+  const distribuidoresStore = useDistributorsStore(s => s.distributors) as DistributorLocation[]
   const categoriesStore = useCategoriesStore(s => s.categories)
+
+  console.log('distribuidoresStore', distribuidoresStore)
 
   // Estado UI
   const [mapCenter, setMapCenter] = useState<LatLng>(LIMA_CENTER)
@@ -67,7 +69,7 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
   // Filtro por productos seleccionados
   const filteredDistribuidores = useMemo(() => {
     if (!selectedProducts.length) return distribuidoresStore
-    return distribuidoresStore.filter(d => d.products?.some(p => selectedProducts.includes(p.id)))
+    return distribuidoresStore.filter(d => d?.products?.some(p => selectedProducts.includes(p.id)))
   }, [distribuidoresStore, selectedProducts])
 
   return (

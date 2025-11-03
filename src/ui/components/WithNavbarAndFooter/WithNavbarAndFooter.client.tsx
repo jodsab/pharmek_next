@@ -5,6 +5,7 @@ import './styles.scss'
 import React from 'react'
 
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
+import { useGetDistributors } from '@/hooks/distributors/useGetDistributors'
 import { useGetProducts } from '@/hooks/products/useGetProducts'
 
 import NavbarDesktopClient from '../../components/Navbar/NavbarDesktop.client'
@@ -21,6 +22,7 @@ interface WithNavbarAndFooterClientProps {
 const WithNavbarAndFooterClient = ({ children }: WithNavbarAndFooterClientProps) => {
   const { data: categories, isLoading: loadingCategories } = useGetCategories()
   const { data: products, isLoading: loadingProductsCategories } = useGetProducts()
+  const { data: distributors, isLoading: loadingDistributors } = useGetDistributors()
 
   return (
     <div className="withnavbarandfooter_container">
