@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 import type { Category } from '@/core/domain/entities/Category'
-import type { DistributorLocation } from '@/core/domain/entities/DistributorLocation'
 import { Product } from '@/core/domain/entities/Product'
+import { useGetCategories } from '@/hooks/categories/useGetCategories'
+import { useGetDistributors } from '@/hooks/distributors/useGetDistributors'
 import { useCategoriesStore } from '@/stores/categoryStore'
 import { useDistributorsStore } from '@/stores/distributorsStore'
 
@@ -21,8 +22,10 @@ interface PageClientProps {
 }
 
 export default function PageClient({ googleApiKey }: PageClientProps): React.JSX.Element {
+  const { isLoading: loadingDistributors } = useGetDistributors()
+  const { isLoading: loadingCategories } = useGetCategories()
   // Zustand
-  const distribuidoresStore = useDistributorsStore(s => s.distributors) as DistributorLocation[]
+  const distribuidoresStore = useDistributorsStore(s => s.distributors)
   const categoriesStore = useCategoriesStore(s => s.categories)
 
   console.log('distribuidoresStore', distribuidoresStore)
@@ -71,6 +74,15 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
     if (!selectedProducts.length) return distribuidoresStore
     return distribuidoresStore.filter(d => d?.products?.some(p => selectedProducts.includes(p.id)))
   }, [distribuidoresStore, selectedProducts])
+
+  if (!googleApiKey) {
+    console.error('Google Maps API key no encontrada')
+    return <div>Error: Google Maps API key no configurada</div>
+  }
+
+  if (loadingDistributors || loadingCategories) {
+    return <p>CArgando</p>
+  }
 
   return (
     <div className="content">

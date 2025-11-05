@@ -4,7 +4,7 @@ import { GoogleMap, LoadScript, Marker, OverlayView } from '@react-google-maps/a
 import Link from 'next/link'
 import React, { useMemo, useState } from 'react'
 
-import type { DistributorLocation } from '@/core/domain/entities/Distributor'
+import type { DistributorLocation } from '@/core/domain/entities/DistributorLocation'
 
 type LatLng = { lat: number; lng: number }
 interface Props {

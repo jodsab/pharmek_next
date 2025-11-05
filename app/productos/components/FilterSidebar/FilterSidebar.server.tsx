@@ -9,15 +9,13 @@ interface FilterSidebarProps {
   onFilterChange: (selectedCategories: number[]) => void
   title?: string
   showProductCount?: boolean
-  selectedCategoriesFromHome?: number[]
 }
 
 const FilterSidebar = ({
   categories,
   onFilterChange,
   title = 'Categorías',
-  showProductCount = true,
-  selectedCategoriesFromHome = []
+  showProductCount = true
 }: FilterSidebarProps): React.JSX.Element => {
   if (!categories || categories.length === 0) {
     return <></>
@@ -28,7 +26,6 @@ const FilterSidebar = ({
         onFilterChange={onFilterChange}
         title={title}
         showProductCount={showProductCount}
-        selectedCategoriesFromHome={selectedCategoriesFromHome}
       />
     )
   }
