@@ -1,16 +1,15 @@
 'use client'
 
-import { Autocomplete, LoadScript } from '@react-google-maps/api'
+import { Autocomplete } from '@react-google-maps/api'
 import React, { useRef, useState } from 'react'
 
 type LatLng = { lat: number; lng: number }
 
 interface Props {
-  googleApiKey: string
   onPlace: (coords: LatLng) => void
 }
 
-export default function AddressSearch({ googleApiKey, onPlace }: Props): React.JSX.Element {
+export default function AddressSearch({ onPlace }: Props): React.JSX.Element {
   const [input, setInput] = useState('')
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
@@ -29,7 +28,7 @@ export default function AddressSearch({ googleApiKey, onPlace }: Props): React.J
   }
 
   return (
-    <LoadScript googleMapsApiKey={googleApiKey} libraries={['places']}>
+    <>
       <div className="bg-green text-white font-bold text-center py-2 uppercase rounded-t">
         Ingresa tu dirección
       </div>
@@ -45,6 +44,6 @@ export default function AddressSearch({ googleApiKey, onPlace }: Props): React.J
           />
         </Autocomplete>
       </div>
-    </LoadScript>
+    </>
   )
 }

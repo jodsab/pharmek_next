@@ -1,11 +1,14 @@
 'use client'
 
 import React, { useEffect, useMemo, useState } from 'react'
+import { LoadScript } from '@react-google-maps/api'
 
 import type { Category } from '@/core/domain/entities/Category'
 import { Product } from '@/core/domain/entities/Product'
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
 import { useGetDistributors } from '@/hooks/distributors/useGetDistributors'
+import { useCategoriesStore } from '@/stores/categoryStore'
+import { useDistributorsStore } from '@/stores/distributorsStore'
 
 import AddressSearch from './components/AddressSearch/AddressSearch'
 import DistributorMap from './components/DistributorMap/DistributorMap'
@@ -22,6 +25,8 @@ interface PageClientProps {
 export default function PageClient({ googleApiKey }: PageClientProps): React.JSX.Element {
   const { data: distributors, isLoading: loadingDistributors } = useGetDistributors()
   const { isLoading: loadingCategories } = useGetCategories()
+  const categoriesStore = useCategoriesStore(state => state.categories)
+  const distribuidoresStore = useDistributorsStore(state => state.distributors)
 
   console.log('distribuidoresStore', distributors)
 
@@ -52,7 +57,7 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
   // Opciones del Select (agrupadas por categoría)
   const productOptions = useMemo(
     () =>
-      categoriesStore?.map((cat: Category) => ({
+      (categoriesStore || []).map((cat: Category) => ({
         label: cat.categoryName,
         key: cat.id,
         options: (cat.products || []).map((p: Product) => ({
@@ -66,8 +71,8 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
 
   // Filtro por productos seleccionados
   const filteredDistribuidores = useMemo(() => {
-    if (!selectedProducts.length) return distribuidoresStore
-    return distribuidoresStore.filter(d => d?.products?.some(p => selectedProducts.includes(p.id)))
+    if (!selectedProducts.length) return distribuidoresStore || []
+    return (distribuidoresStore || []).filter(d => d?.products?.some(p => selectedProducts.includes(p.id)))
   }, [distribuidoresStore, selectedProducts])
 
   if (!googleApiKey) {
@@ -76,36 +81,36 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
   }
 
   if (loadingDistributors || loadingCategories) {
-    return <p>CArgando</p>
+    return <p>Cargando...</p>
   }
 
   return (
-    <div className="content">
-      {/* Búsqueda + filtros */}
-      <div className="w-full max-w-3xl mx-auto mt-8 grid gap-3">
-        <AddressSearch
-          googleApiKey={googleApiKey}
-          onPlace={coords => {
-            setUserLocation(coords)
-            setMapCenter(coords)
-          }}
-        />
+    <LoadScript googleMapsApiKey={googleApiKey} libraries={["places"]}>
+      <div className="content">
+        {/* Búsqueda + filtros */}
+        <div className="w-full max-w-3xl mx-auto mt-8 grid gap-3">
+          <AddressSearch
+            onPlace={coords => {
+              setUserLocation(coords)
+              setMapCenter(coords)
+            }}
+          />
 
-        <ProductMultiSelect
-          value={selectedProducts}
-          onChange={setSelectedProducts}
-          options={productOptions}
-        />
-      </div>
+          <ProductMultiSelect
+            value={selectedProducts}
+            onChange={setSelectedProducts}
+            options={productOptions}
+          />
+        </div>
 
-      <div className="content mt-5">
-        <DistributorMap
-          googleApiKey={googleApiKey}
-          center={mapCenter}
-          userLocation={userLocation}
-          distribuidores={filteredDistribuidores}
-        />
+        <div className="content mt-5">
+          <DistributorMap
+            center={mapCenter}
+            userLocation={userLocation}
+            distribuidores={filteredDistribuidores}
+          />
+        </div>
       </div>
-    </div>
+    </LoadScript>
   )
 }
