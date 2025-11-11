@@ -25,8 +25,8 @@ export const DISTRIBUTOR_LOCATIONS_MOCK: DistributorLocation[] = [
     latitude: '-12.1023', // Convertido a string
     longitude: '-77.0421', // Convertido a string
     googleUrl: 'https://maps.google.com/?q=-12.1023,-77.0421',
-    distributor: DISTRIBUTORS_MOCK[0],
-    district: DISTRICTS_MOCK[0],
+    distributor: DISTRIBUTORS_MOCK[0]!,
+    district: DISTRICTS_MOCK[0]!,
     products: mockProducts.slice(0, 2)
   },
   {
@@ -39,8 +39,8 @@ export const DISTRIBUTOR_LOCATIONS_MOCK: DistributorLocation[] = [
     latitude: '-12.1254', // Convertido a string
     longitude: '-77.0309', // Convertido a string
     googleUrl: 'https://maps.google.com/?q=-12.1254,-77.0309',
-    distributor: DISTRIBUTORS_MOCK[1],
-    district: DISTRICTS_MOCK[1],
+    distributor: DISTRIBUTORS_MOCK[1]!,
+    district: DISTRICTS_MOCK[1]!,
     products: mockProducts.slice(1)
   }
 ]
