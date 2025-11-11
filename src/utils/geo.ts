@@ -10,6 +10,6 @@ export const toMarker = (row: DistributorLocation) => ({
   id: row.id,
   title: row.distributor?.name ?? 'Distribuidor',
   address: row.address ?? '',
-  lat: toNumberOrNull(row.latitude),
-  lng: toNumberOrNull(row.longitude)
+  latitude: toNumberOrNull(row.latitude),
+  longitude: toNumberOrNull(row.longitude)
 })

@@ -3,3 +3,4 @@ export interface Distributor {
   name: string
   created_at?: string
 }
+export type { DistributorLocation } from './DistributorLocation'
