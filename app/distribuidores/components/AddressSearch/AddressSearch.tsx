@@ -1,16 +1,15 @@
 'use client'
 
-import { Autocomplete, LoadScript } from '@react-google-maps/api'
+import { Autocomplete } from '@react-google-maps/api'
 import React, { useRef, useState } from 'react'
 
 type LatLng = { lat: number; lng: number }
 
 interface Props {
-  googleApiKey: string
   onPlace: (coords: LatLng) => void
 }
 
-export default function AddressSearch({ googleApiKey, onPlace }: Props): React.JSX.Element {
+export default function AddressSearch({ onPlace }: Props): React.JSX.Element {
   const [input, setInput] = useState('')
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
@@ -29,22 +28,22 @@ export default function AddressSearch({ googleApiKey, onPlace }: Props): React.J
   }
 
   return (
-    <LoadScript googleMapsApiKey={googleApiKey} libraries={['places']}>
+    <>
       <div className="bg-green text-white font-bold text-center py-2 uppercase rounded-t">
         Ingresa tu dirección
       </div>
       <div className="flex items-center border rounded-b-md p-2 bg-white shadow">
         <span className="text-green mr-2">🏠</span>
-        <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
+        <Autocomplete className='w-full' onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
           <input
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Escribe tu dirección aquí"
-            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green"
+            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green w-full"
           />
         </Autocomplete>
       </div>
-    </LoadScript>
+    </>
   )
 }

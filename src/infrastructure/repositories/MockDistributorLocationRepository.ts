@@ -49,7 +49,9 @@ export class MockDistributorLocationRepository implements DistributorLocationRep
 
   private matchFilters(row: DistributorLocation, f?: LocationFilters): boolean {
     if (!f) return true
-    if (f.distributorIds?.length && !f.distributorIds.includes(row.id_distributor)) return false
+    if (f.distributorIds?.length) {
+      if (row.id_distributor == null || !f.distributorIds.includes(row.id_distributor)) return false
+    }
     if (
       f.districtIds?.length &&
       (row.id_district == null || !f.districtIds.includes(row.id_district))

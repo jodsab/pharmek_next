@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 'use client'
 
 import SectionHeader from '@components/SectionHeader'
@@ -8,6 +9,7 @@ import React, { useEffect } from 'react'
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
 
 import CardCategorie from './components/CardCategorie'
+import CardSkeleton from './components/CardCategorie/CardSkeleton.client'
 import HeroSection from './components/HeroSection/HeroSection'
 import PetList from './components/PetList'
 import TiktokEmbed from './components/TiktokEmbed' // Import the new component
@@ -44,18 +46,20 @@ export default function Home(): React.JSX.Element {
             src="/assets/images/home/productos.png"
           />
           <div className="productos_section mt-3" data-aos="fade-up">
-            {loadingCategories ? (
-              <CardCategorie isLoading={loadingCategories} />
-            ) : (
-              categories &&
+            {loadingCategories
+              ? Array(4)
+                .fill(null)
+                .map((_, index) => (
+                  <CardSkeleton key={index} />
+                ))
+              :
               categories?.map((category, index) => {
                 return (
                   <div key={index}>
                     <CardCategorie category={category} />
                   </div>
                 )
-              })
-            )}
+              })}
           </div>
         </section>
 

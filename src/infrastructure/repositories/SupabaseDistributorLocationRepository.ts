@@ -52,16 +52,16 @@ export class SupabaseDistributorLocationRepository implements DistributorLocatio
   private mapRow = (r: RawLocation): DistributorLocation => ({
     id: r.id,
     created_at: r.created_at,
-    cellphone: r.cellphone ?? null,
-    address: r.address ?? null,
-    businessHours: r.businessHours ?? null,
-    id_district: r.id_district ?? null,
     id_distributor: r.id_distributor,
-    longitude: r.longitude ?? null,
-    latitude: r.latitude ?? null,
-    googleUrl: r.googleUrl ?? null,
-    distributor: r.distributor ?? null,
-    district: r.district ?? null,
+    ...(r.cellphone !== null ? { cellphone: r.cellphone } : {}),
+    ...(r.address !== null ? { address: r.address } : {}),
+    ...(r.businessHours !== null ? { businessHours: r.businessHours } : {}),
+    ...(r.id_district !== null ? { id_district: r.id_district } : {}),
+    ...(r.longitude !== null ? { longitude: r.longitude } : {}),
+    ...(r.latitude !== null ? { latitude: r.latitude } : {}),
+    ...(r.googleUrl !== null ? { googleUrl: r.googleUrl } : {}),
+    ...(r.distributor !== null ? { distributor: r.distributor as any } : {}),
+    ...(r.district !== null ? { district: r.district as any } : {}),
   })
 
   async findAll(filters?: LocationFilters): Promise<DistributorLocation[]> {

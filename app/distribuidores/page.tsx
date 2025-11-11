@@ -1,14 +1,11 @@
-import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
+import PageClient from './page.client'
 
-export const metadata: Metadata = {
-  title: 'Distribuidores | Pharmek',
-  description: 'Encuentra distribuidores oficiales por ubicación y productos.'
-}
+export default function DistribuidoresPage(): React.JSX.Element {
+  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
 
-const PageClient = dynamic(() => import('./page.client'), { ssr: false })
+  if (!googleApiKey) {
+    throw new Error('NEXT_PUBLIC_GOOGLE_MAPS_API_KEY no está configurada')
+  }
 
-export default function Page(): React.JSX.Element {
-  const googleApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY || ''
   return <PageClient googleApiKey={googleApiKey} />
 }

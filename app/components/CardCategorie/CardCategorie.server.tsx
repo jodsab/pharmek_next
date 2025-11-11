@@ -1,26 +1,16 @@
+import './styles.scss'
+
 import React from 'react'
 
 import type { Category } from '@/core/domain/entities/Category'
 
 import CardCategorieClient from './CardCategorie.client'
 interface CardCategorieProps {
-  category?: Category
-  isLoading?: boolean
+  category: Category
 }
 
-const CardCategorie = ({ category, isLoading }: CardCategorieProps): React.JSX.Element => {
-  const name = category?.categoryName ?? ''
-  const slug = category?.categoryName ?? ''
-  const image = category?.categoryImage ?? '/assets/images/placeholder.png'
-
-  return (
-    <CardCategorieClient
-      categoryName={name}
-      categorySlug={slug}
-      categoryImage={image}
-      isLoading={!!isLoading}
-    />
-  )
+const CardCategorie = ({ category }: CardCategorieProps): React.JSX.Element => {
+  return <CardCategorieClient category={category} />
 }
 
 export default CardCategorie

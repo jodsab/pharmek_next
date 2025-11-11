@@ -4,7 +4,8 @@ export interface Category {
   id: number
   created_at?: string
   categoryName: string
-  categoryImage?: string | null
+  categoryImage?: string
+  categoryIcon?: string
   categoriesOnProducts?: { product: ProductRef }[]
   products?: Product[]
 }
