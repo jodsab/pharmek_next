@@ -34,13 +34,13 @@ export default function AddressSearch({ onPlace }: Props): React.JSX.Element {
       </div>
       <div className="flex items-center border rounded-b-md p-2 bg-white shadow">
         <span className="text-green mr-2">🏠</span>
-        <Autocomplete onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
+        <Autocomplete className='w-full' onLoad={handleLoad} onPlaceChanged={handlePlaceChanged}>
           <input
             type="text"
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder="Escribe tu dirección aquí"
-            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green"
+            className="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green w-full"
           />
         </Autocomplete>
       </div>

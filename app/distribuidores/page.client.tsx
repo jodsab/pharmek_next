@@ -96,11 +96,11 @@ export default function PageClient({ googleApiKey }: PageClientProps): React.JSX
             }}
           />
 
-          <ProductMultiSelect
+          {/*           <ProductMultiSelect
             value={selectedProducts}
             onChange={setSelectedProducts}
             options={productOptions}
-          />
+          /> */}
         </div>
 
         <div className="content mt-5">
