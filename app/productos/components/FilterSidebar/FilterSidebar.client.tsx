@@ -2,36 +2,35 @@
 
 import './styles.scss'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { FaCheckCircle, FaCircle } from 'react-icons/fa'
 import { LuFilter } from 'react-icons/lu'
 
 import type { CategoryWithCount } from '@/core/domain/entities/Category'
 import HocCard from '@/HOC/HocCard'
+import { useCategoryFilter } from '@/hooks/categoryFilter/useCategoryFilter'
+
 interface FilterSidebarClientProps {
-  categories: CategoryWithCount[]
-  onFilterChange: (selectedCategoryIds: number[]) => void
+  categories: CategoryWithCount[] // Aún necesitamos esta prop para mostrar el contador
+  // onFilterChange: (selectedCategoryIds: number[]) => void // <-- ¡ELIMINADO!
   title?: string
   showProductCount?: boolean
 }
 
 const FilterSidebarClient = ({
   categories,
-  onFilterChange,
+  // onFilterChange, // <-- ELIMINADO
   title = 'Categorías',
   showProductCount = true
 }: FilterSidebarClientProps): React.JSX.Element => {
-  // guardamos IDs, no nombres
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
-
-  const toggle = (id: number): void => {
-    const isSelected = selectedIds.includes(id)
-    const updated = isSelected ? selectedIds.filter(x => x !== id) : [...selectedIds, id]
-    setSelectedIds(updated)
-    onFilterChange(updated) // ← devuelve IDs al viewmodel
-  }
-
-  const isSelected = (id: number): boolean => selectedIds.includes(id)
+  // Obtenemos toda la lógica del filtro del hook que interactúa con el store
+  const {
+    selectedIds, // IDs seleccionados del Store
+    toggle,
+    isSelected,
+    clearFilters,
+    hasSelection
+  } = useCategoryFilter()
 
   if (!categories || categories.length === 0) {
     return (
@@ -64,8 +63,8 @@ const FilterSidebarClient = ({
                   htmlFor={`category-${category.id}`}
                   className="category-label"
                   onClick={e => {
-                    e.preventDefault() // evita doble toggle por el checkbox
-                    toggle(category.id)
+                    e.preventDefault()
+                    toggle(category.id) // <-- Llama al hook (actualiza el store)
                   }}
                 >
                   <span className="category-icon">
@@ -82,7 +81,7 @@ const FilterSidebarClient = ({
                   type="checkbox"
                   id={`category-${category.id}`}
                   checked={selected}
-                  onChange={() => toggle(category.id)}
+                  onChange={() => toggle(category.id)} // <-- Llama al hook (actualiza el store)
                   className="category-checkbox"
                   aria-label={`Filtrar por ${category.categoryName}`}
                 />
@@ -91,13 +90,10 @@ const FilterSidebarClient = ({
           })}
         </ul>
 
-        {selectedIds.length > 0 && (
+        {hasSelection && (
           <button
             className="clear-filters"
-            onClick={() => {
-              setSelectedIds([])
-              onFilterChange([])
-            }}
+            onClick={clearFilters} // <-- Llama al hook (actualiza el store)
           >
             Limpiar filtros
           </button>

@@ -6,8 +6,6 @@ import type { Category } from '@/core/domain/entities/Category'
 import { Product } from '@/core/domain/entities/Product'
 import { useGetCategories } from '@/hooks/categories/useGetCategories'
 import { useGetDistributors } from '@/hooks/distributors/useGetDistributors'
-import { useCategoriesStore } from '@/stores/categoryStore'
-import { useDistributorsStore } from '@/stores/distributorsStore'
 
 import AddressSearch from './components/AddressSearch/AddressSearch'
 import DistributorMap from './components/DistributorMap/DistributorMap'
@@ -22,13 +20,10 @@ interface PageClientProps {
 }
 
 export default function PageClient({ googleApiKey }: PageClientProps): React.JSX.Element {
-  const { isLoading: loadingDistributors } = useGetDistributors()
+  const { data: distributors, isLoading: loadingDistributors } = useGetDistributors()
   const { isLoading: loadingCategories } = useGetCategories()
-  // Zustand
-  const distribuidoresStore = useDistributorsStore(s => s.distributors)
-  const categoriesStore = useCategoriesStore(s => s.categories)
 
-  console.log('distribuidoresStore', distribuidoresStore)
+  console.log('distribuidoresStore', distributors)
 
   // Estado UI
   const [mapCenter, setMapCenter] = useState<LatLng>(LIMA_CENTER)

@@ -15,6 +15,7 @@ export const useGetDistributors = () => {
   })
 
   useEffect(() => {
+    console.log('query', query.data)
     if (query.data) {
       setDistributors(query.data)
     }

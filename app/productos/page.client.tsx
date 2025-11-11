@@ -18,7 +18,7 @@ const ProductosClient = (): JSX.Element => {
     categories,
     isLoading,
     loadingFeatured,
-    handleFilterChange,
+    // handleFilterChange, // <-- ELIMINADO
     showNoProducts
   } = useProductosViewModel()
 
@@ -40,7 +40,8 @@ const ProductosClient = (): JSX.Element => {
 
         <div className="flex flex-col md:flex-row gap-6 md:gap-10">
           <div className="w-full md:w-64 lg:w-75 flex-shrink-0">
-            <FilterSidebar categories={categories} onFilterChange={handleFilterChange} />
+            {/* YA NO SE NECESITA PASAR onFilterChange */}
+            <FilterSidebar categories={categories} />
           </div>
 
           <div className="flex-1 flex justify-center md:block">
@@ -50,7 +51,6 @@ const ProductosClient = (): JSX.Element => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center mx-auto">
-                {/* AnimatePresence ayuda a los exit cuando filtras */}
                 <AnimatePresence mode="popLayout">
                   {products.map(product => (
                     <SeeProduct key={product.id} product={product} />

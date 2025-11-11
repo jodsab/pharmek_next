@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react' // Eliminamos useState
 
 import type { CategoryWithCount } from '@/core/domain/entities/Category'
 import type { Product } from '@/core/domain/entities/Product'
+import { useFilteredCategoriesStore } from '@/stores/filteredCategoriesStore'
 
 import { useGetCategories } from '../categories/useGetCategories'
 import { useGetFeaturedProducts } from './useGetFeaturedProducts'
@@ -13,7 +14,7 @@ type ProductosVM = {
   categories: CategoryWithCount[]
   isLoading: boolean
   loadingFeatured: boolean
-  handleFilterChange: (ids: number[]) => void
+  // Eliminamos handleFilterChange porque ahora se gestiona directamente en el store
   showNoProducts: boolean
 }
 
@@ -22,15 +23,10 @@ export const useProductosViewModel = (): ProductosVM => {
   const { data: featuredProducts = [], isLoading: loadingFeatured } = useGetFeaturedProducts(4)
   const { data: allCategories = [], isLoading: loadingCategories } = useGetCategories()
 
-  console.log(products)
-  console.log(allCategories)
+  // 1. OBTENEMOS EL ESTADO Y LA FUNCIÓN DEL STORE
+  const { selectedCategoryIds, setSelectedCategoryIds } = useFilteredCategoriesStore()
 
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
-
-  useEffect(() => {
-    setSelectedProducts(products)
-  }, [products])
-
+  // 2. Lógica para calcular categorías con contador (SIN CAMBIOS)
   const countsByCategoryId = useMemo(() => {
     const map = new Map<number, number>()
     for (const p of products) {
@@ -49,25 +45,44 @@ export const useProductosViewModel = (): ProductosVM => {
     }))
   }, [allCategories, countsByCategoryId])
 
-  const handleFilterChange = (selectedCategoryIds: number[]): void => {
-    if (selectedCategoryIds.length === 0) {
-      setSelectedProducts(products)
-      return
+  // 3. INICIALIZACIÓN: Seleccionar todas las categorías al cargar si el filtro está vacío
+  useEffect(() => {
+    if (categoriesWithCount.length > 0 && selectedCategoryIds.length === 0) {
+      const allIds = categoriesWithCount.map(c => c.id)
+      setSelectedCategoryIds(allIds)
     }
+  }, [categoriesWithCount, selectedCategoryIds.length, setSelectedCategoryIds])
+
+  // 4. LÓGICA DE FILTRADO: Se ejecuta cada vez que 'products' o 'selectedCategoryIds' cambian
+  const filteredProducts: Product[] = useMemo(() => {
+    if (!products.length || !selectedCategoryIds.length) {
+      return [] // Si no hay productos o no hay filtros seleccionados (después de inicialización)
+    }
+
+    // Si la lista de IDs seleccionados es igual a la lista total de IDs disponibles, no filtramos.
+    // Esto previene filtrar inútilmente.
+    const allCategoryIds = categoriesWithCount.map(c => c.id)
+    if (
+      selectedCategoryIds.length === allCategoryIds.length &&
+      selectedCategoryIds.every(id => allCategoryIds.includes(id))
+    ) {
+      return products
+    }
+
     const setIds = new Set(selectedCategoryIds)
-    const filtered = products.filter(p =>
+
+    // Aplicar el filtro
+    return products.filter(p =>
       (p.categoriesOnProducts ?? []).some(link => link.category && setIds.has(link?.category?.id))
     )
-    setSelectedProducts(filtered)
-  }
+  }, [products, selectedCategoryIds, categoriesWithCount]) // Depende de los IDs del Store
 
   return {
-    products: selectedProducts,
+    products: filteredProducts, // Usamos los productos ya filtrados
     featuredProducts,
     categories: categoriesWithCount,
     isLoading: isLoading || loadingCategories,
     loadingFeatured,
-    handleFilterChange,
-    showNoProducts: !(isLoading || loadingCategories) && selectedProducts.length === 0
+    showNoProducts: !(isLoading || loadingCategories) && filteredProducts.length === 0
   }
 }
