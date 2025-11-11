@@ -24,6 +24,16 @@ export default function DistributorMap({
   const mapCenter = useMemo(() => center, [center])
   const [map, setMap] = useState<google.maps.Map | null>(null)
 
+  const points = useMemo(() => {
+    return (distribuidores || [])
+      .map(d => ({
+        ...d,
+        latNum: Number((d as any).latitude),
+        lngNum: Number((d as any).longitude)
+      }))
+      .filter(d => Number.isFinite(d.latNum) && Number.isFinite(d.lngNum))
+  }, [distribuidores])
+
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -31,10 +41,10 @@ export default function DistributorMap({
       zoom={12}
       onLoad={m => setMap(m)}
     >
-      {distribuidores.map(dist => (
+      {points.map(dist => (
         <OverlayView
           key={dist.id}
-          position={{ lat: dist.latitude, lng: dist.longitude }}
+          position={{ lat: dist.latNum, lng: dist.lngNum }}
           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
         >
           <div
@@ -45,7 +55,7 @@ export default function DistributorMap({
             }}
           >
             <Link
-              href={dist.googleMapUrl || '#'}
+              href={dist.googleUrl || '#'}
               target="_blank"
               className="bg-green text-white px-2 py-1 rounded text-xs font-bold block w-28 text-center"
             >
